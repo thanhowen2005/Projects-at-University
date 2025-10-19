@@ -1,0 +1,651 @@
+/* Đặt cho body hoặc 1 div bọc ngoài nội dung */
+body {
+    background-color: #A9A9A9;
+  }
+  
+  .body {
+    max-width: 1400px;     /* Giới hạn chiều rộng khung */
+    width: 100%;           /* Co giãn theo kích thước viewport */
+    margin: 0 auto;        /* Canh giữa ngang */
+    box-sizing: border-box;
+    height: auto;
+    background-color: white;
+  }
+  
+  button {
+    cursor: pointer;
+  }
+  
+  .coupon-management,
+  .coupon-management * {
+    box-sizing: border-box;
+  }
+  .coupon-management {
+    background: var(--bg, #ffffff);
+    padding: 10px;
+    height: 1274px;
+    position: relative;
+  }
+  .frame-936 {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 159px;
+    position: absolute;
+    left: 67px;
+    top: 48px;
+  }
+  .dash-board {
+    color: var(--var-sds-color-text-utilities-text-on-overlay, #0c0c0d);
+    text-align: left;
+    font-family: var(
+      --title-16px-regular-font-family,
+      "Poppins-Regular",
+      sans-serif
+    );
+    font-size: var(--title-16px-regular-font-size, 16px);
+    line-height: var(--title-16px-regular-line-height, 24px);
+    font-weight: var(--title-16px-regular-font-weight, 400);
+    position: relative;
+    align-self: stretch;
+    height: 27px;
+    font-size: 18px;
+  }
+  .order {
+    color: #000000;
+    text-align: left;
+    font-family: var(
+      --title-16px-regular-font-family,
+      "Poppins-Regular",
+      sans-serif
+    );
+    font-size: var(--title-16px-regular-font-size, 16px);
+    line-height: var(--title-16px-regular-line-height, 24px);
+    font-weight: var(--title-16px-regular-font-weight, 400);
+    position: relative;
+    align-self: stretch;
+    height: 27px;
+    font-size: 18px;
+  }
+  .product {
+    color: #000000;
+    text-align: left;
+    font-family: var(
+      --title-16px-regular-font-family,
+      "Poppins-Regular",
+      sans-serif
+    );
+    font-size: var(--title-16px-regular-font-size, 16px);
+    line-height: var(--title-16px-regular-line-height, 24px);
+    font-weight: var(--title-16px-regular-font-weight, 400);
+    position: relative;
+    align-self: stretch;
+    height: 27px;
+    font-size: 18px;
+  }
+  .review {
+    color: #000000;
+    text-align: left;
+    font-family: var(
+      --title-16px-regular-font-family,
+      "Poppins-Regular",
+      sans-serif
+    );
+    font-size: var(--title-16px-regular-font-size, 16px);
+    line-height: var(--title-16px-regular-line-height, 24px);
+    font-weight: var(--title-16px-regular-font-weight, 400);
+    position: relative;
+    align-self: stretch;
+    height: 27px;
+    font-size: 18px;
+  }
+  .coupon {
+    color: #db4444;
+    text-align: left;
+    font-family: var(
+      --title-16px-regular-font-family,
+      "Poppins-Regular",
+      sans-serif
+    );
+    font-size: var(--title-16px-regular-font-size, 16px);
+    line-height: var(--title-16px-regular-line-height, 24px);
+    font-weight: var(--title-16px-regular-font-weight, 400);
+    position: relative;
+    align-self: stretch;
+    height: 27px;
+    font-size: 18px;
+  }
+  
+  .line-4 {
+    margin-top: -2px;
+    border-style: solid;
+    border-color: #000000;
+    border-width: 3px 0 0 0;
+    width: 100px;
+    height: 0px;
+    position: relative;
+    left: 218px;
+    top: 48px;
+    transform-origin: 0 0;
+    transform: rotate(90deg) scale(1, 1);
+  }
+  
+  
+  .list-coupon {
+    position: absolute;
+    left: 309px;
+    top: 350px;
+  
+    display: flex;
+    flex-direction: column;  /* xuống dòng */
+    gap: 10px;               /* khoảng cách giữa các sản phẩm */
+  }
+  
+  .frame-940 {
+    height: 77px;
+    position: relative; 
+  
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    border-radius: 6px;
+  }
+  
+  
+  .edit {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    left: 890px;
+    top: 28.5px;
+    overflow: visible;
+  }
+  .delete {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    left: 850px;
+    top: 28.5px;
+    overflow: visible;
+  }
+  .details {
+    color: #0022ff;
+    text-align: center;
+    font-family: "Poppins-Regular", sans-serif;
+    font-size: 20px;
+    line-height: 21px;
+    font-weight: 400;
+    position: absolute;
+    left: 765px;
+    top: 28px;
+    width: 81px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .coupon-id {
+    color: #000000;
+    text-align: left;
+    font-family: "Poppins-Regular", sans-serif;
+    font-size: 20px;
+    line-height: 21px;
+    font-weight: 400;
+    position: absolute;
+    left: -30px;
+    top: 28px;
+    width: 161px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-left: -30px;
+  }
+  .coupon-percent {
+    color: #000000;
+    text-align: left;
+    font-family: "Poppins-Regular", sans-serif;
+    font-size: 20px;
+    line-height: 21px;
+    font-weight: 400;
+    position: absolute;
+    left: 580px;
+    top: 28px;
+    width: 178px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  .coupon-code {
+    color: #000000;
+    text-align: left;
+    font-family: "Poppins-Regular", sans-serif;
+    font-size: 20px;
+    line-height: 21px;
+    font-weight: 400;
+    position: absolute;
+    left: 250px;
+    top: 0px;
+    width: 350px;
+    height: 77px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-left: 50px;
+  }
+  
+  .coupon-description {
+    width: 150px;             /* hoặc max-width nếu muốn linh hoạt */
+    color: #000000;
+    font-family: "Poppins-Regular", sans-serif;
+    font-size: 20px;
+    line-height: 21px;
+    font-weight: 400;
+    margin-left: -70px;
+    text-align: center;
+    white-space: normal;     /* cho phép xuống dòng */
+    word-wrap: break-word;   /* ngắt từ nếu quá dài */
+    overflow-wrap: break-word;
+    display: block;          /* block để text xuống dòng tự nhiên */
+  }
+  
+  .under-line {
+    margin-top: -2px;
+    border-style: solid;
+    border-color: #000000;
+    border-width: 3px 0 0 0;
+    width: 1170px;
+    height: 0px;
+    position: absolute;
+    left: 226px;
+    top: 340px;
+    transform: rotate(0deg) scale(1, 1);
+  }
+  .frame-9403 {
+    background: #fdfdfd;
+    width: 1054px;
+    height: 21px;
+    position: absolute;
+    left: 311px;
+    top: 295px;
+  }
+  .percent {
+    color: #000000;
+    text-align: left;
+    font-family: "Poppins-Bold", sans-serif;
+    font-size: 20px;
+    line-height: 21px;
+    font-weight: 700;
+    position: absolute;
+    left: 560px;
+    top: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  .code {
+    color: #000000;
+    text-align: left;
+    font-family: "Poppins-Bold", sans-serif;
+    font-size: 20px;
+    line-height: 21px;
+    font-weight: 700;
+    position: absolute;
+    left: 270px;
+    top: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-left: 50px;
+  }
+  .id {
+    color: #000000;
+    text-align: left;
+    font-family: "Poppins-Bold", sans-serif;
+    font-size: 20px;
+    line-height: 21px;
+    font-weight: 700;
+    position: absolute;
+    left: 12px;
+    top: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-left: -20px;
+  }
+  
+  .action {
+    color: #000000;
+    text-align: left;
+    font-family: "Poppins-Bold", sans-serif;
+    font-size: 20px;
+    line-height: 21px;
+    font-weight: 700;
+    position: absolute;
+    left: 800px;
+    top: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  
+  .search {
+    background: var(--var-sds-color-background-default-default, #ffffff);
+    border-radius: var(--var-sds-size-radius-full, 9999px);
+    border-style: solid;
+    border-color: var(--var-sds-color-border-default-default, #d9d9d9);
+    border-width: 1px;
+    padding: var(--var-sds-size-space-300, 12px)
+      var(--var-sds-size-space-400, 16px) var(--var-sds-size-space-300, 12px)
+      var(--var-sds-size-space-400, 16px);
+    display: flex;
+    flex-direction: row;
+    gap: var(--var-sds-size-space-200, 8px);
+    align-items: center;
+    justify-content: flex-start;
+    width: 384px;
+    height: 63px;
+    position: absolute;
+    left: 263px;
+    top: 188px;
+    overflow: hidden;
+  }
+  
+  .search input {
+    border: none;
+    outline: none;
+    flex: 1;
+    font-size: 16px;
+    background: transparent;
+  }
+  
+  .value {
+    color: var(--var-sds-color-text-default-default, #1e1e1e);
+    text-align: left;
+    font-family: var(
+      --single-line-body-base-font-family,
+      "Inter-Regular",
+      sans-serif
+    );
+    font-size: var(--single-line-body-base-font-size, 16px);
+    line-height: var(--single-line-body-base-line-height, 100%);
+    font-weight: var(--single-line-body-base-font-weight, 400);
+    position: relative;
+    flex: 1;
+  }
+  .x {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    position: relative;
+    overflow: visible;
+    cursor: pointer;
+  }
+  .frame-937 {
+    background: #ededed;
+    width: 1100px;
+    height: 112px;
+    position: absolute;
+    left: 260px;
+    top: 46px;
+    border-radius: 20px;
+  }
+  .coupons-view-create-update-delete-manage {
+    color: #000000;
+    text-align: left;
+    position: absolute;
+    left: 123px;
+    top: 43px;
+    width: 373px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  .coupons-view-create-update-delete-manage-span {
+    font-family: "Poppins-Regular", sans-serif;
+    font-size: 32px;
+    line-height: 21px;
+    font-weight: 400;
+  }
+  .coupons-view-create-update-delete-manage-span2 {
+    font-family: "Poppins-Regular", sans-serif;
+    font-size: 16px;
+    line-height: 21px;
+    font-weight: 400;
+  }
+  .shopping-cart {
+    width: 48px;
+    height: 48px;
+    position: absolute;
+    left: 38px;
+    top: 35px;
+    overflow: visible;
+  }
+  
+  .shopping-cart i{
+    font-size: 60px;
+  }
+  .button {
+    background: var(--var-sds-color-background-brand-default, #2c2c2c);
+    border-radius: var(--var-sds-size-radius-200, 8px);
+    border-style: solid;
+    border-color: var(--var-sds-color-border-neutral-secondary, #767676);
+    border-width: 1px;
+    padding: var(--var-sds-size-space-300, 12px);
+    display: flex;
+    flex-direction: row;
+    gap: var(--var-sds-size-space-200, 8px);
+    align-items: center;
+    justify-content: center;
+    width: 130px;
+    height: 49px;
+    position: absolute;
+    left: 953px;
+    top: 31px;
+    overflow: hidden;
+  }
+
+  .button2 {
+    color: var(--var-sds-color-text-brand-on-brand, #f5f5f5);
+    text-align: left;
+    font-family: var(
+      --single-line-body-base-font-family,
+      "Inter-Regular",
+      sans-serif
+    );
+    font-size: var(--single-line-body-base-font-size, 16px);
+    line-height: var(--single-line-body-base-line-height, 100%);
+    font-weight: var(--single-line-body-base-font-weight, 400);
+    position: relative;
+  }
+
+
+/* HEADER */
+.full-header {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    background-color: #fcfcfc;
+    z-index: 999;
+    border-bottom: 1px solid black;
+}
+
+.holdheader , .holdfooter{
+    position: relative;
+    max-width: 1400px;     /* Giới hạn chiều rộng khung */
+    width: 100%;           /* Co giãn theo kích thước viewport */
+    margin: 0 auto;        /* Canh giữa ngang */
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+
+.top_header{
+    border-bottom: 30px solid black;
+}
+
+
+.list_in_header{
+    display: flex;
+    flex-direction: row;
+    gap: 160px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    position: relative;
+}
+
+.header {
+  position: relative; /* hoặc bỏ luôn */
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+    flex-shrink: 0;
+    width: 118px;
+    height: 24px;
+    position: relative;
+    cursor: pointer;
+}
+
+.exclusive {
+    color: var(--text2, #000000);
+    text-align: left;
+    font-family: var(--heading-24px-bold-font-family, "Inter-Bold", sans-serif);
+    font-size: 30px;
+    line-height: var(--heading-24px-bold-line-height, 24px);
+    letter-spacing: var(--heading-24px-bold-letter-spacing, 0.03em);
+    font-weight: 800;
+    position: absolute;
+    right: 19.49%;
+    left: 0%;
+    width: 80.51%;
+    bottom: 0%;
+    top: 0%;
+    height: 100%;
+}
+
+.exclusive a{
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+}
+
+.exclusive a:visited{
+    color: black;
+}
+
+.home a:visited, .about a:visited, .signup a:visited{
+    color: black;
+}
+
+.home a:hover, .about a:hover, .signup a:hover{
+    color: red;
+}
+
+.frame_search_cart_account{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    justify-content: flex-start;
+    position: absolute;
+    left: 1200px;
+}
+
+.account{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background-color: #f1f1f1;
+    border-radius: 50%;
+    cursor: pointer;
+    position: relative;
+}
+
+.account i{
+  font-size: 30px;
+}
+
+.account:hover .sub-menu-wrap {
+    max-height: 400px; /* đủ lớn để chứa nội dung */
+
+}
+
+.sub-menu-wrap{
+    position: absolute;
+    top: 70%;
+    right: -10%;
+    width: 320px;
+    overflow: hidden;
+    z-index: 99999;
+    transition: max-height 0.5s;
+    max-height: 0;
+}
+
+.sub-menu{
+    background-color: #fff;
+    padding: 20px;
+    margin: 10px;
+    background: rgba(199, 197, 197, 0.6); /* trắng trong suốt */
+    backdrop-filter: blur(10px);          /* làm mờ nền phía sau */
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.user-info{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.user-info h2{
+    font-weight: 400;
+}
+.user-info i{
+
+    font-size: 30px;
+}
+
+.sub-menu hr{
+    border: 0;
+    height: 1px;
+    width: 100%;
+    background: #000000;
+    margin: 15px 0 10px;
+}
+
+.sub-menu-link{
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #525252;
+    margin: 12px 0;
+}
+.sub-menu-link p{
+    width: 100%;
+    transition: transform 0.5s;
+}
+
+.sub-menu-link i{
+    width: 40px;
+    font-size: 33px;
+}
+
+.sub-menu-link span{
+    font-size: 15px;
+}
+
+.sub-menu-link:hover span{
+    transform: translateX(5px);
+}
+
+.sub-menu-link:hover p{
+    font-weight: 600;
+    color: red;
+}

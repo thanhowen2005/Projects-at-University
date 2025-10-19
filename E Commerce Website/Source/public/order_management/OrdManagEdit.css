@@ -1,0 +1,516 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.body {
+    max-width: 1400px;     /* Giới hạn chiều rộng khung */
+    width: 100%;           /* Co giãn theo kích thước viewport */
+    margin: 0 auto;        /* Canh giữa ngang */
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: white;
+    position: relative;
+    height: 1274px;
+    padding: 10px;
+}
+
+body {
+  background-color: #A9A9A9;
+}
+
+/* Tiếp tục code nội dung của CSS tại đây */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 159px;
+  position: absolute;
+  left: 67px;
+  top: 48px;
+}
+
+.sidebar a {
+    display: block;
+    width: 159px;
+    text-decoration: none;
+
+}
+
+
+.dash-board {
+  color: var(--var-sds-color-text-utilities-text-on-overlay, #0c0c0d);
+  text-align: left;
+  font-family: var(
+    --title-16px-regular-font-family,
+    "Poppins-Regular",
+    sans-serif
+  );
+  font-size: var(--title-16px-regular-font-size, 16px);
+  line-height: var(--title-16px-regular-line-height, 24px);
+  font-weight: var(--title-16px-regular-font-weight, 400);
+  position: relative;
+  align-self: stretch;
+  height: 27px;
+  font-size: 18px;
+}
+.order {
+  color: #db4444;
+  text-align: left;
+  font-family: var(
+    --title-16px-regular-font-family,
+    "Poppins-Regular",
+    sans-serif
+  );
+  font-size: var(--title-16px-regular-font-size, 16px);
+  line-height: var(--title-16px-regular-line-height, 24px);
+  font-weight: var(--title-16px-regular-font-weight, 400);
+  position: relative;
+  align-self: stretch;
+  height: 27px;
+  font-size: 18px;
+}
+.product {
+  color: #000000;
+  text-align: left;
+  font-family: var(
+    --title-16px-regular-font-family,
+    "Poppins-Regular",
+    sans-serif
+  );
+  font-size: var(--title-16px-regular-font-size, 16px);
+  line-height: var(--title-16px-regular-line-height, 24px);
+  font-weight: var(--title-16px-regular-font-weight, 400);
+  position: relative;
+  align-self: stretch;
+  height: 27px;
+  font-size: 18px;
+}
+
+.review {
+  color: #000000;
+  text-align: left;
+  font-family: var(
+    --title-16px-regular-font-family,
+    "Poppins-Regular",
+    sans-serif
+  );
+  font-size: var(--title-16px-regular-font-size, 16px);
+  line-height: var(--title-16px-regular-line-height, 24px);
+  font-weight: var(--title-16px-regular-font-weight, 400);
+  position: relative;
+  align-self: stretch;
+  height: 27px;
+  font-size: 18px;
+}
+.coupon {
+  color: #000000;
+  text-align: left;
+  font-family: var(
+    --title-16px-regular-font-family,
+    "Poppins-Regular",
+    sans-serif
+  );
+  font-size: var(--title-16px-regular-font-size, 16px);
+  line-height: var(--title-16px-regular-line-height, 24px);
+  font-weight: var(--title-16px-regular-font-weight, 400);
+  position: relative;
+  align-self: stretch;
+  height: 27px;
+  font-size: 18px;
+}
+
+.line-4 {
+  margin-top: -2px;
+  border-style: solid;
+  border-color: #000000;
+  border-width: 3px 0 0 0;
+  width: 1200px;
+  height: 0px;
+  position: relative;
+  left: 218px;
+  top: 48px;
+  transform-origin: 0 0;
+  transform: rotate(90deg) scale(1, 1);
+}
+
+
+.content {
+    left:260px;
+    top: 46px;
+    position: absolute;
+}
+  
+.hold_iconprofile_text_create_user {
+    background-color: #ededed;
+    width: 1100px;
+    height: 112px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; 
+    align-items: center;         
+    border-radius: 20px;                    
+}
+
+.hold_icon_profile_and_text {
+    display: flex;
+    flex-direction: row;
+    align-items: center;            /* căn giữa theo chiều dọc */
+    gap: 20px;                      /* khoảng cách giữa icon và text */
+}
+  
+ .bx-receipt {
+    width: 48px;
+    height: 48px;
+    font-size: 48px;
+    color: #000;     
+    padding-left: 38px;
+}
+
+.user-view-create {
+    margin: 0;
+    padding: 0;
+
+      position: absolute;
+  left: 123px;
+  top: 43px;
+  width: 373px;
+}
+
+.user-view-create .text-wrapper {
+    font-family: "Poppins-Regular", sans-serif;
+    font-size: 32px;
+    line-height: 21px;
+    font-weight: 400;
+}
+
+.user-view-create .span {
+    font-family: "Poppins-Regular", sans-serif;
+    font-size: 16px;
+    line-height: 21px;
+    font-weight: 400;
+}
+  
+  .section-title {
+    color: #e53935;
+    margin: 30px 0 20px;
+  }
+  
+  .shipping-info .form-row {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+  
+  .form-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  label {
+    margin-bottom: 6px;
+    font-weight: 500;
+    font-size: 14px;
+    color: #444;
+  }
+  
+  input[readonly] {
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background-color: #f5f5f5;
+    font-size: 15px;
+    color: #333;
+  }
+  
+  .order-list {
+    margin-top: 20px;
+  }
+  
+  .cart-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+    font-size: 16px;
+  }
+  
+  .product-image {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    border: 1px solid #ccc;
+    padding: 0.5px;
+    background-color: #fff;
+  }
+  
+  .product-name {
+    flex: 1;
+    margin-left: 10px;
+    font-weight: 500;
+  }
+  
+  .product-qty {
+    margin: 0 10px;
+    font-weight: bold;
+  }
+  
+  .product-price {
+    font-weight: 600;
+    color: #222;
+  }
+  
+  .order-total,
+  .order-date,
+  .order-status {
+
+    display: inline-block;
+    padding: 5px 10px;
+    margin-top: 10px;
+    font-weight: bold;
+  }
+  
+  .total-text,
+  .date-text,
+  .status-text {
+    color: #e53935;
+  }
+  
+  .order-status-line {
+    display: inline-block;
+    padding: 5px 10px;
+    margin-top: 10px;
+    font-weight: bold;
+    font-size: 16px;
+  }
+  
+  .order-status-line .label {
+    color: black;
+    margin-right: 6px;
+  }
+  
+  .styled-select {
+    font-weight: bold;
+    border: none;
+    background: transparent;
+    color: #e53935;
+    outline: none;
+    cursor: pointer;
+    padding-left: 4px;
+    margin-right: 10px;
+    
+  }
+
+  
+  .save-button {
+    padding: 5px 15px;
+    background-color: #e53935;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.3s;
+    vertical-align: middle;
+  }
+  
+  .save-button:hover {
+    background-color: #c62828;
+  }
+
+  /* HEADER */
+.full-header {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    background-color: #fcfcfc;
+    z-index: 999;
+    border-bottom: 1px solid black;
+}
+
+.holdheader , .holdfooter{
+    position: relative;
+    max-width: 1400px;     /* Giới hạn chiều rộng khung */
+    width: 100%;           /* Co giãn theo kích thước viewport */
+    margin: 0 auto;        /* Canh giữa ngang */
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+
+.top_header{
+    border-bottom: 30px solid black;
+}
+
+
+.list_in_header{
+    display: flex;
+    flex-direction: row;
+    gap: 160px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    position: relative;
+}
+
+.header {
+  position: relative; /* hoặc bỏ luôn */
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+    flex-shrink: 0;
+    width: 118px;
+    height: 24px;
+    position: relative;
+    cursor: pointer;
+}
+.exclusive {
+    color: var(--text2, #000000);
+    text-align: left;
+    font-family: var(--heading-24px-bold-font-family, "Inter-Bold", sans-serif);
+    font-size: 30px;
+    line-height: var(--heading-24px-bold-line-height, 24px);
+    letter-spacing: var(--heading-24px-bold-letter-spacing, 0.03em);
+    font-weight: 800;
+    position: absolute;
+    right: 19.49%;
+    left: 0%;
+    width: 80.51%;
+    bottom: 0%;
+    top: 0%;
+    height: 100%;
+}
+
+.exclusive a{
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+}
+
+.exclusive a:visited{
+    color: black;
+}
+
+.home a:visited, .about a:visited, .signup a:visited{
+    color: black;
+}
+
+.home a:hover, .about a:hover, .signup a:hover{
+    color: red;
+}
+
+.frame_search_cart_account{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    justify-content: flex-start;
+    position: absolute;
+    left: 1200px;
+}
+
+.account{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background-color: #f1f1f1;
+    border-radius: 50%;
+    cursor: pointer;
+    position: relative;
+}
+
+.account i{
+  font-size: 30px;
+}
+
+.account:hover .sub-menu-wrap {
+    max-height: 400px; /* đủ lớn để chứa nội dung */
+
+}
+
+.sub-menu-wrap{
+    position: absolute;
+    top: 70%;
+    right: -10%;
+    width: 320px;
+    overflow: hidden;
+    z-index: 99999;
+    transition: max-height 0.5s;
+    max-height: 0;
+}
+
+.sub-menu{
+    background-color: #fff;
+    padding: 20px;
+    margin: 10px;
+    background: rgba(199, 197, 197, 0.6); /* trắng trong suốt */
+    backdrop-filter: blur(10px);          /* làm mờ nền phía sau */
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.user-info{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.user-info h2{
+    font-weight: 400;
+}
+.user-info i{
+
+    font-size: 30px;
+}
+
+.sub-menu hr{
+    border: 0;
+    height: 1px;
+    width: 100%;
+    background: #000000;
+    margin: 15px 0 10px;
+}
+
+.sub-menu-link{
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #525252;
+    margin: 12px 0;
+}
+.sub-menu-link p{
+    width: 100%;
+    transition: transform 0.5s;
+}
+
+.sub-menu-link i{
+    width: 40px;
+    font-size: 33px;
+}
+
+.sub-menu-link span{
+    font-size: 15px;
+}
+
+.sub-menu-link:hover span{
+    transform: translateX(5px);
+}
+
+.sub-menu-link:hover p{
+    font-weight: 600;
+    color: red;
+}

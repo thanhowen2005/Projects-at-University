@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./edit.css">
+  <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'> 
+
+  <style>
+   a,
+   button,
+   input,
+   select,
+   h1,
+   h2,
+   h3,
+   h4,
+   h5,
+   * {
+       box-sizing: border-box;
+       margin: 0;
+       padding: 0;
+       border: none;
+       text-decoration: none;
+       background: none;
+   
+       -webkit-font-smoothing: antialiased;
+   }
+   
+   menu, ol, ul {
+       list-style-type: none;
+       margin: 0;
+       padding: 0;
+   }
+   </style>
+  <title>Document</title>
+</head>
+<body>
+
+  <toper>
+        <div class="top_header"></div>
+  </toper>
+  <header class="full-header">
+      <div class="holdheader">
+          <header>
+              <nav class="header">
+                  <div class="list_in_header">
+                      <div class="logo">
+                          <div class="exclusive"><a href="for_all_pages.html">NBTech</a></div>
+                      </div>
+                  </div>
+
+                  <div class="frame_search_cart_account">
+                      <div class="account">
+                          <i class='bxr  bx-user'  ></i> 
+                      
+                          <div class="sub-menu-wrap">
+                              <div class="sub-menu">
+                                  <div class="user-info">
+                                      <i class='bx  bx-hand-rock'  ></i> 
+                                      <h2 id="user-name" >Tên</h2>
+                                  </div>
+                                  <hr>
+                                  
+                                  <a href="#" class="sub-menu-link" id="logout-link">
+                                      <i class='bx  bx-door-open'  ></i> 
+                                      <p>Đăng xuất</p>
+                                      <span>></span>
+                                  </a>
+                              </div>
+                          </div>
+                        </div>
+
+                  </div>
+              </nav>
+          </header>
+      </div>
+  </header>
+
+
+
+  <div class="body">
+  <div class="product-management-create">
+
+    <div class="frame-937">
+      <div class="products-view-create-update-delete-manage">
+        <span>
+          <span class="products-view-create-update-delete-manage-span">
+            Sản phẩm
+            <br />
+          </span>
+          <span class="products-view-create-update-delete-manage-span2">
+            Xem, thêm, sửa, xóa
+          </span>
+        </span>
+      </div>
+      <div class="shopping-cart" ><i class='bxr  bx-laptop' ></i> </div>
+    </div>
+
+    <div class="frame-936">
+      <a href="/dashboard/index.html" class="btn dash-board">Thống kê</a>
+      <a href="../order_management/index.html" class="btn order">Đơn hàng</a>
+      <a href="../product_management/index.html" class="btn product">Sản phẩm</a>
+      <a href="../review_management/index.html" class="btn review">Đánh giá</a>
+      <a href="../coupon_management/index.html" class="btn coupon">Coupon</a>
+    </div>
+    <div class="line-4"></div>
+    <div class="title">Tạo sản phẩm mới</div>
+
+    <div class="product-name">Tên sản phẩm</div>
+    <div class="placebox-info0">
+      <input id="product-name-input" class="place-to-info-box" type="text" placeholder="Tên sản phẩm">
+    </div>
+
+    <div class="product-price">Giá thành</div>
+    <div class="placebox-info2">
+      <input id="product-price-input" class="place-to-info-box" type="text" placeholder="Giá thành">
+    </div>
+
+    <div class="product-category">Danh mục</div>
+    <div class="placebox-info3" >
+      <div class="place-to-info-box" id="category-display"></div>
+    </div>
+
+    <div class="product-brand">Thương hiệu  </div>
+    <div class="placebox-info4">
+      <input id="product-brand-input" class="place-to-info-box" type="text" placeholder="Thương hiệu">
+    </div>
+
+    <div class="product-description">Thông tin mô tả  </div>
+    <div class="placebox-info5">
+      <input id="product-description-input" class="place-to-info-box" type="text" placeholder="Thông tin mô tả">
+    </div>
+
+    <div class="specs">Chi tiết</div>
+    <div id="specs-wrapper">
+    </div>
+
+
+
+    <div class="image-link1">Link ảnh 1</div>
+    <div class="placebox-info181">
+      <input id="image-link-1" class="place-to-info-box" type="text" placeholder="Link ảnh 1">
+    </div>
+    <div class="image-link2">Link ảnh 2</div>
+    <div class="placebox-info182">
+      <input id="image-link-2" class="place-to-info-box" type="text" placeholder="Link ảnh 2">
+    </div>
+    <div class="image-link3">Link ảnh 3</div>
+    <div class="placebox-info183">
+      <input id="image-link-3" class="place-to-info-box" type="text" placeholder="Link ảnh 3">
+    </div>
+    <div class="image-link4">Link ảnh 4</div>
+    <div class="placebox-info184">
+      <input id="image-link-4" class="place-to-info-box" type="text" placeholder="Link ảnh 4">
+    </div>
+
+    <div class="stock">Tồn kho</div>
+    <div class="placebox-info19">
+      <input id="product-stock-input" class="place-to-info-box" type="number" placeholder="Tồn kho">
+    </div>
+    
+    <div class="discount">Giảm giá</div>
+    <div class="placebox-info20">
+      <input id="product-discount-input" class="place-to-info-box" type="number" placeholder="Giảm giá (%)">
+    </div>
+
+    <div class="date">Ngày tạo</div>
+    <div class="placebox-info21">
+      <input id="product-date-input" class="place-to-info-box" type="text" placeholder="dd/mm/yyyy">
+    </div>
+
+    <div class="sold">Số lượng đã bán</div>
+    <div class="placebox-info22">
+      <input id="product-sold-input" class="place-to-info-box" type="number">
+    </div>
+
+    
+    <div class="highlight-block">
+      <div class="highlights">Điểm nổi bật</div>
+      <div class="highlight-container">
+        <div class="placebox-info16">
+          <input class="place-to-info-box" type="text" placeholder="Điểm nổi bật" />
+        </div>
+      </div>
+      <button id="add-highlight-btn" type="button">+ Thêm điểm nổi bật</button>
+    </div>
+
+    <button id="save-btn" class="button">
+      <div class="button2">LƯU</div>
+    </button>
+
+    <a href="index.html">
+      <div class="button3">
+        <div class="button2">HỦY</div>
+      </div>
+    </a>
+  </div>
+  </div>
+  
+</body>
+<script src="edit.js"></script>
+<script src="header.js"></script>
+</html>

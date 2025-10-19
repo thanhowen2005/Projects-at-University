@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./style.css">
+  <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
+  <title>Dashboard</title>
+</head>
+<body>
+    
+  <toper>
+        <div class="top_header"></div>
+  </toper>
+  <header class="full-header">
+      <div class="holdheader">
+          <header>
+              <nav class="header">
+                  <div class="list_in_header">
+                      <div class="logo">
+                          <div class="exclusive"><a href="index.html">NBTech</a></div>
+                      </div>
+                  </div>
+
+                  <div class="frame_search_cart_account">
+                      <div class="account">
+                          <i class='bxr  bx-user'  ></i> 
+                      
+                          <div class="sub-menu-wrap">
+                              <div class="sub-menu">
+                                  <div class="user-info">
+                                      <i class='bx  bx-hand-rock'  ></i> 
+                                      <h2 id="user-name" >Tên</h2>
+                                  </div>
+                                  <hr>
+                                  
+                                  <a href="#" class="sub-menu-link" id="logout-link">
+                                      <i class='bx  bx-door-open'  ></i> 
+                                      <p>Đăng xuất</p>
+                                      <span>></span>
+                                  </a>
+                              </div>
+                          </div>
+                        </div>
+
+                  </div>
+              </nav>
+          </header>
+      </div>
+  </header>
+
+<div class="body">
+  <div class="product-management">
+    <div class="frame-936">
+      <a href="/dashboard/index.html" class="btn dash-board">Thống kê</a>
+      <a href="../order_management/index.html" class="btn order">Đơn hàng</a>
+      <a href="../product_management/index.html" class="btn product">Sản phẩm</a>
+      <a href="../review_management/index.html" class="btn review">Đánh giá</a>
+      <a href="../coupon_management/index.html" class="btn coupon">Coupon</a>
+    </div>
+    <div class="line-4"></div>
+
+    <div class="dashboard-content">
+      <div class="dashboard-title">Tổng quan</div>
+
+      <div class="dashboard-filters styled-filters">
+        <select id="filter-type" class="filter-select">
+          <option value="all">Tất cả</option>
+          <option value="day">Theo ngày</option>
+          <option value="month">Theo tháng</option>
+          <option value="year">Theo năm</option>
+        </select>
+
+        <input type="date" id="filter-day" class="filter-input">
+        <select id="filter-month" class="filter-input" style="display: none;">
+          <option value="1">Tháng 1</option>
+          <option value="2">Tháng 2</option>
+          <option value="3">Tháng 3</option>
+          <option value="4">Tháng 4</option>
+          <option value="5">Tháng 5</option>
+          <option value="6">Tháng 6</option>
+          <option value="7">Tháng 7</option>
+          <option value="8">Tháng 8</option>
+          <option value="9">Tháng 9</option>
+          <option value="10">Tháng 10</option>
+          <option value="11">Tháng 11</option>
+          <option value="12">Tháng 12</option>
+        </select>
+        <input type="number" id="filter-year" min="2000" max="2100" placeholder="Năm" class="filter-input">
+
+
+      </div>
+
+      <div class="dashboard-metrics">
+        <div class="metric-card">
+          <div class="metric-title">Tổng doanh thu</div>
+          <div class="metric-value" id="total-revenue">0 VND</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-title">Sản phẩm đã bán</div>
+          <div class="metric-value" id="products-sold">0</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-title">Số đơn hàng</div>
+          <div class="metric-value" id="total-orders">0</div>
+        </div>
+      </div>
+    </div>
+
+    <canvas id="statsChart" width="600" height="300"></canvas>
+  </div>
+</div>
+  <script src="./script.js"></script>
+  <script src="./header.js"></script>
+</body>
+</html>

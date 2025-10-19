@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="/User/js_header/searching.css">
+  <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+  <title>Product Detail</title>
+  
+  <style>
+   a,
+   button,
+   input,
+   select,
+   h1,
+   h2,
+   h3,
+   h4,
+   h5,
+   * {
+       box-sizing: border-box;
+       margin: 0;
+       padding: 0;
+       border: none;
+       text-decoration: none;
+       background: none;
+   
+       -webkit-font-smoothing: antialiased;
+   }
+   
+   menu, ol, ul {
+       list-style-type: none;
+       margin: 0;
+       padding: 0;
+   }
+   </style>
+</head>
+<body>
+    <toper>
+            <div class="top_header"></div>
+    </toper>
+    <header class="full-header">
+        <div class="holdheader">
+            <header>
+                <nav class="header">
+                    <div class="list_in_header">
+                        <div class="logo">
+                            <div class="exclusive"><a href="/User/homepage/index.html">NBTech</a></div>
+                        </div>
+
+                        <div class="nav_list">
+                            <div class="home"><a href="/User/homepage/index.html">Trang chủ</a></div>
+                            <div class="about"><a href="../about_page/about.html">About</a></div>
+                            <div class="signup"><a href = "../authentication/signup/signup.html">Đăng ký</a></div>
+                        </div>
+                    </div>
+
+                    <div class="frame_search_cart_account">
+                        <div class="search">
+                            <input class = "search_input" type="search" placeholder="Search...">
+                            <span class = "search-icon material-symbols-outlined">search</span>
+                        </div>
+
+                        <div class="cart" id="cart-div">
+                            <span class="cart-icon material-symbols-outlined">shopping_cart</span>
+                            <span class="cart-count">0</span>
+                        </div>
+                        <div class="account">
+                            <span class = "account-icon material-symbols-outlined">person</span>
+                        
+                            <div class="sub-menu-wrap">
+                                <div class="sub-menu">
+                                    <div class="user-info">
+                                        <i class='bx  bx-hand-rock'  ></i> 
+                                        <h2>Thanh Owen</h2>
+                                    </div>
+                                    <hr>
+                                    <a href="#" class="sub-menu-link">
+                                        <i class='bx  bx-user-square'  ></i> 
+                                        <p>Chỉnh sửa hồ sơ</p>
+                                        <span>></span>
+                                    </a>
+
+                                    <a href="#" class="sub-menu-link">
+                                        <i class='bx  bx-shopping-bag-alt'  ></i> 
+                                        <p>Đơn hàng của bạn</p>
+                                        <span>></span>
+                                    </a>
+
+                                    <a href="#" id = "logout-link" class="sub-menu-link">
+                                        <i class='bx  bx-door-open'></i> 
+                                        <p>Đăng xuất</p>
+                                        <span>></span>
+                                    </a>
+                                </div>
+                            </div>
+                            </div>
+
+                    </div>
+                </nav>
+            </header>
+        </div>
+    </header>
+
+<div class = "body">
+  <div class="product-details-page">
+    <div class="product-container">
+      <!-- Hình ảnh sản phẩm chính -->
+      <div class="frame-919" onclick="changeImage('')">
+        <img class="image-57" src="" />
+      </div>
+      <div class="frame-897" onclick="changeImage('')">
+        <img class="image-58" src="" />
+      </div>
+      <div class="frame-896" onclick="changeImage('')">
+        <img class="image-61" src="" />
+      </div>
+      <div class="frame-895" onclick="changeImage('')">
+        <img class="image-59" src="" />
+      </div>
+
+      <div class="frame-927">
+        <img class="image-592" id="main-image" src="" />
+      </div>
+
+      <!-- Giới thiệu sản phẩm chính  -->
+      <div class="macbookair"></div>
+      <div class="product-price"></div>
+      <div class="frame-922">
+        <div class="frame-920">
+          <div class="dynamic-stars"></div>
+          <div class="total-reviews-text"></div>
+        </div>
+      </div>
+      <div class="macbook">
+      </div>
+      <img class="under-line" src="image\under-line0.svg" />
+
+
+      <div class="frame-926">
+        <div class="frame-906">
+          <div id="btn-minus" class="icon-minus" > <i class='bxr  bx-minus'  ></i> </div>
+        </div>
+        <div class="frame-908">
+          <div id="quantity" class="number-product">1</div>
+        </div>
+        <div class="frame-907">
+          <div id="btn-plus" class="icon-plus"><i class='bxr  bx-plus'  ></i> </div>
+        </div>
+      </div>
+
+      <div class="button" id="btn-add-to-cart">
+        <div class="add-to-cart">Thêm vào giỏ hàng</div>
+      </div>
+      <div id="notification" class="notification">Thêm vào giỏ hàng thành công</div>
+
+      <div class="stock">Số lượng có sẵn: </div>
+
+      <div class="frame-911">
+        <img class="under-line2" src="image\under-line1.svg" />
+        <div class="frame-915">
+          <div class="icon-delivery" > <i class='bxr  bx-truck'  ></i>   </div>
+          <div class="frame-913">
+            <div class="free-delivery">Miễn phí vận chuyển</div>
+            <div class="freeship">
+              Miễn phí vận chuyển toàn quốc.
+            </div>
+          </div>
+        </div>
+        <div class="frame-914">
+          <div class="icon-return"> <i class='bxr  bx-repeat-alt-2'  ></i> </div>
+          <div class="frame-912">
+            <div class="return-delivery">Hoàn trả đơn hàng</div>
+            <div class="return">
+              <span>
+                <span class="return-span">
+                  Miễn phí hoàn trả trong vòng 30 ngày.
+                </span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="frame-928 " id="product-detail">
+      <div class="frame-9252">
+        <div class="frame-923">
+          <div class="category-rectangle">
+            <div class="rectangle-17"></div>
+          </div>
+          <div class="product-information">Thông tin sản phẩm</div>
+        </div>
+      </div>
+      
+      <table class="specs-table">
+        <tbody>
+          <tr>
+            <th>Thương hiệu</th>
+            <td></td>
+          </tr>
+          <tr>
+            <th>Bảo hành</th>
+            <td></td>
+          </tr>
+          <tr>
+            <th>Màu sắc</th>
+            <td></td>
+          </tr>
+          <tr>
+            <th>Độ phân giải</th>
+            <td></td>
+          </tr>
+          <tr>
+            <th>Pin</th>
+            <td></td>
+          </tr>
+          <tr>
+            <th>Bộ nhớ</th>
+            <td></td>
+          </tr>
+          <tr>
+            <th>Kích thước</th>
+            <td></td>
+          </tr>
+          <tr>
+            <th>Trọng lượng</th>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="frame-9252">
+        <div class="frame-923">
+          <div class="category-rectangle">
+            <div class="rectangle-17"></div>
+          </div>
+          <div class="product-information">Điểm nổi bật</div>
+        </div>
+        <div class="highlights-list">
+          <div class="highlight-item"></div>
+          <div class="highlight-item"></div>
+          <div class="highlight-item"></div>
+          <div class="highlight-item"></div>
+          <div class="highlight-item"></div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="frame-925">
+      <div class="frame-923">
+        <div class="category-rectangle">
+          <div class="rectangle-17"></div>
+        </div>
+        <div class="related-Product">Sản phẩm liên quan</div>
+      </div>
+
+      <button class="scroll-btn left " id="btn-left">
+        <i class='bx bx-chevron-left'></i>
+      </button>
+      <div class="frame-924" id="related-products">
+        <div class="cart-with-flat-discount">
+          <div class="frame-570">
+            <div class="discount-percent">
+              <div class="percent-number"></div>
+            </div>
+            <div class="frame-613">
+              <img
+                class="image-product-related"
+                src=""
+              />
+            </div>
+          </div>
+          <div class="frame-569">
+            <div class="product-name"></div>
+            <div class="frame-567">
+              <div class="new-price"></div>
+              <div class="old-price"></div>
+            </div>
+            <div class="frame-566">
+              <img class="five-star2" src="image/star.png" />
+              <div class="star"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="scroll-btn right" id="btn-right">
+        <i class='bx bx-chevron-right'></i>
+      </button>
+    </div>
+
+    <section class="product-reviews-section">
+      <div class="container">
+        <h2 class="section-title">Đánh giá sản phẩm</h2>
+
+        <div class="reviews-summary">
+          <div class="average-rating">
+            <span class="rating-number"></span>
+            <div class="stars">
+              <img src="image/star.png" alt="5 stars" />
+            </div>
+            <span class="total-reviews"></span>
+          </div>
+        </div>
+
+        <div class="reviews-list">
+          <article class="review-item">
+            <header class="review-header">
+              <h3 class="review-user"></h3>
+              <div class="review-stars">
+                <img src="" alt="" />
+              </div>
+            </header>
+            <p class="review-text"></p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+
+    <div class="comment-input-section">
+      <h3>Viết đánh giá của bạn</h3>
+      <select id="rating-select">
+        <option value="" disabled selected>Chọn số sao</option>
+        <option value="1">⭐</option>
+        <option value="2">⭐⭐</option>
+        <option value="3">⭐⭐⭐</option>
+        <option value="4">⭐⭐⭐⭐</option>
+        <option value="5">⭐⭐⭐⭐⭐</option>
+      </select>
+      <textarea id="comment-text" placeholder="Viết bình luận..." rows="4"></textarea>
+      <button id="submit-comment">Gửi đánh giá</button>
+    </div>
+  
+  </div>
+</div>
+  <footer>
+      <div class="holdfooter">
+          <div class="footer_row">
+          
+              <div class="footer-col">
+                  <h1>NBTech</h1>
+              </div>
+
+              <div class="footer-col">
+                  <h4>Support</h4>
+                  <ul>
+                      <li>Ho Chi Minh City</li>
+                      <li>ntowen23@clc.fitus.edu.vn</li>
+                      <li>+84 12345678901</li>
+
+                  </ul>
+              </div>
+
+              <div class="footer-col"></div>
+              <div class="footer-col"></div>
+              <div class="footer-col"></div>
+          </div>
+      </div>
+  </footer>
+  <script src="script.js"></script>
+  <script src="addToCart.js"></script>
+  <script src="/User/js_header/auth.js"></script>
+  <script src="/User/js_header/headerLink.js"></script>
+  <script src="/User/js_header/searching.js"></script>
+</body>
+</html>

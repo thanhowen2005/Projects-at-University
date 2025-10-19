@@ -1,0 +1,411 @@
+body {
+    background-color: #A9A9A9;
+}
+  
+  .body {
+    max-width: 1400px;
+    width: 100%;
+    margin: 0 auto;
+    box-sizing: border-box;
+    height: auto;
+    background-color: white;
+}
+  
+  .coupon-page,
+  .coupon-page * {
+    box-sizing: border-box;
+}
+  
+  .coupon-page {
+    background: var(--bg, #ffffff);
+    padding: 10px;
+    height: 1274px;
+    position: relative;
+  }
+  
+  /* SIDEBAR */
+  .frame-936 {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 159px;
+    position: absolute;
+    left: 67px;
+    top: 48px;
+  }
+  
+  .dash-board,
+  .order,
+  .product,
+  .brand,
+  .review,
+  .coupon {
+    color: #000000;
+    text-align: left;
+    font-family: "Poppins-Regular", sans-serif;
+    font-size: 18px;
+    line-height: 24px;
+    font-weight: 400;
+    position: relative;
+    align-self: stretch;
+    height: 27px;
+  }
+  
+  .coupon {
+    color: #db4444;
+  }
+  
+  /* LINE */
+  .line-4 {
+    margin-top: -2px;
+    border-style: solid;
+    border-color: #000000;
+    border-width: 3px 0 0 0;
+    width: 100px;
+    height: 0px;
+    position: relative;
+    left: 218px;
+    top: 48px;
+    transform-origin: 0 0;
+    transform: rotate(90deg) scale(1, 1);
+  }
+  
+  /* TIÊU ĐỀ */
+  .title {
+    color: #db4444;
+    text-align: left;
+    font-family: "Poppins-Medium", sans-serif;
+    font-size: 20px;
+    line-height: 28px;
+    font-weight: 500;
+    position: absolute;
+    left: 286px;
+    top: 241px;
+  }
+  
+  /* HEADER KHỐI */
+  .frame-937 {
+    background: #ededed;
+    width: 1100px;
+    height: 112px;
+    position: absolute;
+    left: 260px;
+    top: 46px;
+    border-radius: 20px;
+  }
+  
+  .coupon-view-create-update-delete-manage {
+    color: #000000;
+    text-align: left;
+    position: absolute;
+    left: 123px;
+    top: 43px;
+    width: 373px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  
+  .coupon-view-create-update-delete-manage-span {
+    font-family: "Poppins-Regular", sans-serif;
+    font-size: 32px;
+    line-height: 21px;
+    font-weight: 400;
+  }
+  
+  .coupon-view-create-update-delete-manage-span2 {
+    font-family: "Poppins-Regular", sans-serif;
+    font-size: 16px;
+    line-height: 21px;
+    font-weight: 400;
+  }
+  .shopping-cart {
+    width: 48px;
+    height: 48px;
+    position: absolute;
+    left: 38px;
+    top: 35px;
+    overflow: visible;
+  }
+  
+  .shopping-cart i{
+    font-size: 60px;
+  }
+  
+  /* CÁC TRƯỜNG COUPON */
+  .coupon-id,
+  .coupon-percent,
+  .coupon-code,
+  .coupon-description {
+    color: #000000;
+    text-align: right;
+    font-family: "Poppins-Regular", sans-serif;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 400;
+    position: absolute;
+  }
+  
+  .label-right {
+  color: #000000;
+  text-align: right;
+  font-family: "Poppins-Regular", sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  position: absolute;
+  width: 120px;         /* Chiều rộng đồng đều */
+  right: calc(100% - 400px); /* Đảm bảo cạnh phải thẳng hàng với box */
+}
+  
+  /* Ô HIỂN THỊ DỮ LIỆU */
+  .placebox-info1,
+  .placebox-info2 {
+    width: 330px;
+    height: 50px;
+    position: absolute;
+  }
+  
+  .placebox-info1 {
+    left: 422px;
+    top: 307px;
+  }
+  
+  .placebox-info2 {
+    left: 422px;
+    top: 377px;
+  }
+  
+  
+  .place-to-info-box {
+    width: 100%;
+    height: 100%;
+    padding: 12px 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-family: "Poppins-Regular", sans-serif;
+    font-size: 16px;
+    line-height: 24px;
+    white-space: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    display: flex;
+    align-items: center;
+  }
+  
+  /* NÚT TRỞ LẠI */
+  .button {
+    background: #2c2c2c;
+    border-radius: 8px;
+    border: 1px solid #767676;
+    padding: 12px;
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+    width: 200px;
+    height: 49px;
+    position: absolute;
+    left: 1000px;
+    top: 230px;
+    overflow: hidden;
+    cursor: pointer;
+    text-decoration: none;
+    color: #f5f5f5;
+    font-family: "Inter-Regular", sans-serif;
+    font-size: 16px;
+    line-height: 100%;
+    font-weight: 400;
+  }
+  
+  /* HEADER CHUNG */
+  .full-header {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    background-color: #fcfcfc;
+    z-index: 999;
+    border-bottom: 1px solid black;
+  }
+  
+  .holdheader,
+  .holdfooter {
+    position: relative;
+    max-width: 1400px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 10px;
+    box-sizing: border-box;
+  }
+  
+  .top_header {
+    border-bottom: 30px solid black;
+  }
+  
+  .list_in_header {
+    display: flex;
+    flex-direction: row;
+    gap: 160px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    position: relative;
+  }
+  
+  .header {
+    position: relative;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .logo {
+    flex-shrink: 0;
+    width: 118px;
+    height: 24px;
+    position: relative;
+    cursor: pointer;
+  }
+  
+  .exclusive {
+    color: #000000;
+    text-align: left;
+    font-family: "Inter-Bold", sans-serif;
+    font-size: 30px;
+    line-height: 24px;
+    letter-spacing: 0.03em;
+    font-weight: 800;
+    position: absolute;
+    width: 80.51%;
+    height: 100%;
+  }
+  
+  .exclusive a {
+    text-decoration: none;
+    color: black;
+  }
+  
+  .exclusive a:visited {
+    color: black;
+  }
+  
+  .home a:visited,
+  .about a:visited,
+  .signup a:visited {
+    color: black;
+  }
+  
+  .home a:hover,
+  .about a:hover,
+  .signup a:hover {
+    color: red;
+  }
+  
+  .frame_search_cart_account {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    justify-content: flex-start;
+    position: absolute;
+    left: 1200px;
+  }
+  
+  .account {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background-color: #f1f1f1;
+    border-radius: 50%;
+    cursor: pointer;
+    position: relative;
+  }
+  
+  .account i {
+    font-size: 30px;
+  }
+  
+  .account:hover .sub-menu-wrap {
+    max-height: 400px;
+  }
+  
+  .sub-menu-wrap {
+    position: absolute;
+    top: 70%;
+    right: -10%;
+    width: 320px;
+    overflow: hidden;
+    z-index: 99999;
+    transition: max-height 0.5s;
+    max-height: 0;
+  }
+  
+  .sub-menu {
+    background-color: #fff;
+    padding: 20px;
+    margin: 10px;
+    background: rgba(199, 197, 197, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+  
+  .user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .user-info h2 {
+    font-weight: 400;
+  }
+  
+  .user-info i {
+    font-size: 30px;
+  }
+  
+  .sub-menu hr {
+    border: 0;
+    height: 1px;
+    width: 100%;
+    background: #000000;
+    margin: 15px 0 10px;
+  }
+  
+  .sub-menu-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #525252;
+    margin: 12px 0;
+  }
+  
+  .sub-menu-link p {
+    width: 100%;
+    transition: transform 0.5s;
+  }
+  
+  .sub-menu-link i {
+    width: 40px;
+    font-size: 33px;
+  }
+  
+  .sub-menu-link span {
+    font-size: 15px;
+  }
+  
+  .sub-menu-link:hover span {
+    transform: translateX(5px);
+  }
+  
+  .sub-menu-link:hover p {
+    font-weight: 600;
+    color: red;
+  }

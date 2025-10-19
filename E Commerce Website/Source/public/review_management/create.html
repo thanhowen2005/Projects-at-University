@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="./create.css">
+  
+  
+  <style>
+   a,
+   button,
+   input,
+   select,
+   h1,
+   h2,
+   h3,
+   h4,
+   h5,
+   * {
+       box-sizing: border-box;
+       margin: 0;
+       padding: 0;
+       border: none;
+       text-decoration: none;
+       background: none;
+   
+       -webkit-font-smoothing: antialiased;
+   }
+   
+   menu, ol, ul {
+       list-style-type: none;
+       margin: 0;
+       padding: 0;
+   }
+   </style>
+  <title>Document</title>
+</head>
+<body>
+
+  <toper>
+        <div class="top_header"></div>
+  </toper>
+  <header class="full-header">
+      <div class="holdheader">
+          <header>
+              <nav class="header">
+                  <div class="list_in_header">
+                      <div class="logo">
+                          <div class="exclusive"><a href="for_all_pages.html">NBTech</a></div>
+                      </div>
+                  </div>
+
+                  <div class="frame_search_cart_account">
+                      <div class="account">
+                          <i class='bxr  bx-user'  ></i> 
+                      
+                          <div class="sub-menu-wrap">
+                              <div class="sub-menu">
+                                  <div class="user-info">
+                                      <i class='bx  bx-hand-rock'  ></i> 
+                                      <h2 id="user-name" >Tên</h2>
+                                  </div>
+                                  <hr>
+                                  
+                                  <a href="#" class="sub-menu-link" id="logout-link">
+                                      <i class='bx  bx-door-open'  ></i> 
+                                      <p>Đăng xuất</p>
+                                      <span>></span>
+                                  </a>
+                              </div>
+                          </div>
+                        </div>
+
+                  </div>
+              </nav>
+          </header>
+      </div>
+  </header>
+
+  <div class="body">
+  <div class="review-page">
+
+    <div class="frame-937">
+      <div class="review-view-create-update-delete-manage">
+        <span>
+          <span class="review-view-create-update-delete-manage-span">
+            Đánh giá
+            <br />
+          </span>
+          <span class="review-view-create-update-delete-manage-span2">
+            Xem, thêm, sửa, xóa
+          </span>
+        </span>
+      </div>
+      <div class="shopping-cart"><i class='bxr  bx-star-square'  ></i> </div>
+    </div>
+
+    <div class="frame-936">
+      <a href="/dashboard/index.html" class="btn dash-board">Thống kê</a>
+      <a href="../order_management/index.html" class="btn order">Đơn hàng</a>
+      <a href="../product_management/index.html" class="btn product">Sản phẩm</a>
+      <a href="../review_management/index.html" class="btn review">Đánh giá</a>
+      <a href="../coupon_management/index.html" class="btn coupon">Coupon</a>
+    </div>
+    <div class="line-4"></div>
+    <div class="th-ng-tin-nh-gi">Thông tin đánh giá</div>
+
+
+  <form id="create-review-form">
+    <div class="review-field">
+        <div class="label">ID Sản phẩm</div>
+        <input class="value" type="text" id="input-productid" placeholder="Nhập id sản phẩm" required /></input>
+    </div>
+
+    <div class="review-field">
+        <div class="label">ID Người dùng</div>
+        <input class="value" type="text" id="input-userid" placeholder="Nhập id người dùng" required />
+    </div>
+
+    <div class="review-field">
+        <div class="label">Đánh giá (1-5)</div>
+        <input class="value" type="number" id="input-rating" placeholder="Nhập số sao" min="1" max="5" required />
+    </div>
+
+    <div class="review-field">
+        <div class="label">Bình luận</div>
+        <textarea class="value" id="input-cmt" placeholder="Nhập đánh giá sản phẩm tại đây" rows="3" required></textarea>
+    </div>
+
+    <div class="review-field">
+        <div class="label">Ngày</div>
+        <input class="value" type="date"  id="input-date" placeholder="" required />
+    </div>
+
+    <div class="review-field">
+        <div class="label">Trạng thái</div>
+        <select class="value" id="input-status" required>
+          <option value="0">Chờ xác nhận</option>
+          <option value="1">Đã xác nhận</option>
+        </select>
+        </select>
+    </div>
+
+    <div class="button" id="submitReview">
+        <a href="create.html" class="button2" >Thêm</a>
+    </div>
+    
+
+  </div>
+  </div>
+</body>
+<script src="header.js"></script>
+<script src="create.js"></script>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./index.css">
+  <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
+  
+  <style>
+   a,
+   button,
+   input,
+   select,
+   h1,
+   h2,
+   h3,
+   h4,
+   h5,
+   * {
+       box-sizing: border-box;
+       margin: 0;
+       padding: 0;
+       border: none;
+       text-decoration: none;
+       background: none;
+   
+       -webkit-font-smoothing: antialiased;
+   }
+   
+   menu, ol, ul {
+       list-style-type: none;
+       margin: 0;
+       padding: 0;
+   }
+   </style>
+  <title>Document</title>
+</head>
+<body>
+
+  <toper>
+        <div class="top_header"></div>
+  </toper>
+  <header class="full-header">
+      <div class="holdheader">
+          <header>
+              <nav class="header">
+                  <div class="list_in_header">
+                      <div class="logo">
+                          <div class="exclusive"><a href="for_all_pages.html">NBTech</a></div>
+                      </div>
+                  </div>
+
+                  <div class="frame_search_cart_account">
+                      <div class="account">
+                          <i class='bxr  bx-user'  ></i> 
+                      
+                          <div class="sub-menu-wrap">
+                              <div class="sub-menu">
+                                  <div class="user-info">
+                                      <i class='bx  bx-hand-rock'  ></i> 
+                                      <h2 id="user-name" >Tên</h2>
+                                  </div>
+                                  <hr>
+                                  
+                                  <a href="#" class="sub-menu-link" id="logout-link">
+                                      <i class='bx  bx-door-open'  ></i> 
+                                      <p>Đăng xuất</p>
+                                      <span>></span>
+                                  </a>
+                              </div>
+                          </div>
+                        </div>
+
+                  </div>
+              </nav>
+          </header>
+      </div>
+  </header>
+
+
+  <div class="body">
+    <div class="product-management">
+      <div class="frame-937">
+        <div class="products-view-create-update-delete-manage">
+          <span>
+            <span class="products-view-create-update-delete-manage-span">
+              Sản phẩm
+              <br />
+            </span>
+            <span class="products-view-create-update-delete-manage-span2">
+              Xem, thêm, sửa, xóa
+            </span>
+          </span>
+        </div>
+        <div class="shopping-cart"><i class='bxr  bx-laptop'  ></i>  </div>
+        <div class="button">
+          <a href="create.html" class="button2">+ Tạo mới</a>
+        </div>
+      </div>
+
+
+      <div class="frame-936">
+        <a href="/dashboard/index.html" class="btn dash-board">Thống kê</a>
+        <a href="../order_management/index.html" class="btn order">Đơn hàng</a>
+        <a href="../product_management/index.html" class="btn product">Sản phẩm</a>
+        <a href="../review_management/index.html" class="btn review">Đánh giá</a>
+        <a href="../coupon_management/index.html" class="btn coupon">Coupon</a>
+      </div>
+      
+      <div class="line-4"></div>
+      <div class="list-product">
+        <div class="frame-940">
+          <a class="edit" href="">
+            <img src="" alt="Edit" />
+          </a>
+          <button class="btn delete">
+            <img src="" alt="Delete">
+          </button>
+          <a class="details" href="">Chi tiết</a>
+          <div class="product-price"></div>
+          <div class="product-stock"></div>
+          <div class="product-name"></div>
+          <div class="product-id"></div>
+        </div>
+      </div>
+      <div class="under-line"></div>
+      <div class="frame-9403">
+        <div class="price">Giá</div>
+        <div class="stock">Số lượng</div>
+        <div class="name">Tên sản phẩm</div>
+        <div class="id">ID</div>
+        <div class="action">Thao tác</div>
+      </div>
+      <div class="search">
+        <input type="text" id="searchInput" placeholder="Tìm kiếm ..." />
+        <img class="x" src="images/x0.svg" id="clearSearch" />
+      </div>
+
+      <div class="filter-container">
+        <select id="status-filter">
+          <option value="all">Tất cả</option>
+          <option value="Laptop">Laptop</option>
+          <option value="LaptopGaming">Laptop Gaming</option>
+          <option value="Mouse">Chuột</option>
+          <option value="Keyboard">Phím</option>
+        </select>
+      </div>
+      
+    </div>
+  </div>
+</body>
+<script src="index.js"></script>
+<script src="header.js"></script>
+</html>

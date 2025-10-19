@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="./coupon_view.css">
+  
+  
+  <style>
+   a,
+   button,
+   input,
+   select,
+   h1,
+   h2,
+   h3,
+   h4,
+   h5,
+   * {
+       box-sizing: border-box;
+       margin: 0;
+       padding: 0;
+       border: none;
+       text-decoration: none;
+       background: none;
+   
+       -webkit-font-smoothing: antialiased;
+   }
+   
+   menu, ol, ul {
+       list-style-type: none;
+       margin: 0;
+       padding: 0;
+   }
+   </style>
+  <title>Document</title>
+</head>
+<body>
+
+  <toper>
+        <div class="top_header"></div>
+  </toper>
+  <header class="full-header">
+      <div class="holdheader">
+          <header>
+              <nav class="header">
+                  <div class="list_in_header">
+                      <div class="logo">
+                          <div class="exclusive"><a href="for_all_pages.html">NBTech</a></div>
+                      </div>
+                  </div>
+
+                  <div class="frame_search_cart_account">
+                      <div class="account">
+                          <i class='bxr  bx-user'  ></i> 
+                      
+                          <div class="sub-menu-wrap">
+                              <div class="sub-menu">
+                                  <div class="user-info">
+                                      <i class='bx  bx-hand-rock'  ></i> 
+                                      <h2 id="user-name" >Tên</h2>
+                                  </div>
+                                  <hr>
+                                  
+                                  <a href="#" class="sub-menu-link" id="logout-link">
+                                      <i class='bx  bx-door-open'  ></i> 
+                                      <p>Đăng xuất</p>
+                                      <span>></span>
+                                  </a>
+                              </div>
+                          </div>
+                        </div>
+                  </div>
+              </nav>
+          </header>
+      </div>
+  </header>
+
+  <div class="body">
+    <div class="coupon-page">
+      <div class="frame-937">
+        <div class="coupon-view-create-update-delete-manage">
+          <span>
+            <span class="coupon-view-create-update-delete-manage-span">
+              Coupons
+              <br />
+            </span>
+            <span class="coupon-view-create-update-delete-manage-span2">
+              Xem, thêm, sửa, xóa
+            </span>
+          </span>
+        </div>
+        <div class="shopping-cart"><i class='bx bxs-discount'></i></div>
+      </div>
+
+      <div class="frame-936">
+        <a href="/dashboard/index.html" class="btn dash-board">Thống kê</a>
+        <a href="../order_management/index.html" class="btn order">Đơn hàng</a>
+        <a href="../product_management/index.html" class="btn product">Sản phẩm</a>
+        <a href="../review_management/index.html" class="btn review">Đánh giá</a>
+        <a href="../coupon_management/index.html" class="btn coupon">Coupon</a>
+      </div>
+
+      <div class="line-4"></div>
+      <div class="title">Chi tiết coupon</div>
+
+
+      <div class="coupon-percent label-right" style="top: 320px;">Phần trăm giảm</div>
+      <div class="placebox-info1">
+        <div class="place-to-info-box" id="coupon-percent"></div>
+      </div>
+
+      <div class="coupon-code label-right" style="top: 390px;">Mã giảm</div>
+      <div class="placebox-info2">
+        <div class="place-to-info-box" id="coupon-code"></div>
+      </div>
+
+
+
+      <a href="index.html" class="button">Trở lại</a>
+    </div>
+  </div>
+  <script src="coupon_view.js"></script>
+  <script src="header.js"></script>
+</body>
+</html>

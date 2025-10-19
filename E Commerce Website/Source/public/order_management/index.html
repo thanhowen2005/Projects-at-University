@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+    <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <title>Admin Product Management</title>
+</head>
+
+<body>
+
+    <toper>
+            <div class="top_header"></div>
+    </toper>
+    <header class="full-header">
+        <div class="holdheader">
+            <header>
+                <nav class="header">
+                    <div class="list_in_header">
+                        <div class="logo">
+                            <div class="exclusive"><a href="for_all_pages.html">NBTech</a></div>
+                        </div>
+                    </div>
+
+                    <div class="frame_search_cart_account">
+                        <div class="account">
+                            <i class='bxr  bx-user'  ></i> 
+                        
+                            <div class="sub-menu-wrap">
+                                <div class="sub-menu">
+                                    <div class="user-info">
+                                        <i class='bx  bx-hand-rock'  ></i> 
+                                        <h2 id="user-name" >Tên</h2>
+                                    </div>
+                                    <hr>
+                                    
+                                    <a href="#" class="sub-menu-link" id="logout-link">
+                                        <i class='bx  bx-door-open'  ></i> 
+                                        <p>Đăng xuất</p>
+                                        <span>></span>
+                                    </a>
+                                </div>
+                            </div>
+                            </div>
+
+                    </div>
+                </nav>
+            </header>
+        </div>
+    </header>
+
+    
+    <div class="body" data-role = "a_admin">
+            <div class="line-4"></div>
+            <div class="wrapper">
+                <div class="sidebar">
+                    <a href="/dashboard/index.html" class="btn dash-board">Thống kê</a>
+                    <a href="../order_management/index.html" class="btn order">Đơn hàng</a>
+                    <a href="../product_management/index.html" class="btn product">Sản phẩm</a>
+                    <a href="../review_management/index.html" class="btn review">Đánh giá</a>
+                    <a href="../coupon_management/index.html" class="btn coupon">Coupon</a>
+                </div>
+
+                <div class="content">
+                    <div class = "hold_iconprofile_text_create_user">
+                        <div class="hold_icon_profile_and_text">
+                            <i class='bxr  bx-receipt'  ></i> 
+
+                            <p class="user-view-create">
+                                <span class="text-wrapper">Đơn hàng<br /></span> <span class="span">Xem, thêm, sửa, xóa</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="hold-search-bar">
+                        <div class="search-and-filter-row">
+                            <div class="search-in-content">
+                                <input class="search_input-in-content" type="search" placeholder="Tìm kiếm...">
+                                <span class="search-icon material-symbols-outlined">search</span>
+                            </div>
+                            <select class="order-filter-dropdown">
+                                <option value="">Tất cả trạng thái</option>
+                                <option value="1">Chờ xác nhận</option>
+                                <option value="2">Đã xác nhận</option>
+                                <option value="3">Đang giao</option>
+                                <option value="4">Đã giao</option>
+                            </select>
+                        </div>
+                    </div>                    
+
+                    <table class="user-table">
+                        <thead>
+                            <tr>
+                            <th>ID</th>
+                            <th>Ngày</th>
+                            <th>Khách hàng</th>
+                            <th>Điện thoại</th>
+                            <th>Tổng đơn hàng</th>
+                            <th>Thao tác</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                            <td class = "ID"></td>
+                            <td class = "Date"></td>
+                            <td class = "Full_name"></td>
+                            <td class = "Phone"></td>
+                            <td class = "Total"><span></span></td>
+                            <td class = "Action">
+                                <a href="OrdManagDt.html" class="details-link">Xem chi tiết</a>
+                                <i class='bx bx-trash action-icon'></i>
+                                <a href = "OrdManagEdit.html"> <i class='bx bx-edit-alt action-icon'></i> </a>
+                            </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                </div>
+
+            </div>
+        <script src = "index.js"></script>
+        <script src="header.js"></script>
+    </div>
+
+    
+</body>
+</html>
+

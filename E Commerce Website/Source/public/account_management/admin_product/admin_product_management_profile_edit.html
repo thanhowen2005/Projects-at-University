@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="admin_product_management_profile_edit.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+    <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <title>Edit User Profile</title>
+</head>
+
+<body>
+
+    <toper>
+            <div class="top_header"></div>
+    </toper>
+    <header class="full-header">
+        <div class="holdheader">
+            <header>
+                <nav class="header">
+                    <div class="list_in_header">
+                        <div class="logo">
+                            <div class="exclusive"><a href="for_all_pages.html">NBTech</a></div>
+                        </div>
+                    </div>
+
+                    <div class="frame_search_cart_account">
+                        <div class="account">
+                            <i class='bxr  bx-user'  ></i> 
+                        
+                            <div class="sub-menu-wrap">
+                                <div class="sub-menu">
+                                    <div class="user-info">
+                                        <i class='bx  bx-hand-rock'  ></i> 
+                                        <h2 id="user-name" >Tên</h2>
+                                    </div>
+                                    <hr>
+                                    
+                                    <a href="#" class="sub-menu-link" id="logout-link">
+                                        <i class='bx  bx-door-open'  ></i> 
+                                        <p>Đăng xuất</p>
+                                        <span>></span>
+                                    </a>
+                                </div>
+                            </div>
+                            </div>
+
+                    </div>
+                </nav>
+            </header>
+        </div>
+    </header>
+
+    <div class="body">
+        <div class="content">
+            <div class="wrapper">
+                <div class="sidebar">
+                    <a href="/public/account_management/admin_user_account/user_account_management.html" class="sidebar-link" data-section = "user" id="profileLink">Người dùng</a>
+                    <a href="admin_product_management.html" class="sidebar-link" data-section = "admin_product" id="orderLink">Ad Sản phẩm</a>
+                    <a href="/public/account_management/admin_account/admin_account_management.html" class="sidebar-link" id="orderLink">Ad Tài khoản</a>
+                </div>
+            
+                <div class="content">
+                    <h1 class="profile-title">Chỉnh sửa thông tin admin sản phẩm</h1>
+
+                    <form class="user-profile-form">
+                        <div class="form-group">
+                            <label for="fullName">Tên</label>
+                            <input type="text" id="fullName" required>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Số điện thoại</label>
+                                <input type="text" id="phone" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="address">Địa chỉ</label>
+                            <input type="text" id="address" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password">Mật khẩu</label>
+                            <input type="text" id="password" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="role">Vai trò</label>
+                            <select id="role" class="select-role">
+                                <option value="product-admin">Admin sản phẩm</option>
+                                <option value="account-admin">Admin tài khoản</option>
+                                <option value="user">Người dùng</option>
+                            </select>
+                        </div>
+                        
+                    </form>
+
+                    <div class="form-actions">
+                        <button class="save-button" id="saveButton">Thay đổi</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="/public/account_management/highlightactivesidebar/highlightActiveSidebar.js"></script>
+        <script src="/public/account_management/admin_product/admin_product_js/loadAdminProductsProfile.js"></script>
+        <script src="/public/account_management/admin_product/admin_product_js/saveAdminProductsProfile.js"></script>
+        <script src = "/public/account_management/header/header.js"></script>
+    </div>
+
+    <!-- <footer>
+        <div class="holdfooter">
+            <div class="footer_row">
+            
+                <div class="footer-col">
+                    <h1>NBTech</h1>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Support</h4>
+                    <ul>
+                        <li>Ho Chi Minh City</li>
+                        <li>ntowen23@clc.fitus.edu.vn</li>
+                        <li>+84 12345678901</li>
+
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Account</h4>
+                    <ul>
+                        <li><a href = "#">My account</a></li>
+                        <li><a href = "#">Cart</a></li>
+                        <li><a href = "for_all_pages.html">Shop</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col"></div>
+                <div class="footer-col"></div>
+                <div class="footer-col"></div>
+
+            </div>
+        </div>
+    </footer> -->
+
+    
+
+</body>
+</html>
+

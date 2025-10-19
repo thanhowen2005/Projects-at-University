@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./all_products.css">
+    <link rel="stylesheet" href="/User/js_header/searching.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+    <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
+    <title>Page</title>
+</head>
+
+<body>
+
+    <toper>
+            <div class="top_header"></div>
+    </toper>
+    <header class="full-header">
+        <div class="holdheader">
+            <header>
+                <nav class="header">
+                    <div class="list_in_header">
+                        <div class="logo">
+                            <div class="exclusive"><a href="/User/homepage/index.html">NBTech</a></div>
+                        </div>
+
+                        <div class="nav_list">
+                            <div class="home"><a href="/User/homepage/index.html">Trang chủ</a></div>
+                            <div class="about"><a href="../about_page/about.html">About</a></div>
+                            <div class="signup"><a href = "../authentication/signup/signup.html">Đăng ký</a></div>
+                        </div>
+                    </div>
+
+                    <div class="frame_search_cart_account">
+                        <div class="search">
+                            <input class = "search_input" type="search" placeholder="Search...">
+                            <span class = "search-icon material-symbols-outlined">search</span>
+                        </div>
+
+                        <div class="cart" id="cart-div">
+                            <span class="cart-icon material-symbols-outlined">shopping_cart</span>
+                            <span class="cart-count">0</span>
+                        </div>
+                        <div class="account">
+                            <span class = "account-icon material-symbols-outlined">person</span>
+                        
+                            <div class="sub-menu-wrap">
+                                <div class="sub-menu">
+                                    <div class="user-info">
+                                        <i class='bx  bx-hand-rock'  ></i> 
+                                        <h2>Thanh Owen</h2>
+                                    </div>
+                                    <hr>
+                                    <a href="#" class="sub-menu-link">
+                                        <i class='bx  bx-user-square'  ></i> 
+                                        <p>Chỉnh sửa hồ sơ</p>
+                                        <span>></span>
+                                    </a>
+
+                                    <a href="#" class="sub-menu-link">
+                                        <i class='bx  bx-shopping-bag-alt'  ></i> 
+                                        <p>Đơn hàng của bạn</p>
+                                        <span>></span>
+                                    </a>
+
+                                    <a href="#" id = "logout-link" class="sub-menu-link">
+                                        <i class='bx  bx-door-open'></i> 
+                                        <p>Đăng xuất</p>
+                                        <span>></span>
+                                    </a>
+                                </div>
+                            </div>
+                            </div>
+
+                    </div>
+                </nav>
+            </header>
+        </div>
+    </header>
+
+
+    <div class="body">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; color: #db4444">
+            <h2 class="category-title">Danh mục sản phẩm</h2>
+            <div class="filter-bar">
+                <div class="sort-filter-container">
+                    <button class="filter-toggle">
+                      <img src="images/filter-icon.png" width="16" style="margin-right: 6px;" />
+                      Bộ lọc
+                    </button>
+                    <ul class="sort-menu">
+                      <li data-sort="A-Z">A-Z</li>
+                      <li data-sort="Z-A">Z-A</li>
+                      <li data-sort="Mới nhất">Mới nhất</li>
+                      <li data-sort="Bán chạy">Bán chạy</li>
+                    </ul>
+                  </div>
+          
+              <select class="filter-select" id="filter-price">
+                <option value="">Giá</option>
+                <option value="Thấp-Cao">Thấp - Cao</option>
+                <option value="Cao-Thấp">Cao - Thấp</option>
+              </select>
+          
+              <select class="filter-select" id="filter-brand-laptop" style="display:none;">
+                <option value="all" selected>Hãng</option>
+                <option value="msi">MSI</option>
+                <option value="dell">Dell</option>
+                <option value="acer">ACER</option>
+                <option value="lenovo">Lenovo</option>
+                <option value="asus">ASUS</option>
+              </select>
+              <select class="filter-select" id="filter-brand-mouse" style="display:none;">
+                <option value="all">Hãng</option>
+                <option value="logitech">Logitech</option>
+                <option value="razer">Razer</option>
+                <option value="corsair">Corsair</option>
+              </select>
+              <select class="filter-select" id="filter-brand-keyboard" style="display:none;"> 
+                <option value="all">Hãng</option>
+                <option value="akko">Akko</option>
+                <option value="dare-u">Dare-U</option>
+              </select>
+            </div>
+        </div>
+
+        <div class="product-slider">
+          <div class="product-wrapper">
+            <div class="product-slide active"></div>
+          </div>
+        </div>
+    </div>
+
+    <script src="./all_products.js"></script>
+</body>
+
+<footer>
+  <div class="holdfooter">
+      <div class="footer_row">
+      
+          <div class="footer-col">
+              <h1>NBTech</h1>
+          </div>
+
+          <div class="footer-col">
+              <h4>Support</h4>
+              <ul>
+                  <li>Ho Chi Minh City</li>
+                  <li>ntowen23@clc.fitus.edu.vn</li>
+                  <li>+84 12345678901</li>
+
+              </ul>
+          </div>
+
+          <div class="footer-col"></div>
+          <div class="footer-col"></div>
+          <div class="footer-col"></div>
+
+      </div>
+  </div>
+</footer>
+<script src="/User/js_header/auth.js"></script>
+<script src="/User/js_header/headerLink.js"></script>
+<script src="/User/js_header/searching.js"></script>
+</html>

@@ -1,0 +1,95 @@
+
+
+
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+/* Tiếp tục code nội dung của CSS tại đây */
+
+/* Đặt cho body hoặc 1 div bọc ngoài nội dung */
+
+.body {
+    max-width: 1400px;     /* Giới hạn chiều rộng khung */
+    width: 100%;           /* Co giãn theo kích thước viewport */
+    margin: 0 auto;        /* Canh giữa ngang */
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.container {
+    width: 480px;
+    height: 350px;
+    border: none;
+    border-radius: 10px;
+    background: rgb(234, 236, 237);
+    margin: 100px auto;
+    padding: 40px;
+    box-shadow: 0 0 10px black;
+}
+
+.container h1 {
+    text-align: center;
+}
+
+.container h3 {
+    text-align: center;
+}
+
+.form-control {
+    width: 100%;
+    position: relative;
+    margin-top: 20px;
+}
+
+.form-control input {
+    width: 100%;
+    height: 40px;
+    font-size: 18px;
+    border: none;
+    outline: none;
+    border-bottom: 2px solid #adadad;
+    background: transparent;
+}
+
+.form-control span {
+    position: absolute;
+    border-bottom: 3px solid #261c22;
+    top: 39px;
+    left: 0;
+    width: 0%;
+    transition: 0.3s;
+}
+
+.form-control input:focus ~ span {
+    width: 100%;
+}
+
+.form-control.error small {
+    color: red;
+}
+
+.form-control.error input {
+    border-bottom: 2px solid red;
+}
+
+.btn-submit {
+    width: 100%;
+    height: 50px;
+    border-radius: 50px;
+    border: none;
+    outline: none;
+    background: rgba(219, 68, 68, 1);
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    margin: 25px 0;
+    cursor: pointer;
+}
+
+.btn-submit:hover {
+    background: rgb(192, 42, 42);
+}

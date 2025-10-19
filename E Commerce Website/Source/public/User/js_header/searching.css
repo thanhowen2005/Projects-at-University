@@ -1,0 +1,209 @@
+/* CSS cho chức năng tìm kiếm với dropdown suggestions - Updated for detailPage */
+.search-suggestions {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #ddd;
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    max-height: 300px;
+    max-width: 100vw; /* Giới hạn không vượt quá viewport width */
+    width: 100%;
+    overflow-y: auto;
+    overflow-x: hidden; /* Ẩn thanh cuộn ngang */
+    z-index: 9999; /* Tăng z-index cao hơn cho detailPage */
+    display: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box; /* Đảm bảo padding/border không làm tăng width */
+}
+
+.suggestion-item {
+    padding: 14px 16px;
+    border-bottom: 1px solid #f0f0f0;
+    cursor: pointer;
+    display: flex;
+    align-items: flex-start; /* Thay đổi từ center để accommodate text nhiều dòng */
+    transition: background-color 0.2s ease;
+    box-sizing: border-box;
+    max-width: 100%;
+    overflow: hidden; /* Ẩn nội dung tràn */
+    min-height: 60px; /* Đảm bảo chiều cao tối thiểu cho text 2 dòng */
+}
+
+.suggestion-item:hover,
+.suggestion-item.selected {
+    background-color: #f8f9fa;
+}
+
+.suggestion-item.selected {
+    background-color: #e9ecef !important;
+}
+
+.suggestion-item:last-child {
+    border-bottom: none;
+}
+
+.suggestion-item img {
+    width: 44px;
+    height: 44px;
+    object-fit: cover;
+    border-radius: 6px;
+    margin-right: 14px;
+    margin-top: 2px; /* Căn chỉnh với dòng đầu tiên của text */
+    flex-shrink: 0; /* Không cho phép image co lại */
+}
+
+.suggestion-item .product-info {
+    flex: 1;
+    min-width: 0; /* Cho phép flex item co lại */
+}
+
+.suggestion-item .product-name-suggestion {
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 4px;
+    font-size: 14px;
+    line-height: 1.4;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    max-height: 2.8em; /* Giới hạn tối đa 2 dòng */
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.suggestion-item .product-price-suggestion {
+    font-size: 13px;
+    color: #666;
+    font-weight: 500;
+    margin-top: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.suggestion-item .discounted-price {
+    color: #e74c3c;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.suggestion-item .original-price {
+    color: #999;
+    font-size: 12px;
+    text-decoration: line-through;
+    font-weight: 400;
+}
+
+.suggestion-item .current-price {
+    color: #333;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.suggestion-item .discount-badge {
+    background-color: #e74c3c;
+    color: white;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 2px 4px;
+    border-radius: 3px;
+    line-height: 1;
+}
+
+/* Đảm bảo search container có position relative */
+.search {
+    position: relative !important;
+}
+
+/* Style cho scrollbar trong suggestions */
+.search-suggestions::-webkit-scrollbar {
+    width: 6px;
+}
+
+.search-suggestions::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.search-suggestions::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 3px;
+}
+
+.search-suggestions::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+
+/* Animation cho dropdown */
+.search-suggestions.show {
+    animation: slideDown 0.2s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive design cho mobile */
+@media (max-width: 768px) {
+    .search-suggestions {
+        max-height: 250px;
+        left: -10px;
+        right: -10px;
+        max-width: calc(100vw - 20px);
+    }
+    
+    .suggestion-item {
+        padding: 12px 14px;
+        min-height: 55px;
+    }
+    
+    .suggestion-item img {
+        width: 38px;
+        height: 38px;
+        margin-right: 12px;
+    }
+    
+    .suggestion-item .product-name {
+        font-size: 13px;
+        max-height: 2.6em;
+    }
+    
+    .suggestion-item .product-price {
+        font-size: 12px;
+        gap: 4px;
+        flex-wrap: wrap;
+    }
+    
+    .suggestion-item .discounted-price {
+        font-size: 13px;
+    }
+    
+    .suggestion-item .original-price {
+        font-size: 11px;
+    }
+    
+    .suggestion-item .current-price {
+        font-size: 13px;
+    }
+    
+    .suggestion-item .discount-badge {
+        font-size: 9px;
+        padding: 1px 3px;
+    }
+}
