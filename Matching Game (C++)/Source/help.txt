@@ -1,0 +1,16 @@
+.-=~=-.                                                                 .-=~=-.
+(__  _)-._.-=-._.-=-._.-=-._.-=-._.-=-._.-=-._.-=-._.-=-._.-=-._.-=-._.-(__  _)
+( _ __)                                                                 ( _ __)
+(__  _)   **HOW TO PLAY                                                 (__  _)
+(_ ___)      - Press UP/DOWN/LEFT/RIGHT to move.                        (_ ___)
+(__  _)      - Press ENTER to select the cell.                          (__  _)
+( _ __)      - Press second ENTER to cancel the chosen cell.            ( _ __)
+(__  _)      - Press TAB for hint.                                      (__  _)
+(_ ___)=================================================================(_ ___)
+(__  _)                                                                 (__  _)
+( _ __)   ** LOGIN                                                      ( _ __)
+(__  _)      - You need a created account to sign in.                   (__  _)
+(_ ___)      - If you don't have account, you will need to sign up.     (_ ___)
+(__  _)                                                                 (__  _)
+(_ ___)-._.-=-._.-=-._.-=-._.-=-._.-=-._.-=-._.-=-._.-=-._.-=-._.-=-._.-(_ ___)
+`-._.-'                                                                 `-._.-'

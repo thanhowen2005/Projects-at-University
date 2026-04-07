@@ -1,0 +1,2 @@
+Libraries need to be installed:
+pygame

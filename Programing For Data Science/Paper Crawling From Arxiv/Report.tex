@@ -1,0 +1,329 @@
+\documentclass[11pt]{report}
+\usepackage[T5]{fontenc}
+\usepackage{helvet}
+\usepackage{caption}
+\usepackage{amssymb}
+\usepackage[utf8]{inputenc}
+\usepackage[vietnamese,english]{babel}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorinlistoftodos]{todonotes}
+
+\usepackage{changepage}
+
+\usepackage{float}
+
+\usepackage{lipsum} 
+\usepackage[]{mdframed}
+
+\usepackage[shortlabels]{enumitem}
+
+\usepackage{listings}
+\usepackage{caption}
+
+\usepackage{pgfplots}
+\pgfplotsset{width=10cm,compat=1.9}
+
+\usepackage{parskip}
+\setlength{\parskip}{0pt}
+
+\usepackage{multirow}
+\usepackage{multicol}
+
+\captionsetup{justification=centering}
+\usepackage{setspace}
+\usepackage{hyperref}
+\usepackage{float}
+\usepackage{amsmath}
+\usepackage{titlesec}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+}
+
+\usepackage{adjustbox}
+\usepackage{xcolor}
+\setlength{\parskip}{1em}  % Adjusts the space between paragraphs to 1em
+\definecolor{darkgreen}{rgb}{0,0.39,0}
+\lstset{
+  basicstyle=\itshape,
+  columns=fullflexible,
+  xleftmargin=3em,
+  breaklines=true,
+  postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space},
+  mathescape,
+  literate={->}{$\rightarrow$}{2}
+}
+\usepackage{indentfirst} % Đảm bảo rằng đoạn đầu tiên sau tiêu đề cũng được thụt đầu dòng
+\setlength{\parindent}{0.5cm}
+
+\usepackage{fancyhdr}
+\usepackage{geometry}
+\usepackage{enumitem}
+
+% Define page geometry
+\geometry{top=1in, bottom=1in, left=1in, right=1in, headheight=15pt}
+\geometry{footskip=30pt}
+
+% % Define subsubsubsection
+% \titleclass{\subsubsubsection}{straight}[\subsubsection]
+% \newcounter{subsubsubsection}[subsubsection]
+% \renewcommand{\thesubsubsubsection}{\thesubsubsection.\arabic{subsubsubsection}}
+% \titleformat{\subsubsubsection}
+%   {\normalfont\normalsize\bfseries}{\thesubsubsubsection}{1em}{}
+% \titlespacing{\subsubsubsection}{0pt}{3.25ex plus 1ex minus .2ex}{1em}
+
+%section numbering
+% Custom formatting for sections, subsections, etc.
+\setcounter{secnumdepth}{3}
+\renewcommand{\thesection}{\arabic{section}}
+\renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
+\renewcommand{\thesubsubsection}{\thesubsection.\arabic{subsubsection}}
+
+% Define and manage custom counters for subsections and subsubsections
+\newcounter{subsectioncount}
+\newcounter{subsubsectioncount}
+
+\let\oldsubsection\subsection
+\let\oldsubsubsection\subsubsection
+
+\renewcommand{\subsection}[1]{%
+  \stepcounter{subsectioncount}%
+  \setcounter{subsubsectioncount}{0}%
+  \oldsubsection{#1}%
+}
+
+\renewcommand{\subsubsection}[1]{%
+  \stepcounter{subsubsectioncount}%
+  \oldsubsubsection{#1}%
+}
+
+
+%to include subsubsection in table of contents
+\setcounter{tocdepth}{3}
+
+% Setup fancy headers and footers
+\pagestyle{fancy}
+\fancyhf{} % clear all header and footer fields
+\renewcommand{\headrulewidth}{0.4pt} % line in header area
+\renewcommand{\footrulewidth}{0.4pt} % line in footer area
+\fancyhead[L]{CSC14119} % Header left
+\fancyhead[R]{Course Milestone 1 Report} % Header right
+%\fancyfoot[C]{\uppercase{\rightmark}} % Footer center
+\fancyfoot[R]{\thepage} % Footer right
+
+%can giua TOC
+\usepackage{tocloft}
+
+% Center the TOC title
+\renewcommand{\cfttoctitlefont}{\hfill\Large\bfseries}
+\renewcommand{\cftaftertoctitle}{\hfill}
+
+% Adjust TOC entry layout if needed
+%\setlength{\cftsecindent}{0pt} % Set section indentation to 0
+%\setlength{\cftsubsecindent}{5pt} % Set subsection indentation to 0
+%\setlength{\cftsubsubsecindent}{10pt} % Set subsubsection indentation to 0
+
+\begin{document}
+
+\begin{titlepage}
+\textrm{}
+\newcommand{\HRule}{\rule{\linewidth}{0.3mm}} % Defines a new command for the horizontal lines, change thickness here
+
+\center % Center everything on the page
+ 
+
+\textsc{\LARGE UNIVERSITY OF SCIENCE}\\[1.0cm] % Name of your university/college
+
+\textsc{\Large Faculty of Information Technology}\\[0.5cm] % Major heading such as course name
+
+\textsc{\large \bfseries CSC14119 - Introduction to Data Science}\\[1.5cm] % Minor heading such as course title
+
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION
+%----------------------------------------------------------------------------------------
+
+\HRule \\[0.2cm]
+\LARGE \bfseries REPORT\\[0.4cm]
+{ \fontsize{30pt}{30pt}\selectfont \bfseries COURSE MILESTONE 1}\\[0.4pt]
+\HRule \\[1.0cm]
+ 
+%----------------------------------------------------------------------------------------
+%	AUTHOR SECTION
+%----------------------------------------------------------------------------------------
+
+\nopagebreak
+\large 23KHDL2
+
+\begin{minipage}{0.4\textwidth}
+\begin{flushleft} \large
+\emph{Students:}\\
+Nguyễn Đỗ Bảo - 23127026 \\
+Vũ Hoàng Minh - 23127427 \\
+Nguyễn Thanh Owen - 23127447
+\end{flushleft}
+\end{minipage}
+~
+\begin{minipage}{0.4\textwidth}
+\begin{flushright} \large
+\emph{Instructors:} \\
+Mr. Huỳnh Lâm Hải Đăng % Supervisor's Name
+\end{flushright}
+\end{minipage}\\[2cm]
+
+
+ 
+
+\vfill % Fill the rest of the page with whitespace
+
+\end{titlepage}
+
+\newpage 
+\pagestyle{fancy}
+\fancypagestyle{plain}{%
+\fancyhf{} % clear all header and footer fields
+\renewcommand{\headrulewidth}{0.4pt} % line in header area
+\renewcommand{\footrulewidth}{0.4pt} % line in footer area
+\fancyhead[L]{CSC14119} % Header left
+\fancyhead[R]{Course Milestone 1 Report} % Header right
+%\fancyfoot[C]{\uppercase{\rightmark}} % Footer center
+\fancyfoot[R]{\thepage} % Footer right
+}
+\tableofcontents
+%\thispagestyle{fancy}
+\vfill
+\newpage
+%\renewcommand{\thesection}{\arabic{section}} % Set section numbering format
+
+%section 1
+\section{Overview}
+This scraper is designed to systematically collect arXiv papers, their source files, metadata, and references within a specified ID range. The implementation follows a multi-threaded approach to optimize performance while respecting API rate limits.
+
+%section 2
+\section{Tools and Libraries Used}
+\begin{itemize}
+    \item \texttt{arxiv}: Python wrapper for arXiv API to query and download papers
+    \item \texttt{requests}: HTTP library for Semantic Scholar API calls
+    \item \texttt{psutil}: System and process utilities for memory monitoring
+    \item \texttt{concurrent.futures} and \texttt{threading}: Multi-threading for parallel paper processing
+    \item \texttt{tarfile}: Built-in library for extracting .tar.gz source archives
+    \item \texttt{json}: Built-in library for metadata and reference storage
+    \item \texttt{urllib.error}: Handle URL and HTTP response errors.
+\end{itemize}
+
+\section{Scraping Workflow}
+\begin{enumerate}
+    \item Entry Discovery: Uses arXiv API to search for papers by ID within the specified range (2305.14597 to 2306.09504). Binary search is employed to find the last existing paper ID in each month.
+    \item Source Download: For each paper, all versions of which are downloaded using the arXiv API's \texttt{download\textunderscore source()} method by patching the PDF URL for each version number.
+    \item Extraction and Filtering: Source archives (\texttt{.tar.gz}) are extracted, retaining only \texttt{.tex} and \texttt{.bib} files while removing figures and other non-essential files to reduce storage.
+    \item Metadata Collection: Paper metadata (title, authors, submission date, revised dates, publication venue) is retrieved via arXiv API with timezone conversion to US Eastern Time for accurate revision dates.
+    \item Reference Extraction: Semantic Scholar API is used to retrieve reference lists with arXiv IDs, including retry logic for rate limit handling (429 errors).
+\end{enumerate}
+
+\section{Statistics}
+This statistics is the result of scraping the papers by ID within the range of 2306.4505 to 2306.6004.
+\subsection{General Information}
+\begin{table}[H]
+\centering
+   \begin{tabular}{|l|l|}
+        \hline
+        \textbf{Criteria} & \textbf{Stats} \\
+        \hline
+        Papers processed & 1500 \\
+        \hline
+        Total papers processed successfully & 1500 \\
+        \hline
+        Total time & 6863.95s \\
+        \hline
+        Average time per paper & 4.58s \\
+        \hline
+        Maximum memory usage & 44.76MB \\
+        \hline
+        Average memory usage & 44.45MB \\
+        \hline
+        Paper scraping success rate & 100.00\% \\
+        \hline
+    \end{tabular}   
+    \caption{General statistics about the result}
+\end{table}
+
+\subsection{Source and Extraction}
+\begin{table}[H]
+\centering
+   \begin{tabular}{|l|l|}
+        \hline
+        \textbf{Criteria} & \textbf{Stats} \\
+        \hline
+        Total versions downloaded & 2479 \\
+        \hline
+        Average versions per paper & 1.65 \\
+        \hline
+        Total source size  & 10761914296 bytes \\
+        \hline
+        Average size per paper & 7174609.53 bytes \\
+        \hline
+        Total size after extraction & 1723361378 bytes \\
+        \hline
+        Average size after extraction per paper & 1148907.59 bytes\\
+        \hline
+    \end{tabular}
+    \caption{Source and extraction size statistics}
+\end{table}
+
+\subsection{Metadata}
+\begin{table}[H]
+\centering
+   \begin{tabular}{|l|l|}
+        \hline
+        \textbf{Criteria} & \textbf{Stats} \\
+        \hline
+        Total metadata collected & 1500 \\
+        \hline
+        Total metadata size  & 596037 bytes \\
+        \hline
+        Average metadata size per paper & 397.36 bytes \\
+        \hline
+    \end{tabular}
+    \caption{Metadata statistics}
+\end{table}
+
+\subsection{References}
+\begin{table}[H]
+\centering
+   \begin{tabular}{|l|l|}
+        \hline
+        \textbf{Criteria} & \textbf{Stats} \\
+        \hline
+        Total references collected & 32476 \\
+        \hline
+        Average references per paper & 21.65 \\
+        \hline
+        Total references file size & 13688357 bytes \\
+        \hline
+        Reference scraping success rate & 99.60\% \\
+        \hline
+    \end{tabular}
+    \caption{References statistics}
+\end{table}
+
+\subsection{Disk Usage (Extract - Metadata - References)}
+\begin{table}[H]
+\centering
+   \begin{tabular}{|l|l|}
+        \hline
+        \textbf{Criteria} & \textbf{Stats} \\
+        \hline
+        Total disk usage & 1737645772 bytes \\
+        \hline
+        Average disk usage per paper & 1158430.51 bytes \\
+        \hline
+    \end{tabular}
+    \caption{References statistics}
+\end{table}
+
+\section{Demo Video}
+Video Link: \href{https://youtu.be/XRfLFomCfhw}{Demo Video}
+
+\end{document}

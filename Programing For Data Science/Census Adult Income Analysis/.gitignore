@@ -1,0 +1,13 @@
+# ---- Virtual environments ----
+venv/
+.env/
+env/
+ENV/
+.venv/
+
+# ---- Jupyter Notebook ----
+.ipynb_checkpoints/
+**/.ipynb_checkpoints/
+
+# ---- VSCode ----
+.vscode/
