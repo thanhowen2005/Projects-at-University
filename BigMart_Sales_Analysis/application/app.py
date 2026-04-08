@@ -21,24 +21,24 @@ st.set_page_config(page_title="Big Mart Predictor", page_icon="🛒", layout="wi
 # =========================
 @st.cache_resource
 def load_model():
-    model = pickle.load(open("Model/saved_model/model.pkl", "rb"))
-    scaler = pickle.load(open("Model/saved_model/scaler.pkl", "rb"))
-    lambda_ = pickle.load(open("Model/saved_model/lambda.pkl", "rb"))
-    columns = pickle.load(open("Model/saved_model/columns.pkl", "rb"))
+    model = pickle.load(open("BigMart_Sales_Analysis/Model/saved_model/model.pkl", "rb"))
+    scaler = pickle.load(open("BigMart_Sales_Analysis/Model/saved_model/scaler.pkl", "rb"))
+    lambda_ = pickle.load(open("BigMart_Sales_Analysis/Model/saved_model/lambda.pkl", "rb"))
+    columns = pickle.load(open("BigMart_Sales_Analysis/Model/saved_model/columns.pkl", "rb"))
     return model, scaler, lambda_, columns
 
 @st.cache_data
 def load_data():
     # 1. Đọc trực tiếp 2 file đã clean (gồm cả đặc trưng và biến mục tiêu)
-    train_df = pd.read_csv("data/train_data/train.csv")
-    test_df = pd.read_csv("data/test_data/test.csv")
+    train_df = pd.read_csv("BigMart_Sales_Analysis/data/train_data/train.csv")
+    test_df = pd.read_csv("BigMart_Sales_Analysis/data/test_data/test.csv")
 
     # 2. Gộp Train và Test thành một DataFrame hoàn chỉnh để vẽ biểu đồ
     df = pd.concat([train_df, test_df], ignore_index=True)
 
     # 3. Load y_test và y_pred để vẽ phần Đánh giá mô hình (Tab 2)
-    y_test_eval = pickle.load(open("Model/saved_model/y_test.pkl", "rb"))
-    y_pred_eval = pickle.load(open("Model/saved_model/y_pred.pkl", "rb"))
+    y_test_eval = pickle.load(open("BigMart_Sales_Analysis/Model/saved_model/y_test.pkl", "rb"))
+    y_pred_eval = pickle.load(open("BigMart_Sales_Analysis/Model/saved_model/y_pred.pkl", "rb"))
     
     y_test_eval = np.array(y_test_eval).ravel()
     y_pred_eval = np.array(y_pred_eval).ravel()
