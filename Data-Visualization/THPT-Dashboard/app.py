@@ -24,10 +24,11 @@ st.markdown("""
     }
 
     /* 2. Tối ưu không gian nội dung chính */
-    .block-container {
-        padding-top: 0.5rem;
-        padding-bottom: 1rem;
-        max-width: 96%;
+    .block-container { 
+        padding-top: 0rem !important; 
+        padding-left: 1rem !important; 
+        padding-right: 1rem !important; 
+        max-width: 100% !important; 
     }
 
     /* Ẩn header mặc định để giao diện sạch hơn */
@@ -77,7 +78,7 @@ def main():
     # 3. LOAD DATA
     # ==========================================
     with st.spinner("Đang kết nối hệ thống dữ liệu..."):
-        df_raw, df_mavung = load_data("Data-Visualization/THPT-Dashboard/data/processed")
+        df_raw, df_mavung = load_data("Data-Visualization/THPT-Dashborad/data/processed")
         if df_raw.empty:
             st.error("Không thể tải dữ liệu. Vui lòng kiểm tra thư mục data.")
             st.stop()
