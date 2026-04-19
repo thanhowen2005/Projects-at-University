@@ -4,17 +4,15 @@ import glob
 import os
 import re
 
-# 1. KHAI BÁO CỘT VÀ KIỂU DỮ LIỆU TỐI ƯU
-# Chỉ đọc những cột thực sự cần dùng (tiết kiệm 30-40% RAM)
 NEEDED_COLS = [
     'sbd', 'toan', 'ngu_van', 'ngoai_ngu', 
     'vat_ly', 'hoa_hoc', 'sinh_hoc', 'lich_su', 'dia_ly', 'gdcd'
 ]
 
-# Ép kiểu dữ liệu (Tiết kiệm 50-60% RAM)
+# Ép kiểu dữ liệu
 DTYPE_SETTINGS = {
     'sbd': str,          # Giữ số 0 ở đầu
-    'toan': 'float32',   # Thay vì float64 mặc định, float32 nhẹ bằng một nửa
+    'toan': 'float32',   
     'ngu_van': 'float32',
     'ngoai_ngu': 'float32',
     'vat_ly': 'float32',

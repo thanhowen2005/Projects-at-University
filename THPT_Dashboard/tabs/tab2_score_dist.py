@@ -89,7 +89,7 @@ def render(df):
         
         /* Header gọn gàng */
         .dash-header { background-color: #051039; color: white; padding: 10px 15px; border-radius: 5px; margin-bottom: 10px; }
-        .dash-title { margin: 0; font-size: 22px; font-weight: 700; letter-spacing: 1px;}
+        .dash-title { margin: 0; font-size: 25px !important; font-weight: 700; letter-spacing: 1px;}
         .dash-subtitle { margin: 0; font-size: 13px; color: #A0AEC0;}
         
         /* Banner & Chart ép sát */
@@ -107,7 +107,7 @@ def render(df):
     # --------------------------------------
     st.markdown("""
         <div class="dash-header">
-            <h1 class="dash-title">📈 SCORE DISTRIBUTION</h1>
+            <h1 class="dash-title">📈 CHI TIẾT MÔN HỌC</h1>
             <p class="dash-subtitle">Phân tích phân hóa & Chất lượng đề thi theo từng môn học</p>
         </div>
     """, unsafe_allow_html=True)

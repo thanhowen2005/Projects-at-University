@@ -4,9 +4,10 @@ import pandas as pd
 import plotly.graph_objects as go
 
 # ==========================================
-# CÁC HÀM VẼ BIỂU ĐỒ (ĐÃ GIỚI HẠN CHIỀU CAO HEIGHT=280)
+# CÁC HÀM VẼ BIỂU ĐỒ
 # ==========================================
 def plot_trend_area(df_full):
+    """Biểu đồ vùng: Quy mô thí sinh qua các năm (Dữ liệu toàn cục)"""
     trend = df_full.groupby('nam')['sbd'].count().reset_index()
     trend.columns = ['Năm', 'Thí sinh']
     
@@ -15,7 +16,7 @@ def plot_trend_area(df_full):
         color_discrete_sequence=['#14357A'] 
     )
     fig.update_layout(
-        height=280, # Ép chiều cao
+        height=300,
         plot_bgcolor='white', paper_bgcolor='white',
         margin=dict(l=0, r=10, t=10, b=0),
         xaxis=dict(tickmode='linear', showgrid=True, gridcolor='#f0f0f0', title=""),
@@ -24,6 +25,7 @@ def plot_trend_area(df_full):
     return fig
 
 def plot_avg_bar(df_filtered):
+    """Biểu đồ cột ngang: Điểm trung bình các môn (Dữ liệu đã lọc)"""
     subjects = {
         'toan': 'Toán', 'ngu_van': 'Ngữ Văn', 'ngoai_ngu': 'Ngoại Ngữ',
         'vat_ly': 'Vật Lý', 'hoa_hoc': 'Hóa Học', 'sinh_hoc': 'Sinh Học',
@@ -31,7 +33,8 @@ def plot_avg_bar(df_filtered):
     }
     avail_subs = [s for s in subjects.keys() if s in df_filtered.columns]
     
-    if not avail_subs: return go.Figure().update_layout(height=280)
+    if not avail_subs or df_filtered.empty: 
+        return go.Figure().update_layout(height=300, title="Không có dữ liệu")
     
     means = df_filtered[avail_subs].mean().reset_index()
     means.columns = ['Môn', 'Điểm TB']
@@ -43,7 +46,7 @@ def plot_avg_bar(df_filtered):
         color_discrete_sequence=['#2D5A9E']
     )
     fig.update_layout(
-        height=280, # Ép chiều cao
+        height=300,
         plot_bgcolor='white', paper_bgcolor='white',
         margin=dict(l=0, r=20, t=10, b=0),
         xaxis=dict(showgrid=True, gridcolor='#f0f0f0', title="", visible=False),
@@ -51,51 +54,12 @@ def plot_avg_bar(df_filtered):
     )
     return fig
 
-def plot_block_donut(df_filtered):
-    blocks = df_filtered['khoi_thi'].value_counts().reset_index()
-    blocks.columns = ['Khối', 'Số lượng']
-    
-    fig = px.pie(
-        blocks, names='Khối', values='Số lượng', hole=0.5,
-        color='Khối', color_discrete_map={'KHTN': '#14357A', 'KHXH': '#6FA8DC'}
-    )
-    fig.update_traces(textposition='inside', textinfo='percent+label')
-    fig.update_layout(
-        height=280, # Ép chiều cao
-        plot_bgcolor='white', paper_bgcolor='white',
-        margin=dict(l=10, r=10, t=10, b=10), showlegend=False
-    )
-    return fig
-
-def plot_score_trend(df_full):
-    main_subs = ['toan', 'ngu_van', 'ngoai_ngu']
-    avail_subs = [s for s in main_subs if s in df_full.columns]
-    
-    if not avail_subs: return go.Figure().update_layout(height=280)
-        
-    trend = df_full.groupby('nam')[avail_subs].mean().reset_index()
-    trend = trend.melt(id_vars='nam', var_name='Môn', value_name='Điểm TB')
-    
-    sub_map = {'toan': 'Toán', 'ngu_van': 'Ngữ Văn', 'ngoai_ngu': 'Ngoại Ngữ'}
-    trend['Môn'] = trend['Môn'].map(sub_map)
-    
-    fig = px.line(
-        trend, x='nam', y='Điểm TB', color='Môn', markers=True,
-        color_discrete_sequence=['#14357A', '#E67C22', '#2D5A9E']
-    )
-    fig.update_layout(
-        height=280, # Ép chiều cao
-        plot_bgcolor='white', paper_bgcolor='white',
-        margin=dict(l=0, r=10, t=10, b=0),
-        xaxis=dict(tickmode='linear', showgrid=True, gridcolor='#f0f0f0', title=""),
-        yaxis=dict(showgrid=True, gridcolor='#f0f0f0', title=""),
-        legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1)
-    )
-    return fig
-
 def plot_top_provinces(df_filtered):
+    """Biểu đồ cột ngang: Top 5 địa phương (Dữ liệu đã lọc)"""
+    if df_filtered.empty:
+        return go.Figure().update_layout(height=300)
+        
     col_name = 'Ten Tinh' if 'Ten Tinh' in df_filtered.columns else 'Ma'
-    
     top_prov = df_filtered[col_name].value_counts().nlargest(5).reset_index()
     top_prov.columns = ['Tỉnh/Thành', 'Số lượng']
     top_prov = top_prov.sort_values('Số lượng', ascending=True)
@@ -105,7 +69,7 @@ def plot_top_provinces(df_filtered):
         color_discrete_sequence=['#14357A']
     )
     fig.update_layout(
-        height=280, # Ép chiều cao
+        height=300,
         plot_bgcolor='white', paper_bgcolor='white',
         margin=dict(l=0, r=20, t=10, b=0),
         xaxis=dict(showgrid=False, title="", visible=False),
@@ -118,82 +82,60 @@ def plot_top_provinces(df_filtered):
 # MAIN RENDER FUNCTION
 # ==========================================
 def render(df, global_year=None):
-    # --------------------------------------
-    # 1. CSS STYLING (SUPER COMPACT)
-    # --------------------------------------
+    # 1. CSS STYLING
     st.markdown("""
         <style>
-        /* Ép Streamlit giảm khoảng trống gốc */
         .block-container { padding-top: 1rem; padding-bottom: 0.5rem; max-width: 98%; }
+        .ss-header { background-color: #051039; color: white; padding: 10px 15px; border-radius: 5px; margin-bottom: 10px; }
+        .ss-title { margin: 0; font-size: 25px !important; font-weight: 700; letter-spacing: 1px;}
+        .ss-subtitle { margin: 0; font-size: 16px; color: #A0AEC0;}
         
-        /* 1. Header ép sát */
-        .ss-header {
-            background-color: #051039; color: white;
-            padding: 10px 15px; border-radius: 5px;
-            display: flex; justify-content: space-between; align-items: center;
-            margin-bottom: 10px;
-        }
-        .ss-title { margin: 0; font-size: 22px; font-weight: 700; letter-spacing: 1px;}
-        
-        /* 2. KPI Cards ép sát */
-        .kpi-wrapper { display: flex; gap: 10px; margin-bottom: 10px; }
         .kpi-card {
-            background: white; flex: 1; padding: 10px 15px;
-            border-radius: 4px; border-top: 4px solid #051039;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1); display: flex; align-items: center;
+            background-color: white; border-left: 4px solid #14357A;
+            padding: 10px 5px; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            text-align: center; margin-bottom: 15px;
         }
-        .kpi-icon { font-size: 28px; margin-right: 10px; }
-        .kpi-details { display: flex; flex-direction: column; }
-        .kpi-label { font-size: 12px; color: #555; font-weight: 600; text-transform: uppercase; }
-        .kpi-val { font-size: 20px; color: #14357A; font-weight: 700; }
+        .kpi-title { font-size: 11px; color: #555; font-weight: 600; margin-bottom: 2px; text-transform: uppercase;}
+        .kpi-value { font-size: 22px; color: #14357A; font-weight: 900; margin: 0; }
         
-        /* 3. Chart Banners ép sát */
         .chart-banner {
             background-color: #14357A; color: white;
             padding: 5px 15px; font-size: 13px; font-weight: 600;
             border-radius: 4px 4px 0 0; margin-bottom: 0px;
         }
         .chart-container {
-            background-color: white; padding: 5px;
+            background-color: white; padding: 10px;
             border-radius: 0 0 4px 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-            margin-bottom: 10px;
+            margin-bottom: 15px;
         }
         </style>
     """, unsafe_allow_html=True)
 
-    # --------------------------------------
     # 2. HEADER
-    # --------------------------------------
     st.markdown("""
         <div class="ss-header">
-            <h1 class="ss-title">🎓 THPT EXAM DASHBOARD</h1>
-            <div style="font-size:13px; border: 1px solid white; padding: 3px 10px; border-radius:3px;">Executive Summary</div>
+            <h1 class="ss-title">📊 TOÀN CẢNH KỲ THI</h1>
+            <div class="ss-subtitle">Phân tích quy mô thí sinh & Xu hướng điểm số và cơ cấu ban ngành toàn quốc</div>
         </div>
     """, unsafe_allow_html=True)
 
-    # --------------------------------------
-    # 3. FILTER BAR (Rút gọn)
-    # --------------------------------------
-    st.markdown("<div style='font-size: 14px; font-weight: bold; margin-bottom: 2px; color: #14357A;'>🎛️ Lọc Dữ Liệu</div>", unsafe_allow_html=True)
+    # 3. FILTER BAR (3 Cột Dropdown)
+    st.markdown("<div style='font-size: 14px; font-weight: bold; margin-bottom: 2px; color: #14357A;'>🎛️ Bộ lọc Tổng hợp</div>", unsafe_allow_html=True)
     f_col1, f_col2, f_col3 = st.columns(3, gap="small")
     
     with f_col1:
         years = ['Tất cả'] + sorted(df['nam'].dropna().unique().tolist(), reverse=True)
-        default_idx = years.index(global_year) if global_year in years else 0
-        selected_year = st.selectbox("Năm thi", years, index=default_idx, label_visibility="collapsed")
+        selected_year = st.selectbox("📅 Năm thi", years, key='tab1_year')
         
     with f_col2:
         provinces = ['Tất cả'] + sorted(df['Ten Tinh'].dropna().unique().tolist()) if 'Ten Tinh' in df.columns else ['Tất cả']
-        selected_prov = st.selectbox("Tỉnh / Thành", provinces, label_visibility="collapsed")
+        selected_prov = st.selectbox("📍 Tỉnh / Thành", provinces, key='tab1_prov')
         
     with f_col3:
         blocks = ['Tất cả', 'KHTN', 'KHXH']
-        selected_block = st.selectbox("Khối thi", blocks, label_visibility="collapsed")
+        selected_block = st.selectbox("📚 Khối thi", blocks, key='tab1_block')
 
-    # Dùng margin âm để kéo KPI lên sát bộ lọc
-    st.markdown("<div style='margin-top: -10px;'></div>", unsafe_allow_html=True)
-
-    # Thực thi Logic Filter
+    # Logic Filter
     df_filtered = df.copy()
     if selected_year != 'Tất cả':
         df_filtered = df_filtered[df_filtered['nam'] == selected_year]
@@ -202,87 +144,38 @@ def render(df, global_year=None):
     if selected_block != 'Tất cả':
         df_filtered = df_filtered[df_filtered['khoi_thi'] == selected_block]
 
-    # --------------------------------------
-    # 4. KPI CARDS
-    # --------------------------------------
+    # 4. KPI CARDS (3 Cột)
     total_students = len(df_filtered)
     khtn_cnt = len(df_filtered[df_filtered['khoi_thi'] == 'KHTN'])
     khxh_cnt = len(df_filtered[df_filtered['khoi_thi'] == 'KHXH'])
     pct_khtn = (khtn_cnt / total_students * 100) if total_students > 0 else 0
     pct_khxh = (khxh_cnt / total_students * 100) if total_students > 0 else 0
     
-    core_subs = [s for s in ['toan', 'ngu_van', 'ngoai_ngu'] if s in df_filtered.columns]
-    avg_overall = df_filtered[core_subs].mean().mean() if (core_subs and not df_filtered[core_subs].empty) else 0.0
+    kpi_col1, kpi_col2, kpi_col3 = st.columns(3)
+    with kpi_col1:
+        st.markdown(f'<div class="kpi-card"><div class="kpi-title">👥 Tổng Thí Sinh (Đã lọc)</div><div class="kpi-value">{total_students:,}</div></div>', unsafe_allow_html=True)
+    with kpi_col2:
+        st.markdown(f'<div class="kpi-card"><div class="kpi-title">🔬 Tỷ lệ Ban KHTN</div><div class="kpi-value">{pct_khtn:.1f}%</div></div>', unsafe_allow_html=True)
+    with kpi_col3:
+        st.markdown(f'<div class="kpi-card"><div class="kpi-title">📖 Tỷ lệ Ban KHXH</div><div class="kpi-value">{pct_khxh:.1f}%</div></div>', unsafe_allow_html=True)
 
-    st.markdown(f"""
-        <div class="kpi-wrapper">
-            <div class="kpi-card">
-                <div class="kpi-icon">👥</div>
-                <div class="kpi-details">
-                    <div class="kpi-label">Tổng Thí Sinh</div>
-                    <div class="kpi-val">{total_students:,}</div>
-                </div>
-            </div>
-            <div class="kpi-card">
-                <div class="kpi-icon">🎯</div>
-                <div class="kpi-details">
-                    <div class="kpi-label">Điểm TB (Toán, Văn, Anh)</div>
-                    <div class="kpi-val">{avg_overall:.2f}</div>
-                </div>
-            </div>
-            <div class="kpi-card">
-                <div class="kpi-icon">🔬</div>
-                <div class="kpi-details">
-                    <div class="kpi-label">Thí sinh KHTN</div>
-                    <div class="kpi-val">{pct_khtn:.1f}%</div>
-                </div>
-            </div>
-            <div class="kpi-card">
-                <div class="kpi-icon">📖</div>
-                <div class="kpi-details">
-                    <div class="kpi-label">Thí sinh KHXH</div>
-                    <div class="kpi-val">{pct_khxh:.1f}%</div>
-                </div>
-            </div>
-        </div>
-    """, unsafe_allow_html=True)
-
-    # --------------------------------------
-    # 5. CHART GRID CÓ BANNER XANH ĐẬM (Dùng gap="small")
-    # --------------------------------------
+    # 5. CHART GRID (3 Biểu đồ trên 1 hàng ngang)
+    c1, c2, c3 = st.columns(3, gap="small")
     
-    # Hàng 1
-    r1_col1, r1_col2, r1_col3 = st.columns([1.2, 1, 1], gap="small")
-    
-    with r1_col1:
-        st.markdown('<div class="chart-banner">Quy mô thí sinh dự thi qua các năm</div>', unsafe_allow_html=True)
+    with c1:
+        st.markdown('<div class="chart-banner">📈 Quy mô thí sinh toàn quốc</div>', unsafe_allow_html=True)
         st.markdown('<div class="chart-container">', unsafe_allow_html=True)
         st.plotly_chart(plot_trend_area(df), use_container_width=True)
         st.markdown('</div>', unsafe_allow_html=True)
 
-    with r1_col2:
-        st.markdown('<div class="chart-banner">Điểm trung bình các môn học</div>', unsafe_allow_html=True)
+    with c2:
+        st.markdown('<div class="chart-banner">📊 Điểm trung bình các môn học</div>', unsafe_allow_html=True)
         st.markdown('<div class="chart-container">', unsafe_allow_html=True)
         st.plotly_chart(plot_avg_bar(df_filtered), use_container_width=True)
         st.markdown('</div>', unsafe_allow_html=True)
 
-    with r1_col3:
-        st.markdown('<div class="chart-banner">Tỷ lệ đăng ký Khối thi (%)</div>', unsafe_allow_html=True)
-        st.markdown('<div class="chart-container">', unsafe_allow_html=True)
-        st.plotly_chart(plot_block_donut(df_filtered), use_container_width=True)
-        st.markdown('</div>', unsafe_allow_html=True)
-
-    # Hàng 2
-    r2_col1, r2_col2 = st.columns(2, gap="small")
-    
-    with r2_col1:
-        st.markdown('<div class="chart-banner">Xu hướng Điểm trung bình 3 môn cốt lõi</div>', unsafe_allow_html=True)
-        st.markdown('<div class="chart-container">', unsafe_allow_html=True)
-        st.plotly_chart(plot_score_trend(df), use_container_width=True)
-        st.markdown('</div>', unsafe_allow_html=True)
-
-    with r2_col2:
-        st.markdown('<div class="chart-banner">Top 5 Địa phương có quy mô lớn nhất</div>', unsafe_allow_html=True)
+    with c3:
+        st.markdown('<div class="chart-banner">🏆 Các địa phương tiêu biểu</div>', unsafe_allow_html=True)
         st.markdown('<div class="chart-container">', unsafe_allow_html=True)
         st.plotly_chart(plot_top_provinces(df_filtered), use_container_width=True)
         st.markdown('</div>', unsafe_allow_html=True)

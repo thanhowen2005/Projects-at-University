@@ -2,284 +2,254 @@ import streamlit as st
 import plotly.express as px
 import plotly.graph_objects as go
 import pandas as pd
-import json
-import os
 
 # ==========================================
-# CẤU HÌNH & MAPPING
+# CẤU HÌNH TỔ HỢP MÔN (ĐÃ TÁCH BAN KHTN & KHXH)
 # ==========================================
-SUBJECT_MAP = {
+KHTN_BLOCKS = {
+    'A00': ['toan', 'vat_ly', 'hoa_hoc'],
+    'A01': ['toan', 'vat_ly', 'ngoai_ngu'],
+    'A02': ['toan', 'vat_ly', 'sinh_hoc'],
+    'B00': ['toan', 'hoa_hoc', 'sinh_hoc'],
+    'D07': ['toan', 'hoa_hoc', 'ngoai_ngu'],
+    'D08': ['toan', 'sinh_hoc', 'ngoai_ngu'],
+}
+
+KHXH_BLOCKS = {
+    'C00': ['ngu_van', 'lich_su', 'dia_ly'],
+    'C19': ['ngu_van', 'lich_su', 'gdcd'],
+    'C20': ['ngu_van', 'dia_ly', 'gdcd'],
+    'D01': ['toan', 'ngu_van', 'ngoai_ngu'],
+    'D14': ['ngu_van', 'lich_su', 'ngoai_ngu'],
+    'D15': ['ngu_van', 'dia_ly', 'ngoai_ngu'],
+}
+
+# Gộp chung để tiện tra cứu toàn cục
+ALL_BLOCKS = {**KHTN_BLOCKS, **KHXH_BLOCKS}
+
+SUBJECT_NAMES = {
     'toan': 'Toán', 'ngu_van': 'Ngữ Văn', 'ngoai_ngu': 'Ngoại Ngữ',
     'vat_ly': 'Vật Lý', 'hoa_hoc': 'Hóa Học', 'sinh_hoc': 'Sinh Học',
     'lich_su': 'Lịch Sử', 'dia_ly': 'Địa Lý', 'gdcd': 'GDCD'
 }
 
 # ==========================================
-# LOAD GEOJSON (Có Cache để chống lag)
+# CÁC HÀM XỬ LÝ DỮ LIỆU & VẼ BIỂU ĐỒ
 # ==========================================
-@st.cache_data
-def load_geojson():
-    # Đường dẫn trỏ tới file json trong thư mục data
-    file_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'data/processed', 'vn_geo.json')
-    try:
-        with open(file_path, 'r', encoding='utf-8') as f:
-            return json.load(f)
-    except Exception as e:
-        return None
+@st.cache_data(max_entries=1)
+def calculate_trend_data(df):
+    """Tính toán ngưỡng điểm Top 5% (Percentile 95) cho TẤT CẢ các khối thi qua các năm"""
+    trend_data = []
+    years = sorted(df['nam'].dropna().unique())
+    
+    for y in years:
+        df_y = df[df['nam'] == y]
+        for b_name, b_subs in ALL_BLOCKS.items():
+            df_b = df_y.dropna(subset=b_subs)
+            if not df_b.empty:
+                totals = df_b[b_subs].sum(axis=1)
+                p95 = totals.quantile(0.95) # <--- SỬA 0.90 THÀNH 0.95 Ở ĐÂY
+                trend_data.append({'Năm': y, 'Khối': b_name, 'Điểm Top 5%': p95}) # <--- SỬA TÊN CỘT
+                
+    return pd.DataFrame(trend_data)
 
-# ==========================================
-# CÁC HÀM VẼ BIỂU ĐỒ
-# ==========================================
-def plot_choropleth_map(df_year, subject_col, geojson_data):
-    if geojson_data is None:
-        return px.bar(title="⚠️ Không tìm thấy file").update_layout(height=500)
-
-    # 1. Lấy danh sách 63 tỉnh từ CHÍNH FILE JSON
-    all_names = [feature['properties']['name'] for feature in geojson_data['features']]
-    all_provinces = pd.DataFrame({'Ten Tinh': all_names})
-    
-    # 2. Tính số lượng điểm >= 9
-    df_high = df_year[df_year[subject_col] >= 9]
-    counts = df_high.groupby('Ten Tinh').size().reset_index(name='Số lượng 9-10')
-    
-    # 3. Gộp dữ liệu (Left Join)
-    map_data = pd.merge(all_provinces, counts, on='Ten Tinh', how='left')
-    map_data['Số lượng 9-10'] = map_data['Số lượng 9-10'].fillna(0)
-    
-    # 4. Vẽ bản đồ
-    fig = px.choropleth(
-        map_data,
-        geojson=geojson_data,
-        locations='Ten Tinh', 
-        featureidkey='properties.name', 
-        color='Số lượng 9-10',
-        color_continuous_scale='Blues',
-        hover_name='Ten Tinh'
+def plot_histogram(df_block, block_name):
+    fig = px.histogram(
+        df_block, 
+        x='total_score', 
+        nbins=60, 
+        color_discrete_sequence=['#14357A'],
+        labels={'total_score': 'Tổng điểm 3 môn', 'count': 'Số lượng thí sinh'}
     )
+    fig.update_layout(
+        height=400,
+        margin=dict(l=20, r=20, t=30, b=20),
+        plot_bgcolor='white', paper_bgcolor='white',
+        xaxis=dict(title="Tổng điểm", tick0=0, dtick=1, gridcolor='#F0F0F0'),
+        yaxis=dict(title="Số thí sinh", gridcolor='#F0F0F0'),
+        bargap=0.1
+    )
+    return fig
+
+def plot_trend_line(df_trend):
+    fig = px.line(
+        df_trend, 
+        x='Năm', y='Điểm Top 5%', color='Khối', # <--- SỬA TÊN TRỤC Y THÀNH TOP 5%
+        markers=True,
+        color_discrete_sequence=px.colors.qualitative.Bold
+    )
+    fig.update_layout(
+        height=350,
+        margin=dict(l=20, r=20, t=30, b=20),
+        plot_bgcolor='white', paper_bgcolor='white',
+        xaxis=dict(title="Năm", dtick=1, gridcolor='#F0F0F0'),
+        yaxis=dict(title="Điểm (Top 5%)", gridcolor='#F0F0F0'), # <--- SỬA CHÚ THÍCH TRỤC Y
+        legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1)
+    )
+    return fig
+
+def plot_radar_chart(df_block, block_subs):
+    avgs = df_block[block_subs].mean().reset_index()
+    avgs.columns = ['Môn', 'Điểm TB']
+    avgs['Môn'] = avgs['Môn'].map(SUBJECT_NAMES)
     
-    # =========================================================
-    # GHIM TỌA ĐỘ HOÀNG SA & TRƯỜNG SA (SCATTERGEO)
-    # =========================================================
-    fig.add_trace(go.Scattergeo(
-        lon=[112.0, 114.2], 
-        lat=[16.5, 9.8],    
-        text=['<b>QĐ Hoàng Sa</b><br>(Đà Nẵng)', '<b>QĐ Trường Sa</b><br>(Khánh Hòa)'],
-        mode='markers+text',
-        textposition='bottom center',
-        textfont=dict(size=11, color='#14357A'),
-        marker=dict(size=6, color='#E67C22', symbol='square'),
-        showlegend=False,
-        hoverinfo='skip'
+    r_values = avgs['Điểm TB'].tolist()
+    theta_values = avgs['Môn'].tolist()
+    r_values.append(r_values[0])
+    theta_values.append(theta_values[0])
+    
+    fig = go.Figure(data=go.Scatterpolar(
+        r=r_values,
+        theta=theta_values,
+        fill='toself',
+        fillcolor='rgba(20, 53, 122, 0.3)',
+        line=dict(color='#14357A', width=2),
+        marker=dict(size=8)
     ))
     
-    fig.update_geos(
-        visible=False,
-        center=dict(lat=16.1, lon=109.0), 
-        lataxis_range=[8.5, 23.5], 
-        lonaxis_range=[102.0, 118.5]
-    )
-    
     fig.update_layout(
-        height=650,
-        margin=dict(l=0, r=0, t=0, b=0), 
-        plot_bgcolor='white', paper_bgcolor='white',
-        coloraxis_colorbar=dict(
-            title="SL 9-10đ",
-            thickness=15,
-            len=0.5,
-            yanchor="middle",
-            y=0.5,
-            x=0.05 
-        )
+        height=350,
+        margin=dict(l=40, r=40, t=30, b=20),
+        polar=dict(
+            radialaxis=dict(visible=True, range=[0, 10], tickfont=dict(size=10)),
+            angularaxis=dict(tickfont=dict(size=12, color='#14357A', weight='bold'))
+        ),
+        showlegend=False
     )
     return fig
 
-def plot_top_avg(df_year, subject_col):
-    """Biểu đồ ngang Top 10 tỉnh có điểm TB cao nhất"""
-    top_avg = df_year.groupby('Ten Tinh')[subject_col].mean().nlargest(10).reset_index()
-    top_avg.columns = ['Tỉnh/Thành', 'Điểm TB']
-    top_avg = top_avg.sort_values('Điểm TB', ascending=True) # Sort ngược để hiển thị trên cùng
-    
-    fig = px.bar(
-        top_avg, x='Điểm TB', y='Tỉnh/Thành', orientation='h', text_auto='.2f',
-        color_discrete_sequence=['#14357A']
-    )
-    fig.update_layout(
-        height=280,
-        margin=dict(l=0, r=20, t=10, b=0),
-        plot_bgcolor='white', paper_bgcolor='white',
-        xaxis=dict(visible=False), yaxis=dict(title="")
-    )
-    return fig
-
-def plot_top_ratio(df_year, subject_col):
-    """Biểu đồ ngang Top 10 tỉnh có Tỷ lệ điểm >= 8 cao nhất"""
-    # Lấy các dòng có điểm (bỏ NaN)
-    df_valid = df_year[df_year[subject_col].notna()]
-    
-    # Tính tổng thí sinh thi môn này theo tỉnh
-    total_by_prov = df_valid.groupby('Ten Tinh').size()
-    
-    # Tính số thí sinh >= 8 theo tỉnh
-    high_by_prov = df_valid[df_valid[subject_col] >= 8].groupby('Ten Tinh').size()
-    
-    # Gộp và tính %
-    ratio_df = pd.DataFrame({'Tổng': total_by_prov, 'Giỏi': high_by_prov}).fillna(0)
-    ratio_df['Tỷ lệ %'] = (ratio_df['Giỏi'] / ratio_df['Tổng']) * 100
-    
-    # Lấy Top 10
-    top_ratio = ratio_df.nlargest(10, 'Tỷ lệ %').reset_index()
-    top_ratio = top_ratio.sort_values('Tỷ lệ %', ascending=True)
-    
-    fig = px.bar(
-        top_ratio, x='Tỷ lệ %', y='Ten Tinh', orientation='h', 
-        text=top_ratio['Tỷ lệ %'].apply(lambda x: f"{x:.1f}%"),
-        color_discrete_sequence=['#6FA8DC'] # Màu xanh nhạt để phân biệt với chart trên
-    )
-    fig.update_layout(
-        height=280,
-        margin=dict(l=0, r=20, t=10, b=0),
-        plot_bgcolor='white', paper_bgcolor='white',
-        xaxis=dict(visible=False, range=[0, max(top_ratio['Tỷ lệ %']) * 1.15]), # Nới rộng trục X để chữ ko bị cắt
-        yaxis=dict(title="")
-    )
-    return fig
 
 # ==========================================
 # MAIN RENDER FUNCTION
 # ==========================================
 def render(df):
-    geojson_data = load_geojson()
-
     # 1. CSS STYLING
     st.markdown("""
         <style>
         .block-container { padding-top: 1rem; padding-bottom: 0.5rem; max-width: 98%; }
         .dash-header { background-color: #051039; color: white; padding: 10px 15px; border-radius: 5px; margin-bottom: 10px; }
-        .dash-title { margin: 0; font-size: 30px; font-weight: 700; letter-spacing: 1px;}
+        .dash-title { margin: 0; font-size: 25px !important; font-weight: 700; letter-spacing: 1px;}
         .dash-subtitle { margin: 0; font-size: 22px; color: #A0AEC0;}
         .chart-banner { background-color: #14357A; color: white; padding: 5px 15px; font-size: 13px; font-weight: 600; border-radius: 4px 4px 0 0; margin-bottom: 0px; }
         .chart-container { background-color: white; padding: 10px; border-radius: 0 0 4px 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); margin-bottom: 10px; }
         
-        /* CSS cho các ô KPI (Đã được thu nhỏ gọn gàng) */
         .kpi-card {
-            background-color: white;
-            border-left: 4px solid #14357A; /* Viền mỏng lại một chút */
-            padding: 8px 5px; /* Ép khoảng trống trên/dưới từ 15px xuống 8px */
-            border-radius: 4px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-            text-align: center;
-            margin-bottom: 10px; /* Giảm khoảng cách với bản đồ bên dưới */
+            background-color: white; border-left: 4px solid #14357A;
+            padding: 8px 5px; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            text-align: center; margin-bottom: 10px;
         }
-        .kpi-title { 
-            font-size: 14px; /* Chữ tiêu đề nhỏ đi */
-            color: #555; 
-            font-weight: 600; 
-            margin-bottom: 2px; /* Ép sát tiêu đề vào con số */
-            text-transform: uppercase;
-        }
-        .kpi-value { 
-            font-size: 20px; /* Con số chính nhỏ lại (từ 26px xuống 20px) */
-            color: #14357A; 
-            font-weight: 900; 
-            margin: 0; 
-        }
+        .kpi-title { font-size: 12px; color: #555; font-weight: 600; margin-bottom: 2px; text-transform: uppercase;}
+        .kpi-value { font-size: 24px; color: #14357A; font-weight: 900; margin: 0; }
         </style>
     """, unsafe_allow_html=True)
 
     # 2. HEADER
     st.markdown("""
         <div class="dash-header">
-            <h1 class="dash-title">🗺️ REGIONAL PERFORMANCE</h1>
-            <p class="dash-subtitle">Phân tích sự phân hóa chất lượng giáo dục theo không gian địa lý</p>
+            <h1 class="dash-title">🎓 TỔ HỢP XÉT TUYỂN</h1>
+            <p class="dash-subtitle">Phân tích Phổ điểm Khối thi & Cạnh tranh Xét tuyển Đại học theo Ban</p>
         </div>
     """, unsafe_allow_html=True)
 
-    # 3. FILTER BAR
+    # 3. FILTER BAR (THIẾT KẾ MỚI 2 CẤP ĐỘ)
     st.markdown("<div style='font-size: 14px; font-weight: bold; margin-bottom: 2px; color: #14357A;'>🎛️ Bộ lọc Phân tích</div>", unsafe_allow_html=True)
-    f_col1, f_col2, f_col3 = st.columns([1, 1, 1.5], gap="small")
+    
+    # Chia làm 4 cột thay vì 3 để nhét vừa nút chọn Ban
+    f_col1, f_col2, f_col3, f_col4 = st.columns([1, 1.2, 1, 2], gap="small")
     
     with f_col1:
         years = sorted([int(y) for y in df['nam'].dropna().unique()], reverse=True)
-        selected_year = st.selectbox("📅 Chọn Năm thi", years)
+        selected_year = st.selectbox("📅 Năm thi", years, key='tab4_year')
         
     with f_col2:
-        selected_subject_name = st.selectbox("🎯 Chọn Môn học", list(SUBJECT_MAP.values()))
-        subject_col = [k for k, v in SUBJECT_MAP.items() if v == selected_subject_name][0]
-    
+        # Cấp 1: Chọn Ban
+        selected_group = st.selectbox("🎯 Ban Xét tuyển", ["Khoa học Tự nhiên (KHTN)", "Khoa học Xã hội (KHXH)"], key='tab4_group')
+        
     with f_col3:
+        # Cấp 2: Chọn Khối (Danh sách tự động cập nhật theo Ban)
+        active_blocks = KHTN_BLOCKS if "KHTN" in selected_group else KHXH_BLOCKS
+        selected_block = st.selectbox("📚 Khối thi", list(active_blocks.keys()), key='tab4_block')
+        block_subs = active_blocks[selected_block]
+        
+    with f_col4:
+        subs_text = " + ".join([SUBJECT_NAMES[s] for s in block_subs])
         st.markdown(f"""
             <div style="background-color: #F0F8FF; color: #051039; padding: 0px 15px; border-radius: 4px; font-size: 13.5px; margin-top: 28px; border: 1px solid #BEE3F8; border-left: 4px solid #14357A; display: flex; align-items: center; height: 39px;">
-                <span>Đang xem: <b>Môn {selected_subject_name}</b> (Năm {selected_year})</span>
+                <span style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                    <b>{selected_block}</b>: {subs_text}
+                </span>
             </div>
         """, unsafe_allow_html=True)
 
     st.markdown("<div style='margin-bottom: 10px;'></div>", unsafe_allow_html=True)
 
-    # Tách dữ liệu năm
+# ==========================================
+    # 4. DATA PROCESSING
+    # ==========================================
     df_year = df[df['nam'] == selected_year]
-
-    # ==========================================
-    # 4. KHU VỰC KPI (MỚI THÊM VÀO)
-    # ==========================================
-    valid_scores = df_year[subject_col].dropna()
     
-    if len(valid_scores) > 0:
-        total_9_10 = (valid_scores >= 9).sum()
-        avg_score = valid_scores.mean()
-        total_ge_8 = (valid_scores >= 8).sum()
-        ratio_ge_8 = (total_ge_8 / len(valid_scores)) * 100
-    else:
-        total_9_10 = 0
-        avg_score = 0.0
-        ratio_ge_8 = 0.0
+    # LỌC NGHIÊM NGẶT: Chỉ lấy thí sinh thi ĐỦ cả 3 môn của khối đó
+    df_block = df_year.dropna(subset=block_subs).copy()
+    
+    if df_block.empty:
+        st.warning(f"⚠️ Không có đủ dữ liệu thí sinh dự thi khối {selected_block} trong năm {selected_year}.")
+        return
 
+    df_block['total_score'] = df_block[block_subs].sum(axis=1)
+
+    total_students = len(df_block)
+    avg_block_score = df_block['total_score'].mean()
+    p95_score = df_block['total_score'].quantile(0.95) # <--- SỬA 0.90 THÀNH 0.95 Ở ĐÂY
+
+    # KPI CARDS
     kpi1, kpi2, kpi3 = st.columns(3)
-    
     with kpi1:
         st.markdown(f'''
             <div class="kpi-card">
-                <div class="kpi-title">🌟 Tổng SL 9-10 điểm</div>
-                <div class="kpi-value">{total_9_10:,}</div>
+                <div class="kpi-title">👥 Tổng thí sinh xét khối</div>
+                <div class="kpi-value">{total_students:,}</div>
             </div>
         ''', unsafe_allow_html=True)
-        
     with kpi2:
         st.markdown(f'''
             <div class="kpi-card">
-                <div class="kpi-title">📊 Điểm TB Cả nước</div>
-                <div class="kpi-value">{avg_score:.2f}</div>
+                <div class="kpi-title">📊 Điểm Trung Bình Khối</div>
+                <div class="kpi-value">{avg_block_score:.2f}</div>
             </div>
         ''', unsafe_allow_html=True)
         
     with kpi3:
         st.markdown(f'''
             <div class="kpi-card">
-                <div class="kpi-title">🎯 Tỷ lệ Điểm Giỏi (≥ 8)</div>
-                <div class="kpi-value">{ratio_ge_8:.2f}%</div>
+                <div class="kpi-title">🏆 Ngưỡng điểm Top 5%</div> <div class="kpi-value">{p95_score:.2f}</div>
             </div>
         ''', unsafe_allow_html=True)
 
     # ==========================================
-    # 5. LAYOUT: BẢN ĐỒ (Trái) - BIỂU ĐỒ TOP 10 (Phải)
+    # 5. RENDER BIỂU ĐỒ
     # ==========================================
-    col_map, col_charts = st.columns([1.5, 1], gap="small")
+    
+    # Chart 1: Histogram
+    st.markdown(f'<div class="chart-banner">📈 Phổ điểm tổng cộng Khối {selected_block} năm {selected_year}</div>', unsafe_allow_html=True)
+    st.markdown('<div class="chart-container">', unsafe_allow_html=True)
+    st.plotly_chart(plot_histogram(df_block, selected_block), width="stretch")
+    st.markdown('</div>', unsafe_allow_html=True)
 
-    with col_map:
-        st.markdown(f'<div class="chart-banner">📍 Mật độ Thí sinh đạt Điểm Xuất Sắc (9-10đ)</div>', unsafe_allow_html=True)
+    col_left, col_right = st.columns(2, gap="small")
+    
+    with col_left:
+        # Chart 2: Trend Line
+        st.markdown(f'<div class="chart-banner">🚀 Xu hướng điểm Top 5% nội bộ Ban {"KHTN" if "KHTN" in selected_group else "KHXH"}</div>', unsafe_allow_html=True)
         st.markdown('<div class="chart-container">', unsafe_allow_html=True)
-        st.plotly_chart(plot_choropleth_map(df_year, subject_col, geojson_data), use_container_width=True)
+        
+        df_trend = calculate_trend_data(df) 
+        df_trend_filtered = df_trend[df_trend['Khối'].isin(active_blocks.keys())]
+        st.plotly_chart(plot_trend_line(df_trend_filtered), width="stretch")
         st.markdown('</div>', unsafe_allow_html=True)
 
-    with col_charts:
-        # Chart trên: Điểm trung bình
-        st.markdown(f'<div class="chart-banner">🏆 Top 10 Địa phương: Điểm TB cao nhất</div>', unsafe_allow_html=True)
+    with col_right:
+        # Chart 3: Radar
+        st.markdown(f'<div class="chart-banner">🕸️ Đóng góp của các môn thành phần ({selected_block})</div>', unsafe_allow_html=True)
         st.markdown('<div class="chart-container">', unsafe_allow_html=True)
-        st.plotly_chart(plot_top_avg(df_year, subject_col), use_container_width=True)
-        st.markdown('</div>', unsafe_allow_html=True)
-
-        # Chart dưới: Tỷ lệ >= 8
-        st.markdown(f'<div class="chart-banner">🎯 Top 10 Địa phương: Tỷ lệ Điểm Giỏi (≥ 8) cao nhất</div>', unsafe_allow_html=True)
-        st.markdown('<div class="chart-container">', unsafe_allow_html=True)
-        st.plotly_chart(plot_top_ratio(df_year, subject_col), use_container_width=True)
+        st.plotly_chart(plot_radar_chart(df_block, block_subs), width="stretch")
         st.markdown('</div>', unsafe_allow_html=True)

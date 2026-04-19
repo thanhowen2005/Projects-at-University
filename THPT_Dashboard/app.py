@@ -1,13 +1,13 @@
 import streamlit as st
 from modules.data_loader import load_data
 from modules.preprocess import add_province, add_khoi_thi
-from tabs import tab1_overview, tab2_score_dist, tab3_placeholder, tab4_placeholder
+from tabs import tab1_overview, tab2_score_dist, tab3_placeholder, tab4_placeholder, tab5_final_analysis
 
 # ==========================================
 # 1. PAGE CONFIGURATION
 # ==========================================
 st.set_page_config(
-    page_title="THPT Exam Analytics", 
+    page_title="Hệ thống Phân tích THPT", 
     page_icon="🎓", 
     layout="wide",
     initial_sidebar_state="expanded"
@@ -91,51 +91,45 @@ def main():
     # ==========================================
     st.sidebar.markdown("""
         <div style='text-align: center; padding-bottom: 15px;'>
-            <h2 style='margin-bottom: 0; font-size: 20px;'>🎓 THPT ANALYTICS</h2>
-            <p style='color: #6FA8DC !important; font-size: 12px;'>Management Portal</p>
+            <h2 style='margin-bottom: 0; font-size: 20px;'>🎓 Phân tích Điểm thi THPT Quốc gia (2020-2025)</h2>
+            <p style='color: #6FA8DC !important; font-size: 12px;'>Hệ thống Quản lý Dữ liệu</p>
         </div>
     """, unsafe_allow_html=True)
     
     selected_tab = st.sidebar.radio(
         "MENU",
         [
-            "📊 Executive Summary",
-            "📈 Score Distribution",
-            "🗺️ Regional Performance",
-            "🧠 Advanced Insights"
+            "📊 Toàn Cảnh Kỳ Thi",
+            "📈 Chi Tiết Môn Học",
+            "🎓 Tổ Hợp Xét Tuyển",
+            "🗺️ Phân Tích Địa Lý",
+            "💡 Tương Quan & Phân Hóa"
         ],
         label_visibility="collapsed"
     )
     
     st.sidebar.markdown("---")
     
-    # System Metadata
+    # System Metadata (Đã Việt hóa)
     st.sidebar.markdown(f"""
         <div style='font-size: 12px; opacity: 0.8;'>
-            <b>🗄️ Records:</b> {len(df):,}<br>
-            <b>🔄 Status:</b> Connected
-        </div>
-    """, unsafe_allow_html=True)
-    
-    # Profile Card
-    st.sidebar.markdown("""
-        <div style='margin-top: 50px; padding: 10px; background-color: #14357A; border-radius: 6px; display: flex; align-items: center;'>
-            <div style='background-color: white; color: #051039 !important; width: 30px; height: 30px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-weight: bold; margin-right: 10px;'>A</div>
-            <div style='font-size: 13px;'>Admin User</div>
+            <b>🗄️ Số bản ghi:</b> {len(df):,}<br>
         </div>
     """, unsafe_allow_html=True)
 
     # ==========================================
     # 5. ROUTING
     # ==========================================
-    if selected_tab == "📊 Executive Summary":
+    if selected_tab == "📊 Toàn Cảnh Kỳ Thi":
         tab1_overview.render(df) 
-    elif selected_tab == "📈 Score Distribution":
+    elif selected_tab == "📈 Chi Tiết Môn Học":
         tab2_score_dist.render(df)
-    elif selected_tab == "🗺️ Regional Performance":
+    elif selected_tab == "🎓 Tổ Hợp Xét Tuyển":
         tab3_placeholder.render(df)
-    elif selected_tab == "🧠 Advanced Insights":
+    elif selected_tab == "🗺️ Phân Tích Địa Lý":
         tab4_placeholder.render(df)
+    elif selected_tab == "💡 Tương Quan & Phân Hóa":
+        tab5_final_analysis.render(df)
 
 if __name__ == "__main__":
     main()
