@@ -77,7 +77,7 @@ def main():
     # 3. LOAD DATA
     # ==========================================
     with st.spinner("Đang kết nối hệ thống dữ liệu..."):
-        df_raw, df_mavung = load_data("data/processed")
+        df_raw, df_mavung = load_data("Data-Visualization/THPT-Dashboard/data/processed")
         if df_raw.empty:
             st.error("Không thể tải dữ liệu. Vui lòng kiểm tra thư mục data.")
             st.stop()
