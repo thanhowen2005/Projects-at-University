@@ -4,7 +4,7 @@ import glob
 import os
 import re
 
-@st.cache_data
+@st.cache_data(max_entries=1)
 def load_data(data_dir="data/processed"):
     """
     Load và concat tất cả các file thpt*.csv trong thư mục data, 
