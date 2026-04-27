@@ -8,5 +8,5 @@ plotly
 numpy
 statsmodels
 Pillow
-kaleido==0.1.0.post1
+kaleido
 google-genai
