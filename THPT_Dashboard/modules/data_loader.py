@@ -24,7 +24,7 @@ DTYPE_SETTINGS = {
 }
 
 @st.cache_data(max_entries=1)
-def load_data(data_dir="THPT_Dashboard/data/processed"):
+def load_data(data_dir="data/processed"):
     """
     Load và concat tất cả các file thpt*.csv với cơ chế ÉP KIỂU ĐỂ GIẢM RAM, 
     đồng thời load file mavung.csv
