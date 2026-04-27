@@ -36,7 +36,7 @@ def render_isolated_chart(fig, chart_id):
         }
         
         # Chụp ảnh tĩnh (scale=2 để AI nhìn rõ số liệu)
-        img_bytes = pio.to_image(fig, format='png', scale=2, engine='kaleido')
+        img_bytes = pio.to_image(fig, format='png', scale=2)
         
         st.session_state.AI_VISION_TARGET = {
             "image": Image.open(io.BytesIO(img_bytes)),
