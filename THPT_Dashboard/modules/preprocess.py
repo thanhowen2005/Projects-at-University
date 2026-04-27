@@ -20,19 +20,20 @@ import pandas as pd
 def add_khoi_thi(df):
     if df.empty:
         return df
-        
-    # 1. Tạo mask kiểm tra
-    mask_khtn = df[['vat_ly', 'hoa_hoc', 'sinh_hoc']].notna().any(axis=1)
-    mask_khxh = df[['lich_su', 'dia_ly', 'gdcd']].notna().any(axis=1)
-    
-    # 2. Khởi tạo cột với kiểu dữ liệu 'object' một cách tường minh.
-    # Tuyệt chiêu này cấm Pandas tự động ép kiểu thành float64.
-    df['khoi_thi'] = pd.Series(index=df.index, dtype='object')
-    
-    # 3. Gán giá trị an toàn (KHTN nằm dưới sẽ ghi đè KHXH nếu có cả 2)
-    df.loc[mask_khxh, 'khoi_thi'] = 'KHXH'
-    df.loc[mask_khtn, 'khoi_thi'] = 'KHTN'
-    
+
+    # Đếm số môn trong từng tổ hợp
+    natural = df[['vat_ly','hoa_hoc','sinh_hoc']].notna().sum(axis=1)
+    social = df[['lich_su','dia_ly','gdcd']].notna().sum(axis=1)
+
+    # Khởi tạo cột
+    df['khoi_thi'] = 'Thi không đầy đủ tổ hợp'
+
+    # 1. KHTN: đủ 3 môn tự nhiên, không có xã hội
+    df.loc[(natural == 3) & (social == 0), 'khoi_thi'] = 'KHTN'
+
+    # 2. KHXH: đủ 3 môn xã hội, không có tự nhiên
+    df.loc[(social == 3) & (natural == 0), 'khoi_thi'] = 'KHXH'
+
     return df
 
 def get_subject_means(df):
@@ -46,7 +47,7 @@ def get_subject_means(df):
     means = df[existing_subjects].mean().reset_index()
     means.columns = ['Môn thi', 'Điểm trung bình']
     
-    # Map tên môn cho đẹp
+    # Map tên môn
     subject_map = {
         'toan': 'Toán', 'ngu_van': 'Ngữ Văn', 'ngoai_ngu': 'Ngoại Ngữ',
         'vat_ly': 'Vật Lý', 'hoa_hoc': 'Hóa Học', 'sinh_hoc': 'Sinh Học',

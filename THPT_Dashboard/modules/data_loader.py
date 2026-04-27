@@ -24,7 +24,7 @@ DTYPE_SETTINGS = {
 }
 
 @st.cache_data(max_entries=1)
-def load_data(data_dir="data/processed"):
+def load_data(data_dir="THPT_Dashboard/data/processed"):
     """
     Load và concat tất cả các file thpt*.csv với cơ chế ÉP KIỂU ĐỂ GIẢM RAM, 
     đồng thời load file mavung.csv
@@ -43,9 +43,7 @@ def load_data(data_dir="data/processed"):
         if match:
             year = int(match.group(1))
             
-            # 2. ÁP DỤNG ÉP CÂN NGAY TẠI ĐÂY
             # Lọc các cột có trong NEEDED_COLS mà file CSV thực sự có 
-            # (Phòng trường hợp có file thiếu cột)
             cols_in_file = pd.read_csv(file_path, nrows=0).columns
             use_cols = [c for c in NEEDED_COLS if c in cols_in_file]
             
@@ -55,7 +53,7 @@ def load_data(data_dir="data/processed"):
                 dtype=DTYPE_SETTINGS
             )
             
-            # Ép kiểu int16 cho cột năm (rất nhẹ)
+            # Ép kiểu int16 cho cột năm
             df_year['nam'] = year
             df_year['nam'] = df_year['nam'].astype('int16') 
             

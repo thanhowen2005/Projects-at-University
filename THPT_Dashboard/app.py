@@ -1,8 +1,9 @@
 import streamlit as st
+import modules.utils
 from modules.data_loader import load_data
 from modules.preprocess import add_province, add_khoi_thi
-from tabs import tab1_overview, tab2_score_dist, tab3_placeholder, tab4_placeholder, tab5_final_analysis
-
+from tabs import tab1_overview, tab2_score_dist, tab3_comb, tab4_geo, tab5_analysis
+from modules.chatbot import render_sidebar_chatbot
 # ==========================================
 # 1. PAGE CONFIGURATION
 # ==========================================
@@ -18,10 +19,11 @@ st.set_page_config(
 # ==========================================
 st.markdown("""
     <style>
-    /* 1. Background toàn bộ ứng dụng (Xám bạc nhẹ) */
+    /* 1. Background toàn bộ ứng dụng */
     .stApp {
-        background: linear-gradient(180deg, #F5F7FA 0%, #EEF1F5 100%);
+        background: linear-gradient(180deg, #E0F7FA 0%, #80DEEA 100%);
     }
+
 
     /* 2. Tối ưu không gian nội dung chính */
     .block-container { 
@@ -31,7 +33,7 @@ st.markdown("""
         max-width: 100% !important; 
     }
 
-    /* Ẩn header mặc định để giao diện sạch hơn */
+    
     header {visibility: hidden;}
     #MainMenu {visibility: hidden;}
 
@@ -47,6 +49,7 @@ st.markdown("""
         color: white !important;
     }
 
+    
     /* Khóa Sidebar: Ẩn nút đóng/mở để giữ layout cố định */
     [data-testid="stSidebarCollapseButton"] { display: none !important; }
     [data-testid="collapsedControl"] { display: none !important; }
@@ -70,6 +73,30 @@ st.markdown("""
         border-color: #14357A;
         margin: 10px 0px;
     }
+    
+    
+    [data-testid="stSidebar"] div[role="radiogroup"] > label {
+        width: 100%;
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 10px 14px;
+        box-sizing: border-box;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    [data-testid="stSidebar"] div[role="radiogroup"] label p {
+        margin: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    [data-testid="stSidebar"] div[role="radiogroup"] > label:hover {
+        transform: none;
+    }
     </style>
 """, unsafe_allow_html=True)
 
@@ -78,7 +105,7 @@ def main():
     # 3. LOAD DATA
     # ==========================================
     with st.spinner("Đang kết nối hệ thống dữ liệu..."):
-        df_raw, df_mavung = load_data("THPT_Dashboard/data/processed")
+        df_raw, df_mavung = load_data("data/processed")
         if df_raw.empty:
             st.error("Không thể tải dữ liệu. Vui lòng kiểm tra thư mục data.")
             st.stop()
@@ -110,13 +137,19 @@ def main():
     
     st.sidebar.markdown("---")
     
-    # System Metadata (Đã Việt hóa)
+    # System Metadata
     st.sidebar.markdown(f"""
         <div style='font-size: 12px; opacity: 0.8;'>
             <b>🗄️ Số bản ghi:</b> {len(df):,}<br>
         </div>
     """, unsafe_allow_html=True)
 
+    # ==========================================
+    # CHATBOT IN SIDEBAR
+    # ==========================================
+    render_sidebar_chatbot()
+    
+        
     # ==========================================
     # 5. ROUTING
     # ==========================================
@@ -125,11 +158,11 @@ def main():
     elif selected_tab == "📈 Chi Tiết Môn Học":
         tab2_score_dist.render(df)
     elif selected_tab == "🎓 Tổ Hợp Xét Tuyển":
-        tab3_placeholder.render(df)
+        tab3_comb.render(df)
     elif selected_tab == "🗺️ Phân Tích Địa Lý":
-        tab4_placeholder.render(df)
+        tab4_geo.render(df)
     elif selected_tab == "💡 Tương Quan & Phân Hóa":
-        tab5_final_analysis.render(df)
+        tab5_analysis.render(df)
 
 if __name__ == "__main__":
     main()

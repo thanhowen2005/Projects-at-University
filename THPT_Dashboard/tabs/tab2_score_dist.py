@@ -2,6 +2,7 @@ import streamlit as st
 import plotly.express as px
 import pandas as pd
 import plotly.graph_objects as go
+import plotly.colors as pc
 
 # ==========================================
 # CẤU HÌNH & MAPPING
@@ -31,6 +32,7 @@ def plot_histogram(df_year, subject_col):
     )
     
     fig.update_layout(
+        height=380,
         plot_bgcolor='white', paper_bgcolor='white',
         margin=dict(l=10, r=10, t=10, b=10),
         xaxis=dict(title="Điểm số", dtick=1, range=[-0.5, 10.5], showgrid=True, gridcolor='#f0f0f0'),
@@ -38,67 +40,113 @@ def plot_histogram(df_year, subject_col):
     )
     return fig
 
-def plot_score_brackets(df_full, subject_col):
-    """Biểu đồ Cột chồng theo Phân khúc điểm (Không Lag, Dễ đọc nhất)"""
-    data = df_full[df_full[subject_col].notna() & df_full['nam'].notna()].copy()
+def plot_subject_boxplot(df_year, subject_col, selected_year):
+    """Biểu đồ Boxplot: Soi chi tiết dải điểm và điểm ngoại lệ (Outliers)"""
+    data = df_year[df_year[subject_col].notna()].copy()
     if data.empty: return go.Figure()
-
-    # Tạo phân khúc (Bins)
-    bins = [-1, 4.99, 6.99, 7.99, 10]
-    labels = ['Dưới 5', '5 - 7', '7 - 8', 'Từ 8 - 10']
     
-    # Phân loại điểm vào các nhóm
-    data['Phân khúc'] = pd.cut(data[subject_col], bins=bins, labels=labels)
+    data['nam'] = str(selected_year)
     
-    # Tính toán tỷ lệ % cho từng năm (Siêu tốc độ)
-    grouped = data.groupby(['nam', 'Phân khúc'], observed=True).size().reset_index(name='Số lượng')
-    grouped['Tỷ lệ %'] = grouped.groupby('nam')['Số lượng'].transform(lambda x: x / x.sum() * 100)
-    grouped['nam'] = grouped['nam'].astype(int).astype(str)
-
-    fig = px.bar(
-        grouped, x='nam', y='Tỷ lệ %', color='Phân khúc',
-        text=grouped['Tỷ lệ %'].apply(lambda x: f"{x:.1f}%"),
-        color_discrete_map={
-            'Từ 8 - 10': '#2ca02c', # Xanh lá
-            '7 - 8': '#1f77b4',     # Xanh dương
-            '5 - 7': '#ff7f0e',     # Cam
-            'Dưới 5': '#d62728'     # Đỏ
-        }
+    fig = px.box(
+        data, x='nam', y=subject_col,
+        color_discrete_sequence=['#FF7F0E'], 
+        points='outliers' 
     )
     
     fig.update_layout(
-        plot_bgcolor='white', paper_bgcolor='white', 
+        height=380,
+        plot_bgcolor='white', paper_bgcolor='white',
         margin=dict(l=10, r=10, t=10, b=10),
-        xaxis=dict(title="Năm thi", showgrid=False),
-        yaxis=dict(title="Tỷ lệ % Thí sinh", range=[0, 100], showgrid=False, visible=False), # Ẩn trục Y cho gọn
-        legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1, title="")
+        xaxis=dict(title="Năm", showgrid=False), 
+        yaxis=dict(title="Dải điểm", dtick=1, range=[-0.5, 10.5], showgrid=True, gridcolor='#f0f0f0')
+    )
+    return fig
+
+
+def plot_score_line_trend(df_full, subject_col, selected_year):
+    """Biểu đồ đường: So sánh phổ điểm năm nay với bóng ma lịch sử (Đa màu sắc)"""
+    # Tính toán số lượng thí sinh theo từng mức điểm và năm
+    trend_data = df_full[df_full[subject_col].notna()].groupby(['nam', subject_col]).size().reset_index(name='count')
+    
+    fig = go.Figure()
+    years = sorted(trend_data['nam'].unique())
+    
+    # Tạo danh sách màu cho các lines
+    colors = ['#1f77b4', '#2ca02c', '#d62728', '#9467bd', '#8c564b', '#e377c2', '#7f7f7f', '#bcbd22', '#17becf']
+    
+    for i, year in enumerate(years):
+        df_year = trend_data[trend_data['nam'] == year]
+        is_current = (year == selected_year)
+        
+        # Lấy màu tương ứng cho năm này (cố định màu theo thứ tự năm)
+        year_color = colors[i % len(colors)]
+        
+        # Style: độ đậm/nhạt và kiểu nét (liền/đứt)
+        line_style = dict(color=year_color, width=4) if is_current else dict(color=year_color, width=1.5, dash='dot')
+        opacity = 1.0 if is_current else 0.7
+        
+        # icon cho năm đang chọn ở Legend
+        name_label = f"🔥 Năm {int(year)}" if is_current else f"Năm {int(year)}"
+        
+        fig.add_trace(go.Scatter(
+            x=df_year[subject_col], y=df_year['count'],
+            mode='lines',
+            name=name_label,
+            line=line_style,
+            opacity=opacity,
+            hovertemplate=f"Năm {int(year)}<br>Điểm: %{{x}}<br>Số lượng: %{{y}}<extra></extra>"
+        ))
+
+    fig.update_layout(
+        height=400,
+        plot_bgcolor='white', paper_bgcolor='white',
+        margin=dict(l=10, r=10, t=40, b=10),
+        xaxis=dict(title="Điểm số", dtick=1, range=[-0.25, 10.25], showgrid=True, gridcolor='#f0f0f0'),
+        yaxis=dict(title="Số lượng thí sinh", showgrid=True, gridcolor='#f0f0f0'),
+        legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1),
+        hovermode="x unified"
     )
     return fig
 
 # ==========================================
-# MAIN RENDER FUNCTION
+# CÁC HÀM RENDER & HỖ TRỢ
 # ==========================================
 def render(df):
     # --------------------------------------
-    # 1. CSS STYLING (SUPER TỐI ƯU KHÔNG GIAN)
+    # 1. CSS STYLING
     # --------------------------------------
     st.markdown("""
         <style>
-        /* Ép Streamlit giảm khoảng trống gốc */
         .block-container { padding-top: 1rem; padding-bottom: 1rem; max-width: 98%; }
         
-        /* Header gọn gàng */
         .dash-header { background-color: #051039; color: white; padding: 10px 15px; border-radius: 5px; margin-bottom: 10px; }
         .dash-title { margin: 0; font-size: 25px !important; font-weight: 700; letter-spacing: 1px;}
         .dash-subtitle { margin: 0; font-size: 13px; color: #A0AEC0;}
-        
-        /* Banner & Chart ép sát */
-        .chart-banner { background-color: #14357A; color: white; padding: 5px 15px; font-size: 13px; font-weight: 600; border-radius: 4px 4px 0 0; margin-bottom: 0px; }
-        .chart-container { background-color: white; padding: 10px; border-radius: 0 0 4px 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); margin-bottom: 10px; }
-        
-        /* KPI Cards ép sát */
-        [data-testid="stMetric"] { background-color: white; border-top: 4px solid #051039; padding: 10px 15px; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
-        [data-testid="stMetricValue"] { font-size: 1.6rem; font-weight: 700; color: #14357A; }
+
+        .chart-banner {
+            background-color: #14357A; color: white;
+            padding: 8px 15px; font-size: 13px; font-weight: 600;
+            border-radius: 4px 4px 0 0; 
+            margin-bottom: -25px;
+            position: relative; z-index: 10;
+        }
+    
+        .kpi-card {
+            background-color: white; 
+            border-left: 4px solid #14357A; /* Viền trái cho giống Tab 1 */
+            padding: 10px 5px; 
+            border-radius: 4px; 
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            text-align: center; 
+            margin-bottom: 10px;
+        }
+        .kpi-title { 
+            font-size: 11px; color: #555; font-weight: 600; 
+            margin-bottom: 2px; text-transform: uppercase;
+        }
+        .kpi-value { 
+            font-size: 22px; color: #14357A; font-weight: 900; margin: 0; 
+        }        
         </style>
     """, unsafe_allow_html=True)
 
@@ -129,22 +177,18 @@ def render(df):
         subject_col = [k for k, v in SUBJECT_MAP.items() if v == selected_subject_name][0]
     
     with f_col3:
-        # Tự tạo hộp thông báo mỏng nhẹ. 
-        # margin-top: 28px giúp nó tụt xuống đúng bằng độ cao của dòng chữ "Chọn Năm thi" ở 2 cột trước
         st.markdown(f"""
             <div style="background-color: #F0F8FF; color: #051039; padding: 0px 15px; border-radius: 4px; font-size: 13.5px; margin-top: 28px; border: 1px solid #BEE3F8; border-left: 4px solid #14357A; display: flex; align-items: center; height: 39px;">
-                <span>Đang xem: <b>{selected_subject_name}</b> &nbsp;|&nbsp; Histogram: <b>{selected_year}</b> &nbsp;|&nbsp; Cột chồng: Toàn giai đoạn</span>
+                <span>Đang xem: <b>{selected_subject_name}</b> (Năm <b>{selected_year}</b>)</span>
             </div>
         """, unsafe_allow_html=True)
 
-    # Tách dữ liệu an toàn
+    # Tách dữ liệu
     df_year = df[df['nam'] == selected_year]
     subject_data_year = df_year[df_year[subject_col].notna()][subject_col]
 
-    st.markdown("<div style='margin-bottom: -25px;'></div>", unsafe_allow_html=True) # Spacer rất mỏng thay cho st.divider()
-
     # --------------------------------------
-    # 4. KPI CARDS (Dùng gap="small" ép sát)
+    # 4. KPI CARDS
     # --------------------------------------
     if not subject_data_year.empty:
         total_students = len(subject_data_year)
@@ -153,28 +197,35 @@ def render(df):
         pass_rate = (len(subject_data_year[subject_data_year >= 5]) / total_students) * 100
 
         k1, k2, k3, k4 = st.columns(4, gap="small")
-        k1.metric("Tổng thí sinh thi", f"{total_students:,}")
-        k2.metric("Điểm Trung bình", f"{avg_score:.2f}")
-        k3.metric("Điểm Trung vị (Median)", f"{med_score:.2f}")
-        k4.metric("Tỷ lệ điểm ≥ 5", f"{pass_rate:.1f}%")
-    else:
-        st.warning(f"⚠️ Không có dữ liệu thí sinh dự thi môn {selected_subject_name} trong năm {selected_year}.")
+        k1, k2, k3, k4 = st.columns(4, gap="small")
+        with k1:
+            st.markdown(f'<div class="kpi-card"><div class="kpi-title">👥 Tổng thí sinh thi</div><div class="kpi-value">{total_students:,}</div></div>', unsafe_allow_html=True)
+        with k2:
+            st.markdown(f'<div class="kpi-card"><div class="kpi-title">📍 Điểm Trung bình</div><div class="kpi-value">{avg_score:.2f}</div></div>', unsafe_allow_html=True)
+        with k3:
+            st.markdown(f'<div class="kpi-card"><div class="kpi-title">⚖️ Điểm Trung vị</div><div class="kpi-value">{med_score:.2f}</div></div>', unsafe_allow_html=True)
+        with k4:
+            st.markdown(f'<div class="kpi-card"><div class="kpi-title">✅ Tỷ lệ điểm ≥ 5</div><div class="kpi-value">{pass_rate:.1f}%</div></div>', unsafe_allow_html=True)
 
-    # Đã xóa dòng <br> thừa ở đây để kéo chart lên sát KPI
 
     # --------------------------------------
-    # 5. CHART GRID (Dùng gap="small" ép sát)
+    # 5. CHART GRID
     # --------------------------------------
     col_left, col_right = st.columns([1, 1.2], gap="small")
 
     with col_left:
-        st.markdown(f'<div class="chart-banner">1. Phổ điểm chi tiết môn {selected_subject_name} ({selected_year})</div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="chart-banner">📊 Phổ điểm chi tiết môn {selected_subject_name} ({selected_year})</div>', unsafe_allow_html=True)
         st.markdown('<div class="chart-container">', unsafe_allow_html=True)
         st.plotly_chart(plot_histogram(df_year, subject_col), use_container_width=True)
         st.markdown('</div>', unsafe_allow_html=True)
 
     with col_right:
-        st.markdown(f'<div class="chart-banner">2. Cơ cấu điểm môn {selected_subject_name} (Các năm)</div>', unsafe_allow_html=True)
+        st.markdown(f'<div class="chart-banner">📦 Dải điểm phân hóa môn {selected_subject_name} ({selected_year})</div>', unsafe_allow_html=True)
         st.markdown('<div class="chart-container">', unsafe_allow_html=True)
-        st.plotly_chart(plot_score_brackets(df, subject_col), use_container_width=True) 
+        st.plotly_chart(plot_subject_boxplot(df_year, subject_col, selected_year), use_container_width=True)
         st.markdown('</div>', unsafe_allow_html=True)
+        
+    st.markdown(f'<div class="chart-banner">📈 So sánh xu hướng phổ điểm môn {selected_subject_name} (Hiện tại vs Quá khứ)</div>', unsafe_allow_html=True)
+    st.markdown('<div class="chart-container">', unsafe_allow_html=True)   
+    st.plotly_chart(plot_score_line_trend(df, subject_col, selected_year), use_container_width=True)
+    st.markdown('</div>', unsafe_allow_html=True)
