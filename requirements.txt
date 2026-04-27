@@ -7,3 +7,5 @@ pandas
 plotly
 numpy
 statsmodels
+Pillow
+kaleido
