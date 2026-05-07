@@ -112,7 +112,7 @@ def main():
     # Hiển thị vòng xoay chờ trong lúc đọc dữ liệu lên
     with st.spinner("Đang kết nối hệ thống dữ liệu..."):
         # Lấy dữ liệu từ thư mục
-        df_raw, df_mavung = load_data("data/processed")
+        df_raw, df_mavung = load_data("THPT_Dashboard/data/processed")
         
         # Báo lỗi và dừng chương trình nếu file trống hoặc không tìm thấy
         if df_raw.empty:

@@ -6,5 +6,7 @@ streamlit
 pandas
 plotly
 numpy
+statsmodels
 Pillow
+kaleido
 google-genai
