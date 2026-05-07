@@ -221,13 +221,11 @@ Mỗi tab hiển thị các biểu đồ, bảng thống kê và các công cụ
 
 ## 📦 Thư Viện Chính Sử Dụng
 
-- **Streamlit**: Framework web tương tác
-- **Pandas**: Xử lý dữ liệu
-- **Plotly**: Tạo biểu đồ tương tác
-- **NumPy**: Tính toán số học
-- **Scikit-learn**: Machine learning (nếu có)
-- **Folium**: Tạo bản đồ tương tác
-- **Requests**: Gọi API (nếu chatbot kết nối API)
+- **Streamlit**: Framework xây dựng giao diện web tương tác cho Dashboard.
+- **Pandas**: Nền tảng cốt lõi để đọc, làm sạch và xử lý dữ liệu dạng bảng.
+- **Plotly**: Khởi tạo và hiển thị các biểu đồ tương tác chuyên sâu.
+- **Pillow (PIL)**: Hỗ trợ xử lý định dạng hình ảnh (sử dụng khi chụp ảnh biểu đồ để nạp vào hệ thống AI).
+- **google-genai**: Giao thức kết nối trực tiếp với API của Google Gemini để vận hành tính năng Chatbot AI đa phương thức.
 
 ## 🐛 Khắc Phục Sự Cố
 
