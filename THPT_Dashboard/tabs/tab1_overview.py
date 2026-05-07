@@ -6,6 +6,7 @@ import plotly.graph_objects as go
 # ==========================================
 # BỘ MÀU CHUẨN CHO 3 KHỐI THI
 # ==========================================
+# Quy định màu sắc cố định để đồng bộ trên tất cả các biểu đồ
 BLOCK_COLORS = {
     'KHTN': '#14357A',                     # Xanh Navy 
     'KHXH': '#FF7F0E',                     # Cam
@@ -16,6 +17,7 @@ BLOCK_COLORS = {
 # CÁC HÀM VẼ BIỂU ĐỒ
 # ==========================================
 def plot_trend_area(df_full):
+    # Biểu đồ miền (Area): Thể hiện xu hướng tăng/giảm số lượng thí sinh qua các năm
     trend = df_full.groupby('nam')['sbd'].count().reset_index()
     trend.columns = ['Năm', 'Thí sinh']
     fig = px.area(trend, x='Năm', y='Thí sinh', markers=True, color_discrete_sequence=['#14357A'])
@@ -27,6 +29,7 @@ def plot_trend_area(df_full):
     return fig
 
 def plot_avg_bar(df_filtered):
+    # Biểu đồ cột ngang (Bar): So sánh điểm trung bình của 9 môn thi
     subjects = {
         'toan': 'Toán', 'ngu_van': 'Ngữ Văn', 'ngoai_ngu': 'Ngoại Ngữ',
         'vat_ly': 'Vật Lý', 'hoa_hoc': 'Hóa Học', 'sinh_hoc': 'Sinh Học',
@@ -35,6 +38,7 @@ def plot_avg_bar(df_filtered):
     avail_subs = [s for s in subjects.keys() if s in df_filtered.columns]
     if not avail_subs or df_filtered.empty: return go.Figure().update_layout(height=320, title="Không có dữ liệu")
     
+    # Tính trung bình và sắp xếp tăng dần để vẽ biểu đồ
     means = df_filtered[avail_subs].mean().reset_index()
     means.columns = ['Môn', 'Điểm TB']
     means['Môn'] = means['Môn'].map(subjects)
@@ -49,6 +53,7 @@ def plot_avg_bar(df_filtered):
     return fig
 
 def plot_top_provinces(df_filtered):
+    # Biểu đồ cột ngang (Bar): Lấy ra Top 5 tỉnh thành có lượng thí sinh đông nhất
     if df_filtered.empty: return go.Figure().update_layout(height=320)
     col_name = 'Ten Tinh' if 'Ten Tinh' in df_filtered.columns else 'Ma'
     top_prov = df_filtered[col_name].value_counts().nlargest(5).reset_index()
@@ -65,6 +70,7 @@ def plot_top_provinces(df_filtered):
 
 def plot_block_donut(df_filtered):
     """Biểu đồ Donut: Cơ cấu 3 nhóm khối thi"""
+    # Trực quan hóa tỷ lệ % học sinh chọn khối KHTN, KHXH, hoặc Không đầy đủ
     if df_filtered.empty: return go.Figure()
     
     counts = df_filtered['khoi_thi'].value_counts().reset_index()
@@ -84,6 +90,7 @@ def plot_block_donut(df_filtered):
 
 def plot_block_structure_stacked(df_full, selected_prov):
     """Biểu đồ 100% Stacked Bar: Xu hướng chuyển dịch cơ cấu lịch sử"""
+    # Đánh giá sự thay đổi tỷ lệ % chọn khối thi qua từng năm
     df_plot = df_full.copy()
     if selected_prov != 'Tất cả':
         df_plot = df_plot[df_plot['Ten Tinh'] == selected_prov]
@@ -91,6 +98,7 @@ def plot_block_structure_stacked(df_full, selected_prov):
     df_plot = df_plot[df_plot['nam'].notna()]
     if df_plot.empty: return go.Figure()
 
+    # Tính tỷ lệ phần trăm (pct) cho từng năm
     grouped = df_plot.groupby(['nam', 'khoi_thi']).size().reset_index(name='count')
     total_year = grouped.groupby('nam')['count'].transform('sum')
     grouped['pct'] = (grouped['count'] / total_year) * 100
@@ -98,7 +106,7 @@ def plot_block_structure_stacked(df_full, selected_prov):
     grouped = grouped.sort_values('nam')
     grouped['nam'] = grouped['nam'].astype(int).astype(str)
     
-    # Cập nhật danh sách sắp xếp 3 nhóm
+    # Cập nhật thứ tự hiển thị để đồng bộ với màu sắc
     cat_order = ['KHTN', 'KHXH', 'Thi không đầy đủ tổ hợp']
 
     fig = px.bar(
@@ -117,9 +125,10 @@ def plot_block_structure_stacked(df_full, selected_prov):
     return fig
 
 # ==========================================
-# MAIN RENDER
+# GIAO DIỆN CHÍNH (MAIN RENDER)
 # ==========================================
 def render(df, global_year=None):
+    # CSS tùy chỉnh để định dạng bố cục và tiêu đề
     st.markdown("""
         <style>
         .block-container { padding-top: 1rem; padding-bottom: 0.5rem; max-width: 98%; }
@@ -135,7 +144,7 @@ def render(df, global_year=None):
         </style>
     """, unsafe_allow_html=True)
 
-    # HEADER
+    # HEADER: Khối tiêu đề chính của Tab
     st.markdown("""
         <div class="ss-header">
             <h1 class="ss-title">📊 TOÀN CẢNH KỲ THI</h1>
@@ -143,7 +152,7 @@ def render(df, global_year=None):
         </div>
     """, unsafe_allow_html=True)
 
-    # FILTER BAR (3 Cột)
+    # BỘ LỌC (FILTER): Tạo 3 cột để chọn Năm, Tỉnh/Thành, Khối thi
     st.markdown("<div style='font-size: 14px; font-weight: bold; margin-bottom: 2px; color: #14357A;'>🎛️ Bộ lọc Phân tích</div>", unsafe_allow_html=True)
     f_col1, f_col2, f_col3 = st.columns(3, gap="small")
     
@@ -159,7 +168,7 @@ def render(df, global_year=None):
         blocks = ['Tất cả', 'KHTN', 'KHXH', 'Thi không đầy đủ tổ hợp']
         selected_block = st.selectbox("📚 Khối thi", blocks, key='tab1_block')
 
-    # Xử lý Lọc Dữ Liệu
+    # LỌC DỮ LIỆU: Áp dụng các điều kiện đã chọn vào DataFrame
     df_filtered = df.copy()
     if selected_year != 'Tất cả':
         df_filtered = df_filtered[df_filtered['nam'] == selected_year]
@@ -168,11 +177,11 @@ def render(df, global_year=None):
     if selected_block != 'Tất cả':
         df_filtered = df_filtered[df_filtered['khoi_thi'] == selected_block]
 
-    # Hiển thị nhanh Tổng Thí Sinh
+    # Hiển thị nhanh con số tổng quan sau khi lọc
     st.markdown(f"<div style='margin-bottom:15px; font-size:15px; color:#333;'>Thống kê dựa trên <b>{len(df_filtered):,}</b> thí sinh.</div>", unsafe_allow_html=True)
 
     # ---------------------------------------------
-    # HÀNG 1: 3 BIỂU ĐỒ TỔNG QUAN
+    # HÀNG 1: 3 BIỂU ĐỒ TỔNG QUAN NẰM NGANG
     # ---------------------------------------------
     c1, c2, c3 = st.columns(3, gap="small")
     with c1:
@@ -187,7 +196,7 @@ def render(df, global_year=None):
         st.markdown('<div class="chart-banner">🏆 Các địa phương tiêu biểu</div>', unsafe_allow_html=True)
         st.plotly_chart(plot_top_provinces(df_filtered), use_container_width=True)
 
-    st.markdown('<div style="margin-top: 15px;"></div>', unsafe_allow_html=True)
+    st.markdown('<div style="margin-top: 15px;"></div>', unsafe_allow_html=True) # Khoảng cách
 
     # ---------------------------------------------
     # HÀNG 2: PHÂN TÍCH CHUYỂN DỊCH CƠ CẤU KHỐI THI

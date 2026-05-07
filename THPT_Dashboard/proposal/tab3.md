@@ -1,68 +1,65 @@
-# Tab 3: Phân tích Địa phương (Geographic Analysis)
+# 🎓 TAB 3: TỔ HỢP XÉT TUYỂN
 
-## 1. Bản đồ nhiệt: Sự phân hóa chất lượng giáo dục theo địa lý như thế nào?
+## 1. Phân bố điểm tổng của các khối thi
 
-### What (Data):
-- Tên Tỉnh/Thành phố: Dữ liệu không gian (Spatial/Categorical)
-- Số lượng thí sinh đạt điểm 9–10: Định lượng (Quantitative – dữ liệu dẫn xuất)
-- Bộ lọc: Năm và Môn học
+### What (Dữ liệu là gì)
+- Tổng điểm 3 môn của từng khối xét tuyển (A00, A01, B00, C00, D01, …)
+- Dữ liệu thí sinh đã hoàn thành đầy đủ tổ hợp môn
+- Phân tách theo từng năm thi
 
+### Why (Mục tiêu phân tích)
+- Xác định mức độ phân bố năng lực của thí sinh theo từng khối thi
+- So sánh độ khó tương đối giữa các tổ hợp xét tuyển
+- Nhận diện khối có mức độ cạnh tranh cao hoặc thấp
+- Hỗ trợ học sinh đánh giá “độ an toàn” khi chọn khối
 
-### Why (Task):
-Nhằm Identify Spatial Patterns (Nhận diện mô hình không gian). Biểu đồ này giúp phát hiện nhanh các "vùng trũng" hoặc các "cụm" địa phương có phong độ xuất sắc đồng đều.
+### How (Trực quan hóa)
+- Biểu đồ Histogram (phân phối tổng điểm)
 
+---
 
-### How (Visual):
-Choropleth Map (Bản đồ nhiệt theo khu vực)
+## 2. Mức độ cạnh tranh của các khối thi theo thời gian (Top 5%)
 
-### Biện luận:
-Bản đồ là cách hiệu quả nhất để não bộ xử lý dữ liệu địa lý. Thay vì đọc một danh sách tỉnh thành, thang màu (Gradient) giúp người dùng thấy ngay sự chênh lệch giữa các khu vực chỉ trong vài giây.
+### What (Dữ liệu)
+- Tổng điểm của thí sinh theo từng khối thi qua nhiều năm
+- Ngưỡng điểm nhóm thí sinh xuất sắc (Top 5% – Percentile 95)
 
+### Why (Mục đích)
+- Theo dõi sự thay đổi mức độ cạnh tranh qua từng năm
+- So sánh độ “khó đạt điểm cao” giữa các khối thi
+- Phát hiện xu hướng tăng/giảm chất lượng đầu vào của từng khối
+- Hỗ trợ đánh giá chiến lược tuyển sinh của từng tổ hợp
 
-## 2. Top 10 địa phương có điểm trung bình cao nhất là những đơn vị nào?
+### How (Trực quan hóa)
+- Biểu đồ đường (Line chart theo thời gian)
 
-### What (Data):
-- Tên Tỉnh: Định danh (Categorical)
-- Điểm trung bình: Định lượng (Quantitative)
-- Bộ lọc: Năm và Môn học
+---
 
+## 3. Đóng góp của các môn trong từng khối thi
 
-### Why (Task):
-Rank & Compare (Xếp hạng và So sánh). Mục tiêu là xác định các địa phương có phong độ dẫn đầu về chất lượng giáo dục đại trà (tính trên mặt bằng chung của tất cả thí sinh tại địa phương đó).
+### What (Dữ liệu)
+- Điểm trung bình từng môn của nhóm Top 5% thí sinh (theo tổng điểm khối)
+- Các môn cấu thành trong mỗi tổ hợp xét tuyển (ví dụ: Toán – Lý – Hóa, Văn – Sử – Địa, …)
 
+### Why (Mục đích)
+- Xác định môn có xu hướng đạt điểm cao/thấp trong nhóm top
+- Nhận diện môn ảnh hưởng lớn đến khả năng đạt điểm cao
+- Phân tích “profile điểm số” của thí sinh xuất sắc trong từng khối
+- Hỗ trợ định hướng ôn tập:
+    - Môn cần duy trì mức cao
+    - Môn có nguy cơ trở thành điểm hạn chế
 
-### How (Visual):
-Horizontal Bar Chart (Biểu đồ cột ngang)
+### How (Trực quan hóa)
+- Biểu đồ Radar (Spider chart)
 
-### Biện luận:
-Sử dụng biểu đồ cột ngang giúp nhãn tên các tỉnh (thường khá dài) được hiển thị đầy đủ và dễ đọc. Việc sắp xếp giảm dần giúp xác định ngay lập tức vị trí dẫn đầu mà không cần so sánh thủ công.
+---
 
-## 3. Top 10 địa phương có tỷ lệ thí sinh đạt điểm ≥ 8 cao nhất?
+## Tổng kết Tab 3
 
-### What (Data):
-- Tên Tỉnh: Định danh (Categorical)
-- Tỷ lệ thí sinh đạt điểm ≥ 8: Định lượng (Ratio – dữ liệu dẫn xuất)
-- Bộ lọc: Năm và Môn học
+Tab 3 cung cấp góc nhìn toàn diện về **hành vi chọn khối thi và mức độ cạnh tranh giữa các tổ hợp xét tuyển**, giúp:
 
-### Why (Task):
-Identify Centers of Excellence (Nhận diện các trung tâm đào tạo mũi nhọn). Câu hỏi này giúp đánh giá chính xác chất lượng giáo dục giữa các địa phương bằng cách loại bỏ ảnh hưởng của quy mô thí sinh.
+- Đánh giá phân bố điểm theo từng khối thi
+- Theo dõi mức độ cạnh tranh qua thời gian
+- Hiểu rõ cấu trúc môn học trong từng tổ hợp
 
-### How (Visual):
-Horizontal Bar Chart (Biểu đồ cột ngang)
-
-
-### Biện luận:
-Sử dụng tỷ lệ thí sinh đạt điểm ≥ 8 giúp chuẩn hóa dữ liệu giữa các địa phương có quy mô khác nhau. Nhờ đó, có thể so sánh công bằng mức độ chất lượng giáo dục thay vì chỉ dựa trên số lượng tuyệt đối. Khi đặt cạnh câu hỏi về điểm trung bình, người dùng có thể phân biệt:
-- Địa phương có mặt bằng học lực cao
-- Địa phương có tỷ lệ học sinh giỏi vượt trội
-
-
-# Tổng kết Tab 3
-
-Tab 3 tập trung vào phân tích dữ liệu theo không gian địa lý, giúp người dùng:
-
-- Nhận diện sự phân hóa chất lượng giáo dục giữa các vùng miền
-- So sánh hiệu suất học tập giữa các địa phương
-- Xác định các trung tâm giáo dục có chất lượng cao
-
-Đây là lớp phân tích mở rộng từ dữ liệu cá nhân (Tab 1, Tab 2) sang góc nhìn vĩ mô theo khu vực, giúp hoàn thiện bức tranh tổng thể của hệ thống giáo dục.
+Từ đó hỗ trợ học sinh và người dùng đưa ra quyết định chọn khối thi phù hợp hơn dựa trên dữ liệu thực tế thay vì cảm tính.

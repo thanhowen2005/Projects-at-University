@@ -3,15 +3,16 @@ import plotly.io as pio
 from PIL import Image
 import io
 
-@st.fragment # 
+# Tách biệt scope render. Nút bấm trong này không làm reload toàn bộ app.
+@st.fragment 
 def render_isolated_chart(fig, chart_id):
+    # Auto-margin để tránh nhãn trục X, Y bị cắt lẹm
     fig.update_layout(
         margin=dict(l=80, r=40, t=30, b=50),
         yaxis=dict(automargin=True),
         xaxis=dict(automargin=True)
     )
 
-    # CSS Nút bấm (Xanh đậm, chữ trắng)
     st.markdown(f"""
         <style>
         div.stButton > button[key*="btn_{chart_id}"] {{
@@ -26,32 +27,43 @@ def render_isolated_chart(fig, chart_id):
         </style>
     """, unsafe_allow_html=True)
 
+    # Render biểu đồ bằng hàm gốc
     st.plotly_chart_original(fig, use_container_width=True)
     
+    # Nút trigger tính năng AI Vision
     if st.button(f"✨ Phân tích biểu đồ với trợ lý AI", key=f"btn_{chart_id}"):
-        # --- LẤY TRỰC TIẾP TỪ TITLE TRỤC ---
+        # Lấy label trục tọa độ làm metadata ngữ cảnh cho AI
         meta = {
             "x_label": fig.layout.xaxis.title.text or "",
             "y_label": fig.layout.yaxis.title.text or ""
         }
         
-        # Chụp ảnh tĩnh (scale=2 để AI nhìn rõ số liệu)
+        # Export Plotly fig sang byte ảnh PNG (scale=2 để tăng độ phân giải)
         img_bytes = pio.to_image(fig, format='png', scale=2)
         
+        # Đẩy payload (ảnh + metadata) vào Session State để Popover Chatbot bắt lấy
         st.session_state.AI_VISION_TARGET = {
             "image": Image.open(io.BytesIO(img_bytes)),
             "metadata": meta
         }
         st.toast(f"Đã thêm biểu đồ vào trợ lý AI", icon="✅")
 
-# --- CƠ CHẾ ĐÁNH TRÁO HÀM ---
+# ==========================================
+# MONKEY PATCHING: GHI ĐÈ HÀM PLOTLY CỦA STREAMLIT
+# ==========================================
+# 1. Backup hàm render mặc định
 if not hasattr(st, 'plotly_chart_original'):
     st.plotly_chart_original = st.plotly_chart
 
+# 2. Định nghĩa hàm bọc (wrapper function)
 def patched_plotly_chart(fig, **kwargs):
+    # Cấp phát ID duy nhất cho mỗi biểu đồ được render
     if 'chart_counter' not in st.session_state:
         st.session_state.chart_counter = 0
     st.session_state.chart_counter += 1
+    
+    # Render UI đã được custom (Chart + Nút AI)
     render_isolated_chart(fig, chart_id=f"auto_{st.session_state.chart_counter}")
 
+# 3. Tráo đổi hàm: Thay st.plotly_chart bằng hàm wrapper
 st.plotly_chart = patched_plotly_chart

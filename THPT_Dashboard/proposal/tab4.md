@@ -1,62 +1,66 @@
-# Tab 4: Phân tích Khối thi & Xét tuyển (Academic Blocks)
+# TAB 4: PHÂN TÍCH ĐỊA LÝ – PHÂN BỐ CHẤT LƯỢNG GIÁO DỤC THEO KHÔNG GIAN
 
-## 1. Phổ điểm tổng cộng của khối thi trong năm được chọn là gì?
+## 1. Phân bố học sinh đạt điểm xuất sắc (9–10) theo tỉnh/thành như thế nào?
 
-### What (Data):
-- Tổng điểm 3 môn: Định lượng (Quantitative) - Dữ liệu dẫn xuất (Ví dụ: A00 = Toán + Lý + Hóa).
-- Số lượng thí sinh: Định lượng (Count SBD).
-- Bộ lọc: Khối thi và Năm.
+### What (Dữ liệu)
+- Điểm từng môn của toàn bộ thí sinh theo từng tỉnh/thành
+- Thông tin địa lý 63 tỉnh/thành Việt Nam
+- Tập giá trị điểm xuất sắc (từ 9 đến 10 điểm)
 
-### Why (Task):
-Analyze Distribution. Giúp xác định chính xác độ "loãng" hay "đặc" của điểm số trong một năm cụ thể. Thí sinh dựa vào đây để biết mình đang nằm ở đâu trong tổng thể những người cùng thi khối đó.
+### Why (Mục tiêu)
+- Xác định mức độ tập trung học sinh giỏi theo từng khu vực
+- Phát hiện các tỉnh có “điểm nóng” về thành tích học tập
+- So sánh sự chênh lệch chất lượng giáo dục giữa các vùng miền
+- Đánh giá mức độ phân bố đồng đều của học sinh xuất sắc
 
-### How (Visual):
-Histogram.
+### How (Trực quan hóa)
+- Bản đồ nhiệt theo tỉnh/thành (Choropleth Map)
+- Màu sắc thể hiện số lượng học sinh đạt 9–10 điểm
+- Tương tác hover để xem chi tiết từng địa phương
 
-### Biện luận:
-Histogram với các cột sát nhau cho phép soi rõ sự biến động ở từng ngưỡng điểm nhỏ (ví dụ: bin size = 0.5 hoặc 1 điểm). Đây là căn cứ quan trọng nhất để dự báo điểm chuẩn của các trường Đại học.
+---
 
+## 2. Những tỉnh/thành nào có điểm trung bình cao nhất?
 
-## 2. Xu hướng ngưỡng điểm "Top 10%" của mỗi khối thi biến động ra sao qua 5 năm?
+### What (Dữ liệu)
+- Điểm trung bình của từng môn theo từng tỉnh/thành
+- Danh sách tất cả thí sinh theo địa phương
 
-### What (Data):
-- Năm: Thứ tự (Ordered) từ 2021 - 2025.
-- Ngưỡng điểm Percentile 90 (Top 10%): Định lượng.
-- Khối thi: Phân loại (Categorical).
+### Why (Mục tiêu)
+- Xác định mặt bằng học lực tổng thể của từng khu vực
+- So sánh chất lượng giáo dục giữa các tỉnh/thành
+- Tìm ra những địa phương có thành tích học tập ổn định cao
+- Hỗ trợ đánh giá hiệu quả giáo dục theo vùng
 
-### Why (Task):
-Identify Trend & Compare. Trả lời câu hỏi: "Để lọt vào nhóm 10% giỏi nhất khối A00 năm 2025 cần bao nhiêu điểm so với các năm trước?". Điều này giúp nhận diện hiện tượng lạm phát điểm số ở nhóm các trường Đại học Top đầu.
+### How (Trực quan hóa)
+- Biểu đồ cột ngang (Horizontal Bar Chart)
+- Xếp hạng Top 10 tỉnh/thành theo điểm trung bình
 
-### How (Visual):
-Line Chart (Biểu đồ đường).
+---
 
-### Biện luận:
-Biểu đồ đường là lựa chọn tối ưu nhất để theo dõi sự thay đổi liên tục qua thời gian. Việc vẽ nhiều đường (mỗi đường một khối thi) trên cùng một trục giúp so sánh trực quan mức độ khốc liệt giữa các khối qua từng năm.
+## 3. Tỷ lệ học sinh giỏi (≥ 8 điểm) phân bố như thế nào theo địa phương?
 
+### What (Dữ liệu)
+- Tổng số thí sinh theo từng tỉnh/thành
+- Số thí sinh đạt từ 8 điểm trở lên
+- Tỷ lệ phần trăm học sinh giỏi theo từng khu vực
 
-## 3. Điểm trung bình của từng môn thành phần trong khối thi là bao nhiêu?
+### Why (Mục tiêu)
+- Đánh giá mức độ “chất lượng đồng đều” giữa các tỉnh
+- Không chỉ nhìn điểm trung bình mà còn xem nhóm học sinh khá–giỏi
+- Xác định địa phương có tỷ lệ học sinh giỏi nổi bật
+- Phản ánh chiều sâu chất lượng giáo dục, không chỉ điểm cao đơn lẻ
 
-### What (Data):
-- Tên môn học trong khối: Định danh (Categorical). Ví dụ: Khối D01 gồm Toán, Văn, Anh.
-- Điểm trung bình môn: Định lượng (Quantitative).
-- Bộ lọc: Khối thi và Năm.
+### How (Trực quan hóa)
+- Biểu đồ cột ngang Top 10 theo tỷ lệ phần trăm
+- Chuẩn hóa theo % để so sánh công bằng giữa các tỉnh
 
-### Why (Task):
-Component Analysis (Phân tích thành phần). Giải thích cho kết quả ở Câu 1: Tại sao tổng điểm khối năm nay lại cao/thấp? Do môn nào "gánh" điểm và môn nào "kéo" điểm của cả khối đi xuống?
+---
 
-### How (Visual):
-Radar Chart (Biểu đồ mạng nhện) hoặc Column Chart.
+# Tổng kết TAB 4
 
-### Biện luận:
-Biểu đồ mạng nhện thể hiện rõ sự cân bằng năng lực. Nếu màng nhện bị kéo lệch về một đỉnh, đó là môn thế mạnh của thí sinh khối đó trong năm đó. Nếu dùng cột, sự chênh lệch độ cao giữa 3 môn sẽ cho cái nhìn trực diện về độ khó của đề thi từng môn.
-
-
-# Tổng kết Tab 4
-
-Tab 4 tập trung vào phân tích khối thi và góc nhìn xét tuyển đại học, giúp người dùng:
-
-- Hiểu phân phối điểm tổng của từng khối trong từng năm
-- Theo dõi sự thay đổi của ngưỡng điểm top 10% qua thời gian
-- Phân tích đóng góp của từng môn trong tổng điểm khối
-
-Đây là lớp phân tích chuyển từ dữ liệu môn học đơn lẻ sang cấu trúc tổ hợp xét tuyển, giúp đánh giá trực tiếp độ khó và tính cạnh tranh của từng khối thi trong hệ thống tuyển sinh đại học.
+Tab 4 cung cấp góc nhìn **không gian (spatial analysis)** của dữ liệu thi THPT, giúp:
+- Nhận diện sự phân hóa chất lượng giáo dục theo vùng miền
+- So sánh năng lực học tập giữa các tỉnh/thành
+- Kết hợp nhiều góc nhìn: số lượng – trung bình – tỷ lệ
+- Hỗ trợ đánh giá toàn diện chất lượng giáo dục theo địa lý

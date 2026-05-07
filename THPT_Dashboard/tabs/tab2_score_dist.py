@@ -7,6 +7,7 @@ import plotly.colors as pc
 # ==========================================
 # CẤU HÌNH & MAPPING
 # ==========================================
+# Ánh xạ mã định danh môn học sang tên hiển thị tiếng Việt
 SUBJECT_MAP = {
     'toan': 'Toán', 'ngu_van': 'Ngữ Văn', 'ngoai_ngu': 'Ngoại Ngữ',
     'vat_ly': 'Vật Lý', 'hoa_hoc': 'Hóa Học', 'sinh_hoc': 'Sinh Học',
@@ -20,14 +21,15 @@ def plot_histogram(df_year, subject_col):
     """Vẽ Histogram phân phối điểm cho 1 năm cụ thể"""
     data = df_year[df_year[subject_col].notna()]
     
-    # Trả về biểu đồ trống nếu không có dữ liệu
+    # Trả về biểu đồ trống nếu không có dữ liệu để tránh lỗi
     if data.empty:
         return go.Figure().update_layout(title="Không có dữ liệu cho năm này")
 
+    # Biểu đồ phân bố điểm số (chia theo khoảng 0.25 điểm)
     fig = px.histogram(
         data, x=subject_col, 
-        nbins=40, # Chia khoảng 0.25 điểm
-        color_discrete_sequence=['#14357A'], # Màu Super Store
+        nbins=40, 
+        color_discrete_sequence=['#14357A'], 
         opacity=0.8
     )
     
@@ -38,6 +40,9 @@ def plot_histogram(df_year, subject_col):
         xaxis=dict(title="Điểm số", dtick=1, range=[-0.5, 10.5], showgrid=True, gridcolor='#f0f0f0'),
         yaxis=dict(title="Số lượng thí sinh", showgrid=True, gridcolor='#f0f0f0')
     )
+    fig.update_traces(
+        marker=dict(line=dict(color='black', width=1)) # Thêm viền đen cho cột để dễ nhìn
+    )
     return fig
 
 def plot_subject_boxplot(df_year, subject_col, selected_year):
@@ -47,6 +52,7 @@ def plot_subject_boxplot(df_year, subject_col, selected_year):
     
     data['nam'] = str(selected_year)
     
+    # Biểu đồ hộp thể hiện độ phân tán (tứ phân vị) và các điểm bất thường
     fig = px.box(
         data, x='nam', y=subject_col,
         color_discrete_sequence=['#FF7F0E'], 
@@ -65,27 +71,25 @@ def plot_subject_boxplot(df_year, subject_col, selected_year):
 
 def plot_score_line_trend(df_full, subject_col, selected_year):
     """Biểu đồ đường: So sánh phổ điểm năm nay với bóng ma lịch sử (Đa màu sắc)"""
-    # Tính toán số lượng thí sinh theo từng mức điểm và năm
+    # Gom nhóm và đếm số lượng thí sinh đạt từng mức điểm qua các năm
     trend_data = df_full[df_full[subject_col].notna()].groupby(['nam', subject_col]).size().reset_index(name='count')
     
     fig = go.Figure()
     years = sorted(trend_data['nam'].unique())
     
-    # Tạo danh sách màu cho các lines
+    # Bảng màu cố định cho các năm để dễ phân biệt
     colors = ['#1f77b4', '#2ca02c', '#d62728', '#9467bd', '#8c564b', '#e377c2', '#7f7f7f', '#bcbd22', '#17becf']
     
     for i, year in enumerate(years):
         df_year = trend_data[trend_data['nam'] == year]
         is_current = (year == selected_year)
         
-        # Lấy màu tương ứng cho năm này (cố định màu theo thứ tự năm)
         year_color = colors[i % len(colors)]
         
-        # Style: độ đậm/nhạt và kiểu nét (liền/đứt)
+        # Nhấn mạnh năm đang chọn (nét liền, đậm), các năm cũ làm nền (nét đứt, mờ)
         line_style = dict(color=year_color, width=4) if is_current else dict(color=year_color, width=1.5, dash='dot')
         opacity = 1.0 if is_current else 0.7
         
-        # icon cho năm đang chọn ở Legend
         name_label = f"🔥 Năm {int(year)}" if is_current else f"Năm {int(year)}"
         
         fig.add_trace(go.Scatter(
@@ -109,12 +113,13 @@ def plot_score_line_trend(df_full, subject_col, selected_year):
     return fig
 
 # ==========================================
-# CÁC HÀM RENDER & HỖ TRỢ
+# GIAO DIỆN CHÍNH (MAIN RENDER)
 # ==========================================
 def render(df):
     # --------------------------------------
     # 1. CSS STYLING
     # --------------------------------------
+    # Định dạng giao diện cho các thẻ KPI, Banner và Header
     st.markdown("""
         <style>
         .block-container { padding-top: 1rem; padding-bottom: 1rem; max-width: 98%; }
@@ -133,7 +138,7 @@ def render(df):
     
         .kpi-card {
             background-color: white; 
-            border-left: 4px solid #14357A; /* Viền trái cho giống Tab 1 */
+            border-left: 4px solid #14357A;
             padding: 10px 5px; 
             border-radius: 4px; 
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
@@ -163,27 +168,28 @@ def render(df):
 # --------------------------------------
 # 3. FILTER BAR
 # --------------------------------------
-
+    # Thanh công cụ lọc dữ liệu theo năm và môn học
     st.markdown("<div style='font-size: 15px; font-weight: bold; margin-bottom: 2px; color: #14357A;'>🎛️ Bộ lọc Phân tích</div>", unsafe_allow_html=True)
     f_col1, f_col2, f_col3 = st.columns([1, 1, 1.5], gap="small")
     
     with f_col1:
-        # Xử lý năm: Lọc bỏ NaN, ép về int
         years = sorted([int(y) for y in df['nam'].dropna().unique()], reverse=True)
         selected_year = st.selectbox("📅 Chọn Năm thi", years)
         
     with f_col2:
         selected_subject_name = st.selectbox("🎯 Chọn Môn học", list(SUBJECT_MAP.values()))
+        # Dịch ngược từ tên hiển thị sang tên cột trong dataframe
         subject_col = [k for k, v in SUBJECT_MAP.items() if v == selected_subject_name][0]
     
     with f_col3:
+        # Bảng hiển thị tóm tắt bộ lọc đang chọn
         st.markdown(f"""
             <div style="background-color: #F0F8FF; color: #051039; padding: 0px 15px; border-radius: 4px; font-size: 13.5px; margin-top: 28px; border: 1px solid #BEE3F8; border-left: 4px solid #14357A; display: flex; align-items: center; height: 39px;">
                 <span>Đang xem: <b>{selected_subject_name}</b> (Năm <b>{selected_year}</b>)</span>
             </div>
         """, unsafe_allow_html=True)
 
-    # Tách dữ liệu
+    # Trích xuất dữ liệu khớp với bộ lọc
     df_year = df[df['nam'] == selected_year]
     subject_data_year = df_year[df_year[subject_col].notna()][subject_col]
 
@@ -191,12 +197,13 @@ def render(df):
     # 4. KPI CARDS
     # --------------------------------------
     if not subject_data_year.empty:
+        # Tính toán các chỉ số thống kê quan trọng
         total_students = len(subject_data_year)
         avg_score = subject_data_year.mean()
         med_score = subject_data_year.median()
         pass_rate = (len(subject_data_year[subject_data_year >= 5]) / total_students) * 100
 
-        k1, k2, k3, k4 = st.columns(4, gap="small")
+        # Hiển thị 4 thẻ KPI nằm ngang
         k1, k2, k3, k4 = st.columns(4, gap="small")
         with k1:
             st.markdown(f'<div class="kpi-card"><div class="kpi-title">👥 Tổng thí sinh thi</div><div class="kpi-value">{total_students:,}</div></div>', unsafe_allow_html=True)
@@ -211,6 +218,7 @@ def render(df):
     # --------------------------------------
     # 5. CHART GRID
     # --------------------------------------
+    # Bố cục hàng 1: Histogram (trái) và Boxplot (phải)
     col_left, col_right = st.columns([1, 1.2], gap="small")
 
     with col_left:
@@ -225,6 +233,7 @@ def render(df):
         st.plotly_chart(plot_subject_boxplot(df_year, subject_col, selected_year), use_container_width=True)
         st.markdown('</div>', unsafe_allow_html=True)
         
+    # Bố cục hàng 2: Biểu đồ đường so sánh xu hướng trải dài toàn màn hình
     st.markdown(f'<div class="chart-banner">📈 So sánh xu hướng phổ điểm môn {selected_subject_name} (Hiện tại vs Quá khứ)</div>', unsafe_allow_html=True)
     st.markdown('<div class="chart-container">', unsafe_allow_html=True)   
     st.plotly_chart(plot_score_line_trend(df, subject_col, selected_year), use_container_width=True)

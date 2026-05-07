@@ -1,49 +1,68 @@
-# Tab 2: Phân tích Môn học & Phổ điểm
+# TAB 2: CHI TIẾT MÔN HỌC
+
+---
+
+## 1. Phân phối điểm của từng môn trong một năm cụ thể
+
+### What (Dữ liệu)
+- Toàn bộ điểm của một môn trong một năm cụ thể
+- Mỗi thí sinh có một giá trị điểm từ 0 đến 10
+- Dữ liệu thể hiện tần suất xuất hiện của từng mức điểm
+
+### Why (Mục tiêu)
+- Xác định mức điểm mà đa số thí sinh đạt được
+- Đánh giá đề thi thiên về dễ, trung bình hay khó
+- Quan sát cách điểm số phân bố trong toàn bộ thí sinh
+- Nhận diện hiện tượng “dồn cụm điểm” (ví dụ nhiều thí sinh cùng mức điểm)
 
 
-## 1. Phân phối chi tiết điểm số của môn học theo năm là gì?
+### How (Trực quan hóa)
+- Biểu đồ Histogram (phân phối tần suất điểm)
 
-### What (Data):
-Thuộc tính: Điểm số (Quantitative) và Số lượng thí sinh (Quantitative).
+---
 
-Bộ lọc tác động: Năm (Year) và Môn học (Subject).
+## 2. Mức độ phân hóa của từng môn học
 
-### Why (Task):
-Nhằm Analyze Distribution (Phân tích phân phối). Giúp xác định độ khó của đề thi trong một năm cụ thể thông qua việc quan sát đỉnh của phổ điểm (Mode) và các vùng tập trung điểm số.
+### What (Dữ liệu)
+- Toàn bộ điểm của một môn trong một năm
+- Bao gồm:
+  - mức điểm trung tâm
+  - độ phân tán điểm
+  - các giá trị ngoại lệ (outliers)
 
-### How (Visual):
-Histogram (Biểu đồ tần suất) hoặc Area Chart (với Density).
+### Why (Mục tiêu phân tích)
+- Đánh giá khả năng phân loại học sinh của đề thi
+- Xác định môn nào giúp phân biệt học sinh giỏi – trung bình – yếu rõ nhất
+- Kiểm tra độ “dàn trải” của điểm số trong từng môn
+- Phát hiện môn có tính “gom cụm” (ít phân hóa) hoặc “trải rộng” (phân hóa mạnh)
 
-### Biện luận:
-Histogram cho phép chia nhỏ các khoảng điểm (bin size 0.2 hoặc 0.25) để thấy rõ sự phân hóa thí sinh ở từng mức điểm lẻ. Khi kết hợp với bộ lọc Năm, người xem có thể "soi" kỹ chất lượng thi của một năm duy nhất một cách tập trung nhất.
+### How (Trực quan hóa)
+- Biểu đồ Boxplot
 
+---
 
-## 2. Sự biến động về phân phối điểm của môn học qua các năm như thế nào?
+## 3. Xu hướng phổ điểm qua các năm
 
-### What (Data):
-Thuộc tính: Điểm số (Quantitative) và Năm (Ordered - hiển thị trên trục hoành).
+### What (Dữ liệu)
+- Phân phối điểm của cùng một môn qua nhiều năm
+- Mỗi năm là một chuỗi phân phối riêng biệt
+- Dữ liệu được so sánh theo thời gian
 
-Bộ lọc tác động: Môn học (Subject). Lưu ý: Biểu đồ này hiển thị dữ liệu của tất cả các năm (2021-2025) để so sánh.
+### Why (Mục tiêu)
+- So sánh độ khó của đề thi qua các năm
+- Xác định năm nào có phổ điểm cao/thấp bất thường
+- Theo dõi sự ổn định của đề thi theo thời gian
+- Quan sát sự dịch chuyển của phổ điểm (lên cao hoặc xuống thấp)
 
-### Why (Task):
-Compare Distributions & Density (So sánh phân phối và mật độ). Giúp nhận diện xu hướng thay đổi về trình độ thí sinh hoặc độ ổn định của việc ra đề thi qua 5 năm.
+### How (Trực quan hóa)
+- Biểu đồ đường (Line chart đa năm)
 
-### How (Visual):
-Violin Plot (Biểu đồ vĩ cầm).
+---
 
-### Biện luận:
-Violin Plot là sự kết hợp hoàn hảo giữa Box Plot và Density Plot. Nó không chỉ cho thấy các giá trị thống kê (Min, Max, Trung vị) mà còn cho thấy sự thay đổi của "hình dáng" phổ điểm qua các năm.
+# Tổng kết TAB 2
 
-Nếu "bụng" của Violin phình to ở mức điểm cao qua từng năm, chứng tỏ chất lượng học tập môn đó đang tăng lên hoặc đề thi đang dễ đi.
+Tab 2 tập trung vào phân tích chi tiết từng môn học, giúp làm rõ:
 
-Nếu Violin có hình dạng bimodal (hai đỉnh), nó phản ánh tình trạng học lệch hoặc sự phân hóa giàu - nghèo trong giáo dục của môn học đó.
-
-# Tổng kết Tab 2
-
-Tab 2 tập trung vào việc phân tích sâu phân phối điểm số theo môn học và theo thời gian, giúp người dùng hiểu rõ:
-
-- Độ khó của đề thi trong từng năm thông qua phân phối điểm
-- Mức độ phân hóa thí sinh trong từng môn học
-- Sự thay đổi cấu trúc và hình dạng phổ điểm qua nhiều năm
-
-Đây là bước chuyển từ việc nhìn tổng quan dữ liệu (Tab 1) sang phân tích chi tiết hành vi phân phối điểm số, phục vụ việc đánh giá chất lượng đề thi và xu hướng học tập của thí sinh.
+- Phân phối điểm của thí sinh trong từng môn
+- Mức độ phân hóa của đề thi
+- Xu hướng thay đổi phổ điểm theo thời gian
