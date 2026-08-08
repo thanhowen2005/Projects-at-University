@@ -242,3 +242,5 @@ pip install -r requirements.txt
 ### Chatbot không hoạt động
 - Kiểm tra file `ai_instruction.txt` có tồn tại không
 - Xác nhận API key (nếu sử dụng API bên ngoài)
+
+hello Owen
